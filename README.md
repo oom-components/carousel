@@ -137,3 +137,7 @@ myCarrousel.move('-2'); //move two sliders backward (slider 2)
 myCarrousel.move('first'); //go to first slider
 myCarrousel.move('last'); //go to the last slider
 ```
+
+### refresh
+
+Refresh the position of the tray to snap to the sliders. It's used after dragging and can be invoked on resize the window.

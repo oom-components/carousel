@@ -26,6 +26,7 @@ class Dragger extends Unidragger {
 
     dragEnd(event, pointer) {
         d.css(this.carrousel.tray, 'transition', this.transition);
+        this.carrousel.refresh();
     }
 }
 
@@ -36,6 +37,7 @@ class Player {
         this.direction = '+1';
         this.lastIndex = 0;
         this.isPlaying = false;
+        this.snap = false;
     }
 
     play(interval) {
@@ -182,5 +184,29 @@ export default class Carrousel {
         if (this.player.isPlaying) {
             this.player.restart();
         }
+    }
+
+    refresh() {
+        const x = this.x;
+        let indexX = 0;
+        let index = 0;
+
+        while (this.slides[index]) {
+            const slide = this.slides[index];
+            const style = getComputedStyle(slide);
+            indexX -= slide.offsetWidth + parseInt(style.marginLeft) + parseInt(style.marginRight);
+
+            if ((indexX + (slide.offsetWidth / 2)) < x) {
+                break;
+            }
+
+            ++index;
+        }
+
+        if (indexX !== x) {
+            this.move(index);
+        }
+
+        return index;
     }
 }
