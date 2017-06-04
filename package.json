@@ -1,6 +1,6 @@
 {
   "name": "pw-carrousel",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Progressive web carrousel",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/progressive-web-components/boilerplate.git"
+    "url": "git+https://github.com/progressive-web-components/carrousel.git"
   },
   "keywords": [
     "progressive",
@@ -23,9 +23,9 @@
   "author": "Oscar Otero <oom@oscarotero.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/progressive-web-components/boilerplate/issues"
+    "url": "https://github.com/progressive-web-components/carrousel/issues"
   },
-  "homepage": "https://github.com/progressive-web-components/boilerplate#readme",
+  "homepage": "https://github.com/progressive-web-components/carrousel#readme",
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
