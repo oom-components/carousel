@@ -14,4 +14,5 @@ document.querySelector('.carrousel-prev').addEventListener('click', () => {
     carrousel.stop();
 });
 
+carrousel.drag(true);
 carrousel.play();

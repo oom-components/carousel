@@ -83,9 +83,6 @@ export default class Carrousel {
         this.fitToLimits = settings.fitToLimits || false;
         this.index = settings.index || 0;
 
-        this.dragger = new Dragger(this);
-        this.player = new Player(this);
-
         this.move(this.index);
     }
 
@@ -170,18 +167,36 @@ export default class Carrousel {
     }
 
     play(interval) {
+        if (!this.player) {
+            this.player = new Player(this);
+        }
+
         this.player.play(interval);
     }
 
     stop() {
-        this.player.stop();
+        if (this.player) {
+            this.player.stop();
+        }
+    }
+
+    drag(enable) {
+        if (enable) {
+            if (!this.dragger) {
+                this.dragger = new Dragger(this);
+            }
+
+            this.dragger.start();
+        } else if (this.dragger) {
+            this.dragger.stop();
+        }
     }
 
     translateX(x) {
         this.x = x;
         d.css(this.tray, 'transform', 'translateX(' + x + 'px)');
 
-        if (this.player.isPlaying) {
+        if (this.player && this.player.isPlaying) {
             this.player.restart();
         }
     }
@@ -194,9 +209,12 @@ export default class Carrousel {
         while (this.slides[index]) {
             const slide = this.slides[index];
             const style = getComputedStyle(slide);
-            indexX -= slide.offsetWidth + parseInt(style.marginLeft) + parseInt(style.marginRight);
+            indexX -=
+                slide.offsetWidth +
+                parseInt(style.marginLeft) +
+                parseInt(style.marginRight);
 
-            if ((indexX + (slide.offsetWidth / 2)) < x) {
+            if (indexX + slide.offsetWidth / 2 < x) {
                 break;
             }
 
