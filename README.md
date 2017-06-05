@@ -63,7 +63,7 @@ Use css to define the carrousel appearance:
 ```css
 .carrousel {
     width: 100%;
-    overflow-x: scroll; /* makes it scrollable without javascript */
+    overflow-x: scroll; /* makes it scrollable without javascript. It will be removed by javascript */
 }
 .carrousel ul {
     display: flex;
@@ -105,7 +105,7 @@ document.querySelector('.carrousel-prev')
 
 Name | Type | Default | Description
 -----|------|---------|------------
-**offset** | `inteter` or `"center"` | `0` | Horizontal offset of the tray position in pixels. It can ben also "center" to center the current slide in the window
+**offset** | `integer` or `"center"` | `0` | Horizontal offset of the tray position in pixels. It can be also "center" to center the current slide in the container
 **fitToLimits** | `bool` | `false` | Whether the tray must fit to the container limits.
 **index** | `integer` | `0` | The 0-based position of the initial slide visible
 
