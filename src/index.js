@@ -6,7 +6,14 @@ class Dragger extends Unidragger {
         super();
         this.carrousel = carrousel;
         this.handles = [carrousel.tray];
+    }
+
+    start() {
         this.bindHandles();
+    }
+
+    stop() {
+        this.unbindHandles();
     }
 
     dragStart(event, pointer) {
