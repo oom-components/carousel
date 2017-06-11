@@ -1,11 +1,11 @@
 {
   "name": "pw-carrousel",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Progressive web carrousel",
   "main": "index.js",
   "scripts": {
     "start": "webpack --config demo/webpack.config.js --watch & http-server demo -c-1",
-    "compile": "babel src/index.js -o index.js --presets es2015",
+    "compile": "babel src -d ./ --presets es2015",
     "prettier": "prettier src/*.js demo/script.js --single-quote --tab-width 4 --write",
     "prepublish": "npm run compile"
   },
