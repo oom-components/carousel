@@ -46,8 +46,11 @@ export default class Pointer {
         const element = this.carrousel.element;
         element.removeAttribute('touch-action', 'none');
 
-        d.off('pointerdown', element, this.events.down);
-        d.off('pointerup pointerleave', element, this.events.up);
-        d.off('pointermove', element, this.events.move);
+        if (this.events) {
+            d.off('pointerdown', element, this.events.down);
+            d.off('pointerup pointerleave', element, this.events.up);
+            d.off('pointermove', element, this.events.move);
+            delete this.events;
+        }
     }
 }
