@@ -1,81 +1,6 @@
 import d from 'd_js';
-import Unidragger from 'unidragger';
-
-class Dragger extends Unidragger {
-    constructor(carrousel) {
-        super();
-        this.carrousel = carrousel;
-        this.handles = [carrousel.tray];
-    }
-
-    start() {
-        this.bindHandles();
-    }
-
-    stop() {
-        this.unbindHandles();
-    }
-
-    dragStart(event, pointer) {
-        this.x = this.carrousel.x;
-        this.transition = d.css(this.carrousel.tray, 'transition');
-        this.limits = this.carrousel.getLimits();
-        d.css(this.carrousel.tray, 'transition', 'none');
-    }
-
-    dragMove(event, pointer, moveVector) {
-        const x = this.x + moveVector.x;
-
-        if (x < this.limits[0] && x > this.limits[1]) {
-            this.carrousel.translateX(x);
-        }
-    }
-
-    dragEnd(event, pointer) {
-        d.css(this.carrousel.tray, 'transition', this.transition);
-        this.carrousel.refresh();
-    }
-}
-
-class Player {
-    constructor(carrousel) {
-        this.carrousel = carrousel;
-        this.interval = 5000;
-        this.direction = '+1';
-        this.lastIndex = 0;
-        this.isPlaying = false;
-        this.snap = false;
-    }
-
-    play(interval) {
-        this.interval = interval || this.interval;
-
-        const go = () => {
-            let index = this.carrousel.getIndex(this.direction);
-
-            if (index === this.lastIndex) {
-                this.direction = this.direction === '+1' ? '-1' : '+1';
-                index = this.carrousel.getIndex(this.direction);
-            }
-
-            this.carrousel.move(index);
-            this.lastIndex = index;
-        };
-
-        this.isPlaying = true;
-        this.timeout = setTimeout(go, this.interval);
-    }
-
-    stop() {
-        clearInterval(this.timeout);
-        this.isPlaying = false;
-    }
-
-    restart() {
-        this.stop();
-        this.play();
-    }
-}
+import Pointer from './Pointer';
+import Player from './Player';
 
 export default class Carrousel {
     constructor(element, settings) {
@@ -91,6 +16,7 @@ export default class Carrousel {
         this.index = settings.index || 0;
 
         this.move(this.index);
+        this.pointer = new Pointer(this);
     }
 
     move(position) {
@@ -188,14 +114,10 @@ export default class Carrousel {
     }
 
     drag(enable) {
-        if (enable) {
-            if (!this.dragger) {
-                this.dragger = new Dragger(this);
-            }
-
-            this.dragger.start();
-        } else if (this.dragger) {
-            this.dragger.stop();
+        if (enable || !arguments.length) {
+            this.pointer.start();
+        } else {
+            this.pointer.stop();
         }
     }
 
