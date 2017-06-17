@@ -13,6 +13,7 @@ export default class Pointer {
         this.pointers = {};
         this.events = {
             down: e => {
+                e.preventDefault();
                 this.transition = d.css(element, 'transition');
                 d.css(element, 'transition', 'none');
                 this.pointers[e.pointerId] = {
@@ -22,6 +23,7 @@ export default class Pointer {
 
             up: e => {
                 if (this.pointers[e.pointerId]) {
+                    e.preventDefault();
                     d.css(element, 'transition', this.transition);
                     delete this.pointers[e.pointerId];
                     this.carrousel.refresh();
@@ -32,6 +34,7 @@ export default class Pointer {
                 const pointer = this.pointers[e.pointerId];
 
                 if (pointer) {
+                    e.preventDefault();
                     this.carrousel.translateX(e.clientX - pointer.x);
                 }
             }
