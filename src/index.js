@@ -3,8 +3,7 @@ import Pointer from './Pointer';
 import Player from './Player';
 
 export default class Carrousel {
-    constructor(element, settings) {
-        settings = settings || {};
+    constructor(element, settings = {}) {
         d.css(element, 'overflow-x', 'hidden');
 
         this.element = element;
