@@ -13,6 +13,7 @@ export default class Carrousel {
         this.offset = settings.offset || 0;
         this.fitToLimits = settings.fitToLimits || false;
         this.index = settings.index || 0;
+        this.x = 0;
 
         this.move(this.index);
         this.pointer = new Pointer(this);
