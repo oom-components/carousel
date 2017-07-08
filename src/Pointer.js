@@ -9,51 +9,57 @@ export default class Pointer {
     start() {
         const element = this.carrousel.tray;
         element.setAttribute('touch-action', 'none');
-        let lastEvent;
-        this.pointers = {};
+
+        let pointer = {};
+
         this.events = {
             down: e => {
-                lastEvent = 'down';
                 e.preventDefault();
                 this.transition = d.css(element, 'transition');
                 d.css(element, 'transition', 'none');
-                this.pointers[e.pointerId] = {
-                    x: e.clientX - this.carrousel.x
+
+                pointer = {
+                    id: e.pointerId,
+                    x: e.clientX - this.carrousel.x,
+                    lastEvent: 'down'
                 };
             },
 
             move: e => {
-                const pointer = this.pointers[e.pointerId];
-
-                if (pointer) {
-                    lastEvent = 'move';
+                if (pointer.id === e.pointerId) {
+                    pointer.lastEvent = 'move';
                     e.preventDefault();
                     this.carrousel.translateX(e.clientX - pointer.x);
                 }
             },
 
             up: e => {
-                if (lastEvent === 'move') {
+                if (pointer.id) {
+                    d.css(element, 'transition', this.transition);
+                    this.carrousel.refresh();
+                    delete pointer.id;
+                }
+
+                if (pointer.lastEvent === 'move') {
                     e.preventDefault();
-                } else if (e.type === 'pointerup' && e.target.tagName === 'A') {
+                    e.stopPropagation();
+                    return false;
+                }
+
+                if (e.type === 'pointerup' && getLink(e.target)) {
                     //bug in firefox (android) that disable the click in links
+                    const link = getLink(e.target);
                     setTimeout(() => {
-                        if (lastEvent !== 'click') {
-                            if (e.target.target) {
-                                window.open(e.target.href, e.target.target);
+                        if (pointer.lastEvent !== 'click') {
+                            if (link.target) {
+                                window.open(link.href, link.target);
                             } else {
-                                document.location = e.target.href;
+                                document.location = link.href;
                             }
                         }
                     }, 100);
                 } else if (e.type === 'click') {
-                    lastEvent = 'click';
-                }
-
-                if (this.pointers[e.pointerId]) {
-                    d.css(element, 'transition', this.transition);
-                    delete this.pointers[e.pointerId];
-                    this.carrousel.refresh();
+                    pointer.lastEvent = 'click';
                 }
             }
         };
@@ -74,4 +80,12 @@ export default class Pointer {
             delete this.events;
         }
     }
+}
+
+function getLink(element) {
+    if (element.tagName === 'A') {
+        return element;
+    }
+
+    return element.closest && element.closest('a');
 }

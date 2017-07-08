@@ -1,6 +1,6 @@
 {
   "name": "pw-carrousel",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "Progressive web carrousel",
   "main": "index.js",
   "scripts": {
