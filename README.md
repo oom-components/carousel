@@ -151,6 +151,10 @@ myCarrousel.drag(false); //disable
 
 Refresh the position of the tray to snap to the sliders. It's used after dragging and can be invoked on resize the window.
 
+### destroy
+
+Unbind all events and restore the dom to the previous state.
+
 ## Demo
 
 To run the demo, just clone this repository enter in the directory and execute:

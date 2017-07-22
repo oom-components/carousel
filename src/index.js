@@ -156,4 +156,11 @@ export default class Carrousel {
 
         return index;
     }
+
+    destroy() {
+        this.stop();
+        this.drag(false);
+        this.move(0);
+        d.css(this.element, 'overflow-x', 'auto');
+    }
 }

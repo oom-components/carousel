@@ -14,5 +14,12 @@ document.querySelector('.carrousel-prev').addEventListener('click', () => {
     carrousel.stop();
 });
 
-carrousel.drag(true);
+let drag = false;
+document.querySelector('.toggle-drag').addEventListener('click', () => {
+    drag = !drag;
+
+    carrousel.drag(drag);
+    console.log('drag', drag);
+});
+
 carrousel.play();

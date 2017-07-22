@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.4.0 - 2017-07-22
+
+### Added
+
+* New method `.destroy()`, to unbind all events.
+
+### Fixed
+
+* Fixed bug on disable drag
+
 ## 0.3.7 - 2017-07-08
 
 ### Fixed

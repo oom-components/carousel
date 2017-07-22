@@ -70,7 +70,7 @@ export default class Pointer {
     }
 
     stop() {
-        const element = this.carrousel.element;
+        const element = this.carrousel.tray;
         element.removeAttribute('touch-action', 'none');
 
         if (this.events) {
