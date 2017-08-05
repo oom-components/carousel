@@ -8,7 +8,7 @@ export default class Carrousel {
 
         this.element = element;
         this.tray = element.firstElementChild;
-        this.slides = d.getAll(this.tray.children);
+        this.slides = Array.prototype.slice.call(this.tray.children);
 
         this.offset = settings.offset || 0;
         this.fitToLimits = settings.fitToLimits || false;
