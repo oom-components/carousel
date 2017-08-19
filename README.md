@@ -95,10 +95,10 @@ const myCarrousel = new Carrousel(
 
 //Navigate
 document.querySelector('.carrousel-next')
-    .addEventListener('click', event => myCarrousel.goTo('+1'));
+    .addEventListener('click', event => myCarrousel.move('+1'));
 
 document.querySelector('.carrousel-prev')
-    .addEventListener('click', event => myCarrousel.goTo('-1'));
+    .addEventListener('click', event => myCarrousel.move('-1'));
 ```
 
 ## Settings
