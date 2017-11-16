@@ -4,65 +4,51 @@ import Player from './Player';
 
 export default class Carrousel {
     constructor(element, settings = {}) {
-        d.css(element, 'overflow-x', 'hidden');
-
         this.element = element;
         this.tray = element.firstElementChild;
         this.slides = Array.prototype.slice.call(this.tray.children);
-
-        this.offset = settings.offset || 0;
-        this.fitToLimits = settings.fitToLimits || false;
         this.index = settings.index || 0;
-        this.x = 0;
 
         this.move(this.index);
         this.pointer = new Pointer(this);
+
+        let scrollTimeout;
+
+        this.element.addEventListener('scroll', e => {
+            if (scrollTimeout) {
+                clearTimeout(scrollTimeout);
+            }
+
+            scrollTimeout = setTimeout(() => {
+                scrollTimeout = null;
+                this.refresh();
+            }, 100);
+        });
     }
 
     move(position) {
+        const el = this.element;
         const index = this.getIndex(position);
-        const limits = this.getLimits();
-
-        let x = this.slides.slice(0, index).reduce((x, slide) => {
+        const x = this.slides.slice(0, index).reduce((x, slide) => {
             const style = getComputedStyle(slide);
             return (
-                x -
+                x +
                 slide.offsetWidth +
                 parseInt(style.marginLeft) +
                 parseInt(style.marginRight)
             );
         }, 0);
 
-        if (x > limits[0]) {
-            x = limits[0];
-        } else if (x < limits[1]) {
-            x = limits[1];
-        } else {
-            this.index = index;
+        if (x > el.scrollLeft && el.scrollLeft + el.getBoundingClientRect().width === el.scrollWidth) {
+            return;
         }
 
-        this.translateX(x);
-    }
+        this.index = index;
 
-    getLimits() {
-        let min = 0;
-        let max = this.tray.scrollWidth * -1 + this.element.offsetWidth;
-
-        if (!this.fitToLimits) {
-            if (this.offset === 'center') {
-                min +=
-                    (this.element.offsetWidth - this.slides[0].offsetWidth) / 2;
-                max -=
-                    (this.element.offsetWidth -
-                        this.slides[this.slides.length - 1].offsetWidth) /
-                    2;
-            } else {
-                min += this.offset || 0;
-                max += this.offset || 0;
-            }
-        }
-
-        return [min, max];
+        el.scroll({
+            left: x,
+            behavior: 'smooth'
+        });
     }
 
     getIndex(position) {
@@ -121,36 +107,33 @@ export default class Carrousel {
         }
     }
 
-    translateX(x) {
-        this.x = x;
-        d.css(this.tray, 'transform', 'translateX(' + x + 'px)');
-
-        if (this.player && this.player.isPlaying) {
-            this.player.restart();
-        }
-    }
-
     refresh() {
-        const x = this.x;
-        let indexX = 0;
+        const el = this.element;
+        const x = el.scrollLeft;
+
+        if (el.scrollLeft + el.getBoundingClientRect().width === el.scrollWidth) {
+            return;
+        }
+
+        let left = 0;
         let index = 0;
 
         while (this.slides[index]) {
             const slide = this.slides[index];
             const style = getComputedStyle(slide);
-            indexX -=
+            left +=
                 slide.offsetWidth +
                 parseInt(style.marginLeft) +
                 parseInt(style.marginRight);
 
-            if (indexX + slide.offsetWidth / 2 < x) {
+            if (left - (slide.offsetWidth / 2) > x) {
                 break;
             }
 
             ++index;
         }
 
-        if (indexX !== x) {
+        if (left !== x) {
             this.move(index);
         }
 

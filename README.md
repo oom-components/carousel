@@ -26,6 +26,12 @@ Requirements:
 * NPM or Yarn to install [the package and the dependencies](https://www.npmjs.com/package/pw-carrousel)
 * Webpack (or any other javascript loader)
 
+Polyfills:
+
+It's recommended to use [the Pointer events polyfill](https://github.com/jquery/PEP) to [have support for more browsers](https://caniuse.com/#feat=pointer)
+
+It's also recommended to use [the Scroll Behaviour polyfill](https://github.com/iamdustan/smoothscroll) to [have support for more browsers](https://caniuse.com/#feat=css-scroll-behavior)
+
 ```sh
 npm install pw-carrousel
 ```

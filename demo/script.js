@@ -4,6 +4,8 @@ const carrousel = new Carrousel(document.querySelector('.carrousel'), {
     fitToLimits: true
 });
 
+window.carrousel = carrousel;
+
 document.querySelector('.carrousel-next').addEventListener('click', () => {
     carrousel.move('+1');
     carrousel.stop();
