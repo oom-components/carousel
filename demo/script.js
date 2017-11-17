@@ -20,8 +20,14 @@ let drag = false;
 document.querySelector('.toggle-drag').addEventListener('click', () => {
     drag = !drag;
 
-    carrousel.drag(drag);
+    if (drag) {
+        carrousel.slide.start();
+    } else {
+        carrousel.slide.stop();
+    }
+
     console.log('drag', drag);
 });
 
-carrousel.play();
+carrousel.slide.start();
+//carrousel.play();

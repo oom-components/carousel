@@ -1,5 +1,5 @@
 import d from 'd_js';
-import Pointer from './Pointer';
+import Slide from './Slide';
 import Player from './Player';
 
 export default class Carrousel {
@@ -10,7 +10,7 @@ export default class Carrousel {
         this.index = settings.index || 0;
 
         this.move(this.index);
-        this.pointer = new Pointer(this);
+        this.slide = new Slide(this);
 
         let scrollTimeout;
 
@@ -96,14 +96,6 @@ export default class Carrousel {
     stop() {
         if (this.player) {
             this.player.stop();
-        }
-    }
-
-    drag(enable) {
-        if (enable || !arguments.length) {
-            this.pointer.start();
-        } else {
-            this.pointer.stop();
         }
     }
 
