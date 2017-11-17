@@ -1,5 +1,5 @@
 import d from 'd_js';
-import Slide from './Slide';
+import Slider from './Slider';
 import Player from './Player';
 
 export default class Carrousel {
@@ -10,7 +10,6 @@ export default class Carrousel {
         this.index = settings.index || 0;
 
         this.move(this.index);
-        this.slide = new Slide(this);
 
         let scrollTimeout;
 
@@ -24,28 +23,54 @@ export default class Carrousel {
                 this.refresh();
             }, 100);
         });
+
+        d.css(this.element, 'overflow-x', 'auto');
+
+        const fn = e => {
+            if (!getScrollSize()) {
+                d.css(this.element, 'overflow-x', 'auto');
+            } else {
+                d.css(this.element, 'overflow-x', 'hidden');
+                this.slider = new Slider(this);
+            }
+
+            this.element.removeEventListener('touchstart', fn, false);
+        };
+
+        this.element.addEventListener('touchstart', fn);
     }
 
     move(position) {
-        const el = this.element;
         const index = this.getIndex(position);
-        const x = this.slides.slice(0, index).reduce((x, slide) => {
+
+        if (index === this.index) {
+            return;
+        }
+
+        let x = this.slides.slice(0, index).reduce((x, slide) => {
             const style = getComputedStyle(slide);
             return (
                 x +
-                slide.offsetWidth +
+                slide.getBoundingClientRect().width +
                 parseInt(style.marginLeft) +
                 parseInt(style.marginRight)
             );
         }, 0);
 
-        if (x > el.scrollLeft && el.scrollLeft + el.getBoundingClientRect().width === el.scrollWidth) {
+        if (position !== 0) {
+            const trayStyle = getComputedStyle(this.tray);
+            x += parseInt(trayStyle.paddingLeft) + parseInt(trayStyle.marginLeft) + parseInt(trayStyle.borderLeftWidth);
+        }
+
+        x = Math.min(x, this.element.scrollWidth - this.element.clientWidth);
+
+        if (x === this.element.scrollLeft && index > this.index) {
             return;
         }
 
         this.index = index;
 
-        el.scroll({
+        this.element.scroll({
             left: x,
             behavior: 'smooth'
         });
@@ -134,8 +159,31 @@ export default class Carrousel {
 
     destroy() {
         this.stop();
-        this.drag(false);
-        this.move(0);
+
+        if (this.slider) {
+            this.slider.stop();
+        }
+
         d.css(this.element, 'overflow-x', 'auto');
     }
+}
+
+/**
+ * Returns the width of the scroll
+ */
+function getScrollSize() {
+    const div = document.createElement('div');
+    d.css(div, {
+        width: '100px',
+        height: '100px',
+        overflow: 'scroll',
+        position: 'absolute',
+        top: '-999px'
+    });
+
+    document.body.append(div);
+    const width = div.offsetWidth - div.clientWidth;
+    div.remove();
+
+    return width;
 }

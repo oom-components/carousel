@@ -1,3 +1,6 @@
+require('pepjs');
+require('smoothscroll-polyfill');
+
 import Carrousel from '../src';
 
 const carrousel = new Carrousel(document.querySelector('.carrousel'), {
@@ -16,18 +19,4 @@ document.querySelector('.carrousel-prev').addEventListener('click', () => {
     carrousel.stop();
 });
 
-let drag = false;
-document.querySelector('.toggle-drag').addEventListener('click', () => {
-    drag = !drag;
-
-    if (drag) {
-        carrousel.slide.start();
-    } else {
-        carrousel.slide.stop();
-    }
-
-    console.log('drag', drag);
-});
-
-carrousel.slide.start();
 //carrousel.play();

@@ -1,17 +1,9 @@
 import d from 'd_js';
 
-export default class Slide {
+export default class Slider {
     constructor(carrousel) {
         this.carrousel = carrousel;
-        this.started = false;
-    }
 
-    start() {
-        if (this.started) {
-            return;
-        }
-
-        this.started = true;
         const element = this.carrousel.element;
         element.setAttribute('touch-action', 'none');
 
@@ -57,14 +49,9 @@ export default class Slide {
         d.on('pointerup pointerleave click', element, this.events.up);
     }
 
-    stop() {
-        if (!this.started) {
-            return;
-        }
-
+    destroy() {
         const element = this.carrousel.element;
         element.removeAttribute('touch-action', 'none');
-        this.started = false;
 
         d.off('pointerdown', element, this.events.down);
         d.off('pointermove', element, this.events.move);
