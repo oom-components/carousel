@@ -22,4 +22,4 @@ document.querySelector('.carrousel-prev').addEventListener('click', () => {
     carrousel.player.stop();
 });
 
-//carrousel.play();
+carrousel.player.play();

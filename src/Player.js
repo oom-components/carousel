@@ -7,9 +7,7 @@ export default class Player {
         this.isPlaying = false;
     }
 
-    play(interval) {
-        this.interval = interval || this.interval;
-
+    play(interval = this.interval) {
         const go = () => {
             let index = this.carrousel.getIndex(this.direction);
 
@@ -20,19 +18,16 @@ export default class Player {
 
             this.carrousel.goto(index);
             this.lastIndex = index;
+
+            this.play();
         };
 
         this.isPlaying = true;
-        this.timeout = setTimeout(go, this.interval);
+        this.timeout = setTimeout(go, interval);
     }
 
     stop() {
         clearInterval(this.timeout);
         this.isPlaying = false;
-    }
-
-    restart() {
-        this.stop();
-        this.play();
     }
 }
