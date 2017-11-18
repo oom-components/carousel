@@ -37,6 +37,7 @@
     "webpack": "^3.0.0"
   },
   "dependencies": {
-    "d_js": "^2.0.0"
+    "d_js": "^2.0.0",
+    "lodash.debounce": "^4.0.8"
   }
 }

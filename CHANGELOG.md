@@ -6,9 +6,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## UNRELEASED
 
+### Changed
+
+* Switch from a transform/translate to a scroll based carrousel
+* `move()` was renamed to `goto()`
+
 ### Removed
 
 * ES2015 dist version has been removed. From now, this library is ES6 only. You must use Babel or other transpiler for old browsers compatibility.
+* Removed drag support and use just native scroll.
+* `.play()` and `.pause()` was removed. Use the property `.player` to access to the player instance.
+* Removed `.destroy()`
+* Removed the option `fitToLimits` because it makes no sense using native scroll
+* Removed the option `offset`. It may be reintroduced in a future.
 
 ## 0.4.1 - 2017-08-05
 

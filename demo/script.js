@@ -1,22 +1,25 @@
 require('pepjs');
-require('smoothscroll-polyfill');
+require('smoothscroll-polyfill').polyfill();
 
 import Carrousel from '../src';
 
-const carrousel = new Carrousel(document.querySelector('.carrousel'), {
-    fitToLimits: true
+const element = document.querySelector('.carrousel');
+
+const carrousel = new Carrousel(element, {
+    index: 0,
+    hideScrollElement: element.parentElement
 });
 
 window.carrousel = carrousel;
 
 document.querySelector('.carrousel-next').addEventListener('click', () => {
-    carrousel.move('+1');
-    carrousel.stop();
+    carrousel.goto('+1');
+    carrousel.player.stop();
 });
 
 document.querySelector('.carrousel-prev').addEventListener('click', () => {
-    carrousel.move('-1');
-    carrousel.stop();
+    carrousel.goto('-1');
+    carrousel.player.stop();
 });
 
 //carrousel.play();

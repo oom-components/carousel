@@ -28,9 +28,7 @@ Requirements:
 
 Polyfills:
 
-It's recommended to use [the Pointer events polyfill](https://github.com/jquery/PEP) to [have support for more browsers](https://caniuse.com/#feat=pointer)
-
-It's also recommended to use [the Scroll Behaviour polyfill](https://github.com/iamdustan/smoothscroll) to [have support for more browsers](https://caniuse.com/#feat=css-scroll-behavior)
+It's recommended to use [the Scroll Behaviour polyfill](https://github.com/iamdustan/smoothscroll) to [have support for more browsers](https://caniuse.com/#feat=css-scroll-behavior)
 
 ```sh
 npm install pw-carrousel
@@ -69,7 +67,7 @@ Use css to define the carrousel appearance:
 ```css
 .carrousel {
     width: 100%;
-    overflow-x: scroll; /* makes it scrollable without javascript. It will be removed by javascript */
+    overflow-x: scroll;
 }
 .carrousel ul {
     display: flex;
@@ -92,78 +90,67 @@ And finally use javascript for a complete experience:
 import Carrousel from 'pw-carrousel';
 
 //Init the carrousel
-const myCarrousel = new Carrousel(
-    document.querySelector('.carrousel'),
-    {
-        fitToLimits: true
-    }
-);
+const div = document.querySelector('.carrousel');
+const myCarrousel = new Carrousel(div);
 
 //Navigate
 document.querySelector('.carrousel-next')
-    .addEventListener('click', event => myCarrousel.move('+1'));
+    .addEventListener('click', event => {
+        myCarrousel.move('+1');
+        myCarrousel.player.stop();
+    });
 
 document.querySelector('.carrousel-prev')
-    .addEventListener('click', event => myCarrousel.move('-1'));
+    .addEventListener('click', event => {
+        myCarrousel.move('-1');
+        myCarrousel.player.stop();
+    });
+
+//Autoplay
+myCarrousel.player.play();
 ```
 
 ## Settings
 
 Name | Type | Default | Description
 -----|------|---------|------------
-**offset** | `integer` or `"center"` | `0` | Horizontal offset of the tray position in pixels. It can be also "center" to center the current slide in the container
-**fitToLimits** | `bool` | `false` | Whether the tray must fit to the container limits.
 **index** | `integer` | `0` | The 0-based position of the initial slide visible
+**hideScrollElement** | `HTMLElement` | `undefined` | The parent element used to hide the scroll
 
-## API
+## Player
 
-### play / pause
-
-Init a slideshow. Use the first argument to define the time to wait before change to the next slide. By default is `5000` (5 seconds). Example:
+Use the property `player` to access to the player in order to init a slideshow. Example:
 
 ```js
 //Start the slideshow
-myCarrousel.play();
+myCarrousel.player.play();
 
 //Start the slideshow with 10 seconds to wait between slides
-myCarrousel.play(10000);
+myCarrousel.player.play(10000);
 
-//Pause
-myCarrousel.pause();
+//Stop
+myCarrousel.player.stop();
 ```
 
-### move
+## goto
 
-Moves the tray to other position:
+Moves the slide to other position:
 
 ```js
-myCarrousel.move(3); //go to slider 3
-myCarrousel.move('+1'); //move one slider forward (slider 4)
-myCarrousel.move('-2'); //move two sliders backward (slider 2)
-myCarrousel.move('first'); //go to first slider
-myCarrousel.move('last'); //go to the last slider
+myCarrousel.goto(3); //go to slider 3
+myCarrousel.goto('+1'); //move one slider forward (slider 4)
+myCarrousel.goto('-2'); //move two sliders backward (slider 2)
+myCarrousel.goto('first'); //go to first slider
+myCarrousel.goto('last'); //go to the last slider
 ```
 
-### drag
+## refresh
 
-Enable/disable dragging
-
-```js
-myCarrousel.drag(true); //enable
-myCarrousel.drag(false); //disable
-```
-
-### refresh
-
-Refresh the position of the tray to snap to the sliders. It's used after dragging and can be invoked on resize the window.
-
-### destroy
-
-Unbind all events and restore the dom to the previous state.
+Refresh the position of the tray to snap to the sliders. It's used automatically on scroll the tray, resize the window, etc.
 
 ## Demo
 
-To run the demo, just clone this repository enter in the directory and execute:
+To run the demo, just clone this repository, enter in the directory and execute:
 
 ```sh
 npm install

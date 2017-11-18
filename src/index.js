@@ -1,51 +1,48 @@
 import d from 'd_js';
-import Slider from './Slider';
 import Player from './Player';
+import debounce from 'lodash.debounce';
 
 export default class Carrousel {
     constructor(element, settings = {}) {
+        if (!('scroll' in Element.prototype)) {
+            console.log('[pw-carrusel]: Missing Element.prototype.scroll. Consider using a polyfill');
+        }
+
         this.element = element;
         this.tray = element.firstElementChild;
         this.slides = Array.prototype.slice.call(this.tray.children);
         this.index = settings.index || 0;
+        this.hideScrollElement = settings.hideScrollElement;
 
-        this.move(this.index);
+        if (this.hideScrollElement) {
+            this.hideScrollElement.style.overflow = 'hidden';
+        }
 
-        let scrollTimeout;
+        this.goto(this.index);
+        this.refresh();
 
-        this.element.addEventListener('scroll', e => {
-            if (scrollTimeout) {
-                clearTimeout(scrollTimeout);
-            }
+        //Refresh on scroll and resize
+        this.element.addEventListener('scroll', debounce(() => this.refresh(), 100));
+        window.addEventListener('resize', debounce(() => this.refresh(), 100));
 
-            scrollTimeout = setTimeout(() => {
-                scrollTimeout = null;
-                this.refresh();
-            }, 100);
-        });
-
-        d.css(this.element, 'overflow-x', 'auto');
-
-        const fn = e => {
-            if (!getScrollSize()) {
-                d.css(this.element, 'overflow-x', 'auto');
-            } else {
-                d.css(this.element, 'overflow-x', 'hidden');
-                this.slider = new Slider(this);
-            }
-
-            this.element.removeEventListener('touchstart', fn, false);
-        };
-
-        this.element.addEventListener('touchstart', fn);
+        //Remove scroll
+        if (this.hideScrollElement) {
+            window.addEventListener('load', e => {
+                this.element.style.marginBottom = `-${this.element.offsetHeight - this.element.clientHeight}px`;
+            });
+        }
     }
 
-    move(position) {
-        const index = this.getIndex(position);
-
-        if (index === this.index) {
-            return;
+    get player() {
+        if (!this._player) {
+            this._player = new Player(this);
         }
+
+        return this._player;
+    }
+
+    goto(position) {
+        const index = this.getIndex(position);
 
         let x = this.slides.slice(0, index).reduce((x, slide) => {
             const style = getComputedStyle(slide);
@@ -70,10 +67,14 @@ export default class Carrousel {
 
         this.index = index;
 
-        this.element.scroll({
-            left: x,
-            behavior: 'smooth'
-        });
+        if (this.element.scroll) {
+            this.element.scroll({
+                left: x,
+                behavior: 'smooth'
+            });
+        } else {
+            this.element.scrollLeft = x;
+        }
     }
 
     getIndex(position) {
@@ -110,20 +111,6 @@ export default class Carrousel {
         return position;
     }
 
-    play(interval) {
-        if (!this.player) {
-            this.player = new Player(this);
-        }
-
-        this.player.play(interval);
-    }
-
-    stop() {
-        if (this.player) {
-            this.player.stop();
-        }
-    }
-
     refresh() {
         const el = this.element;
         const x = el.scrollLeft;
@@ -151,39 +138,11 @@ export default class Carrousel {
         }
 
         if (left !== x) {
-            this.move(index);
+            this.goto(index);
         }
 
-        return index;
-    }
-
-    destroy() {
-        this.stop();
-
-        if (this.slider) {
-            this.slider.stop();
+        if (this.hideScrollElement) {
+            el.style.marginBottom = `-${el.offsetHeight - el.clientHeight}px`;
         }
-
-        d.css(this.element, 'overflow-x', 'auto');
     }
-}
-
-/**
- * Returns the width of the scroll
- */
-function getScrollSize() {
-    const div = document.createElement('div');
-    d.css(div, {
-        width: '100px',
-        height: '100px',
-        overflow: 'scroll',
-        position: 'absolute',
-        top: '-999px'
-    });
-
-    document.body.append(div);
-    const width = div.offsetWidth - div.clientWidth;
-    div.remove();
-
-    return width;
 }

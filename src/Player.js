@@ -3,7 +3,7 @@ export default class Player {
         this.carrousel = carrousel;
         this.interval = 5000;
         this.direction = '+1';
-        this.lastIndex = 0;
+        this.lastIndex = carrousel.index;
         this.isPlaying = false;
     }
 
@@ -18,7 +18,7 @@ export default class Player {
                 index = this.carrousel.getIndex(this.direction);
             }
 
-            this.carrousel.move(index);
+            this.carrousel.goto(index);
             this.lastIndex = index;
         };
 
