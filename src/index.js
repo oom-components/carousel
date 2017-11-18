@@ -5,7 +5,9 @@ import debounce from 'lodash.debounce';
 export default class Carrousel {
     constructor(element, settings = {}) {
         if (!('scroll' in Element.prototype)) {
-            console.log('[pw-carrusel]: Missing Element.prototype.scroll. Consider using a polyfill');
+            console.log(
+                '[pw-carrusel]: Missing Element.prototype.scroll. Consider using a polyfill'
+            );
         }
 
         this.element = element;
@@ -22,13 +24,17 @@ export default class Carrousel {
         this.refresh();
 
         //Refresh on scroll and resize
-        this.element.addEventListener('scroll', debounce(() => this.refresh(), 100));
+        this.element.addEventListener(
+            'scroll',
+            debounce(() => this.refresh(), 100)
+        );
         window.addEventListener('resize', debounce(() => this.refresh(), 100));
 
         //Remove scroll
         if (this.hideScrollElement) {
             window.addEventListener('load', e => {
-                this.element.style.marginBottom = `-${this.element.offsetHeight - this.element.clientHeight}px`;
+                this.element.style.marginBottom = `-${this.element
+                    .offsetHeight - this.element.clientHeight}px`;
             });
         }
     }
@@ -56,7 +62,10 @@ export default class Carrousel {
 
         if (position !== 0) {
             const trayStyle = getComputedStyle(this.tray);
-            x += parseInt(trayStyle.paddingLeft) + parseInt(trayStyle.marginLeft) + parseInt(trayStyle.borderLeftWidth);
+            x +=
+                parseInt(trayStyle.paddingLeft) +
+                parseInt(trayStyle.marginLeft) +
+                parseInt(trayStyle.borderLeftWidth);
         }
 
         x = Math.min(x, this.element.scrollWidth - this.element.clientWidth);
@@ -115,7 +124,10 @@ export default class Carrousel {
         const el = this.element;
         const x = el.scrollLeft;
 
-        if (el.scrollLeft + el.getBoundingClientRect().width === el.scrollWidth) {
+        if (
+            el.scrollLeft + el.getBoundingClientRect().width ===
+            el.scrollWidth
+        ) {
             return;
         }
 
@@ -130,7 +142,7 @@ export default class Carrousel {
                 parseInt(style.marginLeft) +
                 parseInt(style.marginRight);
 
-            if (left - (slide.offsetWidth / 2) > x) {
+            if (left - slide.offsetWidth / 2 > x) {
                 break;
             }
 

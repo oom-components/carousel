@@ -7,7 +7,7 @@ Carrousel with the following features:
   * **Works better** with `html` and `css`
   * **Works much better** with `html`, `css` and `js`
 * CSS powered:
-  * **High performance:** Use css transform to translate the elements.
+  * **High performance:** Use native scroll to move the elements.
   * **No need to wait for javascript** to build the carrousel.
   * No styles or themes are provided with this package. **You decide how the carrousel must look**.
 * Responsive:
@@ -17,7 +17,6 @@ Carrousel with the following features:
 * Modern:
   * Build with ES6 and modern tools (webpack, babel, etc)
   * Easy to extend and adapt to your needs
-  * Support for all **modern browsers.** IE10+ should work
 
 ## Install
 
@@ -28,7 +27,7 @@ Requirements:
 
 Polyfills:
 
-It's recommended to use [the Scroll Behaviour polyfill](https://github.com/iamdustan/smoothscroll) to [have support for more browsers](https://caniuse.com/#feat=css-scroll-behavior)
+It's recommended to use [the Scroll Behaviour polyfill](https://github.com/iamdustan/smoothscroll) to [have better support for more browsers](https://caniuse.com/#feat=css-scroll-behavior)
 
 ```sh
 npm install pw-carrousel
@@ -67,18 +66,17 @@ Use css to define the carrousel appearance:
 ```css
 .carrousel {
     width: 100%;
-    overflow-x: scroll;
+    overflow-x: scroll; /* this is important */
 }
 .carrousel ul {
     display: flex;
     list-style: none;
     margin: 0;
     padding: 0;
-    transition: transform .5s;
 }
 .carrousel li {
     padding: 2px;
-    flex: 0 0 500px;
+    flex: 0 0 auto;
 }
 ```
 
@@ -146,7 +144,7 @@ myCarrousel.goto('last'); //go to the last slider
 
 ## refresh
 
-Refresh the position of the tray to snap to the sliders. It's used automatically on scroll the tray, resize the window, etc.
+Refresh the position of the tray to snap to the sliders. It's executed automatically when it's needed.
 
 ## Demo
 

@@ -1,7 +1,7 @@
 {
   "name": "pw-carrousel",
-  "version": "0.4.1",
-  "description": "Progressive web carrousel",
+  "version": "0.5.0",
+  "description": "Carrousel built with progressive enhancement in mind",
   "main": "index.js",
   "scripts": {
     "start": "webpack --config demo/webpack.config.js --watch & http-server demo -c-1",
