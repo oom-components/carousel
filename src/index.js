@@ -13,29 +13,19 @@ export default class Carrousel {
         this.element = element;
         this.tray = element.firstElementChild;
         this.slides = Array.prototype.slice.call(this.tray.children);
-        this.index = settings.index || 0;
-        this.hideScrollElement = settings.hideScrollElement;
+        this.settings = settings;
 
-        if (this.hideScrollElement) {
-            this.hideScrollElement.style.overflow = 'hidden';
-        }
+        this.goto(settings.index || 0);
 
-        this.goto(this.index);
-        this.refresh();
+        if (settings.snap !== false) {
+            this.snap();
 
-        //Refresh on scroll and resize
-        this.element.addEventListener(
-            'scroll',
-            debounce(() => this.refresh(), 100)
-        );
-        window.addEventListener('resize', debounce(() => this.refresh(), 100));
+            this.element.addEventListener(
+                'scroll',
+                debounce(() => this.snap(), 100)
+            );
 
-        //Remove scroll
-        if (this.hideScrollElement) {
-            window.addEventListener('load', e => {
-                this.element.style.marginBottom = `-${this.element
-                    .offsetHeight - this.element.clientHeight}px`;
-            });
+            window.addEventListener('resize', debounce(() => this.snap(), 100));
         }
     }
 
@@ -74,6 +64,10 @@ export default class Carrousel {
             return;
         }
 
+        if (this.index !== undefined) {
+            d.trigger('leave', this.slides[this.index]);
+        }
+
         this.index = index;
 
         if (this.element.scroll) {
@@ -84,6 +78,8 @@ export default class Carrousel {
         } else {
             this.element.scrollLeft = x;
         }
+
+        d.trigger('enter', this.slides[this.index]);
     }
 
     getIndex(position) {
@@ -120,7 +116,7 @@ export default class Carrousel {
         return position;
     }
 
-    refresh() {
+    snap() {
         const el = this.element;
         const x = el.scrollLeft;
 
@@ -151,10 +147,6 @@ export default class Carrousel {
 
         if (left !== x) {
             this.goto(index);
-        }
-
-        if (this.hideScrollElement) {
-            el.style.marginBottom = `-${el.offsetHeight - el.clientHeight}px`;
         }
     }
 }

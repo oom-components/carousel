@@ -113,7 +113,7 @@ myCarrousel.player.play();
 Name | Type | Default | Description
 -----|------|---------|------------
 **index** | `integer` | `0` | The 0-based position of the initial slide visible
-**hideScrollElement** | `HTMLElement` | `undefined` | The parent element used to hide the scroll
+**snap** | `bool` | `true` | Whether snap the scroll position to the slides or not.
 
 ## Player
 
