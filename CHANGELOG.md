@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.7.0 - 2017-11-27
+
+### Improved
+
+* Improved the html using some recomendations from https://inclusive-components.design/a-content-slider/
+
+### Removed
+
+* Removed all options (`snap` and `index`).
+* Removed unused dependency PEP
+
+### Changed
+
+* Simplified the html structure. The carrousel uses only a simply `<ul>` element.
+* Fake snap will be used if **css scroll snap points** are not detected/supported
+* Fixed progressive enharcement in IE9
+
 ## 0.6.0 - 2017-11-20
 
 ### Added

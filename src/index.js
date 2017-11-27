@@ -3,7 +3,7 @@ import Player from './Player';
 import debounce from 'lodash.debounce';
 
 export default class Carrousel {
-    constructor(element, settings = {}) {
+    constructor(element) {
         if (!('scroll' in Element.prototype)) {
             console.log(
                 '[pw-carrusel]: Missing Element.prototype.scroll. Consider using a polyfill'
@@ -11,21 +11,39 @@ export default class Carrousel {
         }
 
         this.element = element;
-        this.tray = element.firstElementChild;
-        this.slides = Array.prototype.slice.call(this.tray.children);
-        this.settings = settings;
 
-        this.goto(settings.index || 0);
+        //To calculate the offset of slides relative to the document
+        if (d.css(this.element, 'position') === 'static') {
+            d.css(this.element, 'position', 'relative');
+        }
 
-        if (settings.snap !== false) {
-            this.snap();
+        this.slides = d.getAll(':scope > *', this.element);
+
+        if (
+            !d.css(this.element, 'scroll-snap-type') &&
+            !d.css(this.element, 'scroll-snap-points-x')
+        ) {
+            this.goto('current');
 
             this.element.addEventListener(
                 'scroll',
-                debounce(() => this.snap(), 100)
+                debounce(() => this.goto('current'), 100)
             );
 
-            window.addEventListener('resize', debounce(() => this.snap(), 100));
+            window.addEventListener(
+                'resize',
+                debounce(() => this.goto('current'), 100)
+            );
+        }
+    }
+
+    get current() {
+        for (let i in this.slides) {
+            const slide = this.slides[i];
+
+            if (slide.offsetLeft >= this.element.scrollLeft) {
+                return slide;
+            }
         }
     }
 
@@ -38,115 +56,55 @@ export default class Carrousel {
     }
 
     goto(position) {
-        const index = this.getIndex(position);
+        const slide = this.getSlide(position);
 
-        let x = this.slides.slice(0, index).reduce((x, slide) => {
-            const style = getComputedStyle(slide);
-            return (
-                x +
-                slide.getBoundingClientRect().width +
-                parseInt(style.marginLeft) +
-                parseInt(style.marginRight)
-            );
-        }, 0);
-
-        if (position !== 0) {
-            const trayStyle = getComputedStyle(this.tray);
-            x +=
-                parseInt(trayStyle.paddingLeft) +
-                parseInt(trayStyle.marginLeft) +
-                parseInt(trayStyle.borderLeftWidth);
-        }
-
-        x = Math.min(x, this.element.scrollWidth - this.element.clientWidth);
-
-        if (x === this.element.scrollLeft && index > this.index) {
-            return;
-        }
-
-        if (this.index !== undefined) {
-            d.trigger('leave', this.slides[this.index]);
-        }
-
-        this.index = index;
-
-        if (this.element.scroll) {
+        try {
             this.element.scroll({
-                left: x,
+                left: slide.offsetLeft,
                 behavior: 'smooth'
             });
-        } else {
-            this.element.scrollLeft = x;
+        } catch (err) {
+            this.element.scrollLeft = slide.offsetLeft;
         }
-
-        d.trigger('enter', this.slides[this.index]);
     }
 
-    getIndex(position) {
+    getSlide(position) {
+        if (Array.prototype.indexOf.call(this.slides, position) !== -1) {
+            return position;
+        }
+
         if (position === undefined || position === 'current') {
-            return this.index;
+            return this.current;
         }
 
         if (position === 'first') {
-            return 0;
+            return this.slides[0];
         }
 
         if (position === 'last') {
-            return this.slides.length - 1;
+            return this.slides[this.slides.length - 1];
         }
+
+        let index = Array.prototype.indexOf.call(this.slides, this.current);
 
         if (typeof position === 'string') {
             if (/^\+[0-9]+$/.test(position)) {
-                position = this.index + parseInt(position.substr(1), 10);
+                index += parseInt(position.substr(1), 10);
             } else if (/^\-[0-9]+$/.test(position)) {
-                position = this.index - parseInt(position.substr(1), 10);
+                index -= parseInt(position.substr(1), 10);
             } else {
-                position = parseInt(position);
+                index = parseInt(position);
             }
         }
 
-        if (position < 0) {
-            return 0;
+        if (index < 0) {
+            return this.getSlide('first');
         }
 
-        if (position >= this.slides.length) {
-            return this.slides.length - 1;
+        if (index >= this.slides.length) {
+            return this.slides[this.slides.length - 1];
         }
 
-        return position;
-    }
-
-    snap() {
-        const el = this.element;
-        const x = el.scrollLeft;
-
-        if (
-            el.scrollLeft + el.getBoundingClientRect().width ===
-            el.scrollWidth
-        ) {
-            return;
-        }
-
-        let left = 0;
-        let index = 0;
-
-        while (this.slides[index]) {
-            const slide = this.slides[index];
-            const style = getComputedStyle(slide);
-            left +=
-                slide.offsetWidth +
-                parseInt(style.marginLeft) +
-                parseInt(style.marginRight);
-
-            if (left - slide.offsetWidth / 2 > x) {
-                break;
-            }
-
-            ++index;
-        }
-
-        if (left !== x) {
-            this.goto(index);
-        }
+        return this.slides[index];
     }
 }

@@ -40,20 +40,18 @@ npm install pw-carrousel
 Let's start with the following html code:
 
 ```html
-<div class="carrousel">
-    <ul>
-        <li><img src="http://placehold.it/500x300"></li>
-        <li><img src="http://placehold.it/500x300"></li>
-        <li><img src="http://placehold.it/500x300"></li>
-        <li><img src="http://placehold.it/500x300"></li>
-        <li><img src="http://placehold.it/500x300"></li>
-        <li><img src="http://placehold.it/500x300"></li>
-        <li><img src="http://placehold.it/500x300"></li>
-        <li><img src="http://placehold.it/500x300"></li>
-        <li><img src="http://placehold.it/500x300"></li>
-        <li><img src="http://placehold.it/500x300"></li>
-    </ul>
-</div>
+<ul class="carrousel" role="region" aria-label="Gallery" tabindex="0">
+    <li><img src="http://placehold.it/500x300"></li>
+    <li><img src="http://placehold.it/500x300"></li>
+    <li><img src="http://placehold.it/500x300"></li>
+    <li><img src="http://placehold.it/500x300"></li>
+    <li><img src="http://placehold.it/500x300"></li>
+    <li><img src="http://placehold.it/500x300"></li>
+    <li><img src="http://placehold.it/500x300"></li>
+    <li><img src="http://placehold.it/500x300"></li>
+    <li><img src="http://placehold.it/500x300"></li>
+    <li><img src="http://placehold.it/500x300"></li>
+</ul>
 
 <button class="carrousel-next">Previous</button>
 <button class="carrousel-prev">Next</button>
@@ -67,14 +65,12 @@ Use css to define the carrousel appearance:
 .carrousel {
     width: 100%;
     overflow-x: scroll; /* this is important */
-}
-.carrousel ul {
     display: flex;
     list-style: none;
     margin: 0;
     padding: 0;
 }
-.carrousel li {
+.carrousel > li {
     padding: 2px;
     flex: 0 0 auto;
 }
@@ -88,32 +84,24 @@ And finally use javascript for a complete experience:
 import Carrousel from 'pw-carrousel';
 
 //Init the carrousel
-const div = document.querySelector('.carrousel');
-const myCarrousel = new Carrousel(div);
+const slider = new Carrousel(document.querySelector('.carrousel'));
 
 //Navigate
 document.querySelector('.carrousel-next')
     .addEventListener('click', event => {
-        myCarrousel.move('+1');
-        myCarrousel.player.stop();
+        slider.goto('+1');
+        slider.player.stop();
     });
 
 document.querySelector('.carrousel-prev')
     .addEventListener('click', event => {
-        myCarrousel.move('-1');
-        myCarrousel.player.stop();
+        slider.goto('-1');
+        slider.player.stop();
     });
 
 //Autoplay
-myCarrousel.player.play();
+slider.player.play();
 ```
-
-## Settings
-
-Name | Type | Default | Description
------|------|---------|------------
-**index** | `integer` | `0` | The 0-based position of the initial slide visible
-**snap** | `bool` | `true` | Whether snap the scroll position to the slides or not.
 
 ## Player
 
@@ -121,13 +109,13 @@ Use the property `player` to access to the player in order to init a slideshow. 
 
 ```js
 //Start the slideshow
-myCarrousel.player.play();
+slider.player.play();
 
 //Start the slideshow with 10 seconds to wait between slides
-myCarrousel.player.play(10000);
+slider.player.play(10000);
 
 //Stop
-myCarrousel.player.stop();
+slider.player.stop();
 ```
 
 ## goto
@@ -135,16 +123,13 @@ myCarrousel.player.stop();
 Moves the slide to other position:
 
 ```js
-myCarrousel.goto(3); //go to slider 3
-myCarrousel.goto('+1'); //move one slider forward (slider 4)
-myCarrousel.goto('-2'); //move two sliders backward (slider 2)
-myCarrousel.goto('first'); //go to first slider
-myCarrousel.goto('last'); //go to the last slider
+slider.goto(3); //go to slider 3
+slider.goto('+1'); //move one slider forward (slider 4)
+slider.goto('-2'); //move two sliders backward (slider 2)
+slider.goto('first'); //go to first slider
+slider.goto('last'); //go to the last slider
+slider.goto('current'); //go to the current slider (refresh the position)
 ```
-
-## refresh
-
-Refresh the position of the tray to snap to the sliders. It's executed automatically when it's needed.
 
 ## Demo
 

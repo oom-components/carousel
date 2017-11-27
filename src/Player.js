@@ -3,22 +3,19 @@ export default class Player {
         this.carrousel = carrousel;
         this.interval = 5000;
         this.direction = '+1';
-        this.lastIndex = carrousel.index;
         this.isPlaying = false;
     }
 
     play(interval = this.interval) {
         const go = () => {
-            let index = this.carrousel.getIndex(this.direction);
+            let slide = this.carrousel.getSlide(this.direction);
 
-            if (index === this.lastIndex) {
+            if (slide === this.carrousel.current) {
                 this.direction = this.direction === '+1' ? '-1' : '+1';
-                index = this.carrousel.getIndex(this.direction);
+                slide = this.carrousel.getSlide(this.direction);
             }
 
-            this.carrousel.goto(index);
-            this.lastIndex = index;
-
+            this.carrousel.goto(slide);
             this.play();
         };
 

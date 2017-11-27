@@ -1,4 +1,3 @@
-require('pepjs');
 require('smoothscroll-polyfill').polyfill();
 
 import Carrousel from '../src';
@@ -6,8 +5,7 @@ import Carrousel from '../src';
 const element = document.querySelector('.carrousel');
 
 const carrousel = new Carrousel(element, {
-    index: 0,
-    hideScrollElement: element.parentElement
+    snap: 'auto'
 });
 
 window.carrousel = carrousel;
@@ -22,4 +20,4 @@ document.querySelector('.carrousel-prev').addEventListener('click', () => {
     carrousel.player.stop();
 });
 
-carrousel.player.play();
+//carrousel.player.play();

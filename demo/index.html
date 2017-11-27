@@ -5,25 +5,32 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <style type="text/css">
-section {
-	margin-bottom: 2rem;
-	padding-bottom: 2rem;
-	border-bottom: solid 3px #CCC;
+
+.carrousel-wrapper {
+	/* hide scrollbar */
+	overflow-y: hidden;
 }
+
 .carrousel {
 	width: 100%;
 	overflow-x: auto;
-}
-.carrousel ul {
 	display: flex;
 	list-style: none;
 	margin: 0;
-	padding: 10px;
-	transition: transform .5s;
+	padding: 0;
+
+	/* hide scrollbar */
+	padding-bottom: 40px;
+	margin-bottom: -40px;
+
+	/* scroll snap points */
+	scroll-snap-type: mandatory;
+  	scroll-snap-points-x: repeat(404px);
 }
 .carrousel li {
 	padding: 2px;
 	flex: 0 0 400px;
+	scroll-snap-align: start;
 }
 img {
 	display: block;
@@ -32,87 +39,64 @@ img {
 
 <body>
 	<h1>Demo carrousel</h1>
+
 	<div class="carrousel-wrapper">
-		<div class="carrousel">
-			<ul>
-				<li>
-					<a href="http://wikipedia.com" target="_blank">
-						<p>
-							<img src="http://placehold.it/400x200" alt="">
-						</p>
-					</a>
-				</li>
-				<li>
-					<a href="http://wikipedia.com" target="_blank">
-						<p>
-							<img src="http://placehold.it/400x201" alt="">
-						</p>
-					</a>
-				</li>
-				<li>
-					<a href="http://wikipedia.com" target="_blank">
-						<p>
-							<img src="http://placehold.it/400x202" alt="">
-						</p>
-					</a>
-				</li>
-				<li>
-					<a href="http://wikipedia.com" target="_blank">
-						<p>
-							<img src="http://placehold.it/400x203" alt="">
-						</p>
-					</a>
-				</li>
-				<li>
-					<a href="http://wikipedia.com" target="_blank">
-						<p>
-							<img src="http://placehold.it/400x204" alt="">
-						</p>
-					</a>
-				</li>
-				<li>
-					<a href="http://wikipedia.com" target="_blank">
-						<p>
-							<img src="http://placehold.it/400x205" alt="">
-						</p>
-					</a>
-				</li>
-				<li>
-					<a href="http://wikipedia.com" target="_blank">
-						<p>
-							<img src="http://placehold.it/400x206" alt="">
-						</p>
-					</a>
-				</li>
-				<li>
-					<a href="http://wikipedia.com" target="_blank">
-						<p>
-							<img src="http://placehold.it/400x207" alt="">
-						</p>
-					</a>
-				</li>
-				<li>
-					<a href="http://wikipedia.com" target="_blank">
-						<p>
-							<img src="http://placehold.it/400x208" alt="">
-						</p>
-					</a>
-				</li>
-				<li>
-					<a href="http://wikipedia.com" target="_blank">
-						<p>
-							<img src="http://placehold.it/400x209" alt="">
-						</p>
-					</a>
-				</li>
-			</ul>
-		</div>
+		<ul class="carrousel" role="region" aria-label="Gallery" tabindex="0">
+			<li>
+				<a href="http://wikipedia.com" target="_blank">
+					<img src="http://placehold.it/400x200" alt="">
+				</a>
+			</li>
+			<li>
+				<a href="http://wikipedia.com" target="_blank">
+					<img src="http://placehold.it/400x201" alt="">
+				</a>
+			</li>
+			<li>
+				<a href="http://wikipedia.com" target="_blank">
+					<img src="http://placehold.it/400x202" alt="">
+				</a>
+			</li>
+			<li>
+				<a href="http://wikipedia.com" target="_blank">
+					<img src="http://placehold.it/400x203" alt="">
+				</a>
+			</li>
+			<li>
+				<a href="http://wikipedia.com" target="_blank">
+					<img src="http://placehold.it/400x204" alt="">
+				</a>
+			</li>
+			<li>
+				<a href="http://wikipedia.com" target="_blank">
+					<img src="http://placehold.it/400x205" alt="">
+				</a>
+			</li>
+			<li>
+				<a href="http://wikipedia.com" target="_blank">
+					<img src="http://placehold.it/400x206" alt="">
+				</a>
+			</li>
+			<li>
+				<a href="http://wikipedia.com" target="_blank">
+					<img src="http://placehold.it/400x207" alt="">
+				</a>
+			</li>
+			<li>
+				<a href="http://wikipedia.com" target="_blank">
+					<img src="http://placehold.it/400x208" alt="">
+				</a>
+			</li>
+			<li>
+				<a href="http://wikipedia.com" target="_blank">
+					<img src="http://placehold.it/400x209" alt="">
+				</a>
+			</li>
+		</ul>
 	</div>
 
 	<button class="carrousel-prev">Prev</button>
 	<button class="carrousel-next">Next</button>
-
-	<div style="height: 100vh">force scroll vertical</div>
 
 	<script type="text/javascript" src="script.dist.js"></script>
 </body>
