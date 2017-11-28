@@ -1,6 +1,5 @@
 import d from 'd_js';
 import Player from './Player';
-import debounce from 'lodash.debounce';
 
 export default class Carousel {
     constructor(element) {
@@ -139,4 +138,17 @@ function scrollSnapSupported(el) {
     }
 
     return false;
+}
+
+function debounce(fn, wait) {
+    let timeout;
+
+    return function () {
+        const later = function() {
+            timeout = null;
+            fn();
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
 }

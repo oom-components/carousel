@@ -11,9 +11,10 @@ Carousel with the following features:
   * **No need to wait for javascript** to build the carousel.
   * No styles or themes are provided with this package. **You decide how the carousel must look**.
 * Responsive:
-  * **Support for touch devices**
+  * Support for **touch devices**
+  * Support for keyboard and native scroll
   * **Flexible.** Works in all screen sizes
-  * **Light and fast**
+  * **Light and fast** Just ~4Kb (not minified)
 * Modern:
   * Build with ES6 and modern tools (webpack, babel, etc)
   * Easy to extend and adapt to your needs
