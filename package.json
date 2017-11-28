@@ -27,10 +27,9 @@
   },
   "homepage": "https://github.com/progressive-web-components/carousel#readme",
   "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-core": "^6.24.1",
-    "babel-loader": "^7.0.0",
-    "babel-preset-es2015": "^6.24.1",
+    "@babel/core": "^7.0.0-beta.32",
+    "@babel/preset-env": "^7.0.0-beta.32",
+    "babel-loader": "8.0.0-beta.0",
     "gh-pages": "^1.1.0",
     "prettier": "^1.4.1",
     "smoothscroll-polyfill": "^0.4.0",

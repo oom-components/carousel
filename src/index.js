@@ -19,10 +19,7 @@ export default class Carousel {
 
         this.slides = d.getAll(':scope > *', this.element);
 
-        if (
-            !d.css(this.element, 'scroll-snap-type') &&
-            !d.css(this.element, 'scroll-snap-points-x')
-        ) {
+        if (!scrollSnapSupported(this.element)) {
             this.goto('current');
 
             this.element.addEventListener(
@@ -35,13 +32,28 @@ export default class Carousel {
                 debounce(() => this.goto('current'), 100)
             );
         }
+
+        d.on('keydown', this.element, e => {
+            switch (e.keyCode) {
+                case 37: //left
+                    this.goto('-1');
+                    e.preventDefault();
+                    break;
+
+                case 39: //left
+                    this.goto('+1');
+                    e.preventDefault();
+                    break;
+            }
+        });
     }
 
     get current() {
         for (let i in this.slides) {
             const slide = this.slides[i];
+            const range = slide.offsetLeft + slide.offsetWidth / 3;
 
-            if (slide.offsetLeft >= this.element.scrollLeft) {
+            if (range >= this.element.scrollLeft) {
                 return slide;
             }
         }
@@ -107,4 +119,24 @@ export default class Carousel {
 
         return this.slides[index];
     }
+}
+
+//Check support for CSS scroll snap points
+function scrollSnapSupported(el) {
+    //Old spec
+    const value = d.css(el, 'scroll-snap-points-x');
+
+    if (value) {
+        return value !== 'none';
+    }
+
+    //New spec
+    if (
+        d.css(el, 'scroll-snap-type') &&
+        d.css(el.firstElementChild, 'scroll-snap-align')
+    ) {
+        return true;
+    }
+
+    return false;
 }

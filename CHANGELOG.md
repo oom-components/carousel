@@ -12,7 +12,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
-* TODO: Keyboard support
+* Keyboard support
+
+### Fixed
+
+* Improved snapping
 
 ## 0.7.0 - 2017-11-27
 
