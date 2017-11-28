@@ -143,7 +143,7 @@ function scrollSnapSupported(el) {
 function debounce(fn, wait) {
     let timeout;
 
-    return function () {
+    return function() {
         const later = function() {
             timeout = null;
             fn();
