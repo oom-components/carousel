@@ -1,7 +1,7 @@
 {
-  "name": "pw-carrousel",
+  "name": "pw-carousel",
   "version": "0.7.0",
-  "description": "Carrousel built with progressive enhancement in mind",
+  "description": "Carousel built with progressive enhancement in mind",
   "main": "src/index.js",
   "scripts": {
     "start": "webpack --config demo/webpack.config.js --watch & http-server demo -c-1",
@@ -10,22 +10,22 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/progressive-web-components/carrousel.git"
+    "url": "git+https://github.com/progressive-web-components/carousel.git"
   },
   "keywords": [
     "progressive",
     "web",
     "component",
     "slider",
-    "carrousel",
+    "carousel",
     "es6"
   ],
   "author": "Oscar Otero <oom@oscarotero.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/progressive-web-components/carrousel/issues"
+    "url": "https://github.com/progressive-web-components/carousel/issues"
   },
-  "homepage": "https://github.com/progressive-web-components/carrousel#readme",
+  "homepage": "https://github.com/progressive-web-components/carousel#readme",
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",

@@ -1,6 +1,6 @@
-# PW Carrousel
+# PW Carousel
 
-Carrousel with the following features:
+Carousel with the following features:
 
 * Follows the progressive enhancement strategy:
   * **Works** with just `html`
@@ -8,8 +8,8 @@ Carrousel with the following features:
   * **Works much better** with `html`, `css` and `js`
 * CSS powered:
   * **High performance:** Use native scroll to move the elements.
-  * **No need to wait for javascript** to build the carrousel.
-  * No styles or themes are provided with this package. **You decide how the carrousel must look**.
+  * **No need to wait for javascript** to build the carousel.
+  * No styles or themes are provided with this package. **You decide how the carousel must look**.
 * Responsive:
   * **Support for touch devices**
   * **Flexible.** Works in all screen sizes
@@ -22,7 +22,7 @@ Carrousel with the following features:
 
 Requirements:
 
-* NPM or Yarn to install [the package and the dependencies](https://www.npmjs.com/package/pw-carrousel)
+* NPM or Yarn to install [the package and the dependencies](https://www.npmjs.com/package/pw-carousel)
 * Webpack (or any other javascript loader)
 
 Polyfills:
@@ -30,7 +30,7 @@ Polyfills:
 It's recommended to use [the Scroll Behaviour polyfill](https://github.com/iamdustan/smoothscroll) to [have better support for more browsers](https://caniuse.com/#feat=css-scroll-behavior)
 
 ```sh
-npm install pw-carrousel
+npm install pw-carousel
 ```
 
 ## Usage
@@ -40,7 +40,7 @@ npm install pw-carrousel
 Let's start with the following html code:
 
 ```html
-<ul class="carrousel" role="region" aria-label="Gallery" tabindex="0">
+<ul class="carousel" role="region" aria-label="Gallery" tabindex="0">
     <li><img src="http://placehold.it/500x300"></li>
     <li><img src="http://placehold.it/500x300"></li>
     <li><img src="http://placehold.it/500x300"></li>
@@ -53,16 +53,16 @@ Let's start with the following html code:
     <li><img src="http://placehold.it/500x300"></li>
 </ul>
 
-<button class="carrousel-next">Previous</button>
-<button class="carrousel-prev">Next</button>
+<button class="carousel-next">Previous</button>
+<button class="carousel-prev">Next</button>
 ```
 
 ### CSS
 
-Use css to define the carrousel appearance:
+Use css to define the carousel appearance:
 
 ```css
-.carrousel {
+.carousel {
     width: 100%;
     overflow-x: scroll; /* this is important */
     display: flex;
@@ -70,7 +70,7 @@ Use css to define the carrousel appearance:
     margin: 0;
     padding: 0;
 }
-.carrousel > li {
+.carousel > li {
     padding: 2px;
     flex: 0 0 auto;
 }
@@ -81,19 +81,19 @@ Use css to define the carrousel appearance:
 And finally use javascript for a complete experience:
 
 ```js
-import Carrousel from 'pw-carrousel';
+import Carousel from 'pw-carousel';
 
-//Init the carrousel
-const slider = new Carrousel(document.querySelector('.carrousel'));
+//Init the carousel
+const slider = new Carousel(document.querySelector('.carousel'));
 
 //Navigate
-document.querySelector('.carrousel-next')
+document.querySelector('.carousel-next')
     .addEventListener('click', event => {
         slider.goto('+1');
         slider.player.stop();
     });
 
-document.querySelector('.carrousel-prev')
+document.querySelector('.carousel-prev')
     .addEventListener('click', event => {
         slider.goto('-1');
         slider.player.stop();

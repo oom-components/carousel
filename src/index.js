@@ -2,11 +2,11 @@ import d from 'd_js';
 import Player from './Player';
 import debounce from 'lodash.debounce';
 
-export default class Carrousel {
+export default class Carousel {
     constructor(element) {
         if (!('scroll' in Element.prototype)) {
             console.log(
-                '[pw-carrusel]: Missing Element.prototype.scroll. Consider using a polyfill'
+                '[pw-carusel]: Missing Element.prototype.scroll. Consider using a polyfill'
             );
         }
 

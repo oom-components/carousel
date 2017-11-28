@@ -1,6 +1,6 @@
 export default class Player {
-    constructor(carrousel) {
-        this.carrousel = carrousel;
+    constructor(carousel) {
+        this.carousel = carousel;
         this.interval = 5000;
         this.direction = '+1';
         this.isPlaying = false;
@@ -8,14 +8,14 @@ export default class Player {
 
     play(interval = this.interval) {
         const go = () => {
-            let slide = this.carrousel.getSlide(this.direction);
+            let slide = this.carousel.getSlide(this.direction);
 
-            if (slide === this.carrousel.current) {
+            if (slide === this.carousel.current) {
                 this.direction = this.direction === '+1' ? '-1' : '+1';
-                slide = this.carrousel.getSlide(this.direction);
+                slide = this.carousel.getSlide(this.direction);
             }
 
-            this.carrousel.goto(slide);
+            this.carousel.goto(slide);
             this.play();
         };
 

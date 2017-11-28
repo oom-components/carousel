@@ -1,23 +1,23 @@
 require('smoothscroll-polyfill').polyfill();
 
-import Carrousel from '../src';
+import Carousel from '../src';
 
-const element = document.querySelector('.carrousel');
+const element = document.querySelector('.carousel');
 
-const carrousel = new Carrousel(element, {
+const carousel = new Carousel(element, {
     snap: 'auto'
 });
 
-window.carrousel = carrousel;
+window.carousel = carousel;
 
-document.querySelector('.carrousel-next').addEventListener('click', () => {
-    carrousel.goto('+1');
-    carrousel.player.stop();
+document.querySelector('.carousel-next').addEventListener('click', () => {
+    carousel.goto('+1');
+    carousel.player.stop();
 });
 
-document.querySelector('.carrousel-prev').addEventListener('click', () => {
-    carrousel.goto('-1');
-    carrousel.player.stop();
+document.querySelector('.carousel-prev').addEventListener('click', () => {
+    carousel.goto('-1');
+    carousel.player.stop();
 });
 
-//carrousel.player.play();
+//carousel.player.play();

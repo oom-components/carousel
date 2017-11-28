@@ -6,12 +6,12 @@
 </head>
 <style type="text/css">
 
-.carrousel-wrapper {
+.carousel-wrapper {
 	/* hide scrollbar */
 	overflow-y: hidden;
 }
 
-.carrousel {
+.carousel {
 	width: 100%;
 	overflow-x: auto;
 	display: flex;
@@ -27,7 +27,7 @@
 	scroll-snap-type: mandatory;
   	scroll-snap-points-x: repeat(404px);
 }
-.carrousel li {
+.carousel li {
 	padding: 2px;
 	flex: 0 0 400px;
 	scroll-snap-align: start;
@@ -38,10 +38,10 @@ img {
 </style>
 
 <body>
-	<h1>Demo carrousel</h1>
+	<h1>Demo carousel</h1>
 
-	<div class="carrousel-wrapper">
-		<ul class="carrousel" role="region" aria-label="Gallery" tabindex="0">
+	<div class="carousel-wrapper">
+		<ul class="carousel" role="region" aria-label="Gallery" tabindex="0">
 			<li>
 				<a href="http://wikipedia.com" target="_blank">
 					<img src="http://placehold.it/400x200" alt="">
@@ -95,8 +95,8 @@ img {
 		</ul>
 	</div>
 
-	<button class="carrousel-prev">Prev</button>
-	<button class="carrousel-next">Next</button>
+	<button class="carousel-prev">Prev</button>
+	<button class="carousel-next">Next</button>
 
 	<script type="text/javascript" src="script.dist.js"></script>
 </body>
