@@ -2,6 +2,8 @@
 
 Carousel with the following features:
 
+* **No dependencies**
+* **Light** Just ~5Kb (not minified, excluding polyfills)
 * Follows the progressive enhancement strategy:
   * **Works** with just `html`
   * **Works better** with `html` and `css`
@@ -10,21 +12,15 @@ Carousel with the following features:
   * **High performance:** Use native scroll to move the elements.
   * **No need to wait for javascript** to build the carousel.
   * No styles or themes are provided with this package. **You decide how the carousel must look**.
-* Responsive:
-  * Support for **touch devices**
-  * Support for keyboard and native scroll
-  * **Flexible.** Works in all screen sizes
-  * **Light and fast** Just ~4Kb (not minified)
-* Modern:
-  * Build with ES6 and modern tools (webpack, babel, etc)
-  * Easy to extend and adapt to your needs
+* Support for **touch devices**
+* Support for keyboard and native scroll
+* **Build with ES6**, so you have to use a transpiler for old browser support
 
 ## Install
 
 Requirements:
 
-* NPM or Yarn to install [the package and the dependencies](https://www.npmjs.com/package/pw-carousel)
-* Webpack (or any other javascript loader)
+* NPM or Yarn to install [the package](https://www.npmjs.com/package/pw-carousel)
 
 Polyfills:
 

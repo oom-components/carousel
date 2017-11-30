@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 * Keyboard support
 
+### Removed
+
+* Removed dependency of `d_js`. You can install it for yourself or use [other dom4 polyfill](https://github.com/WebReflection/dom4) to have support for old browsers
+
 ### Fixed
 
 * Improved snapping

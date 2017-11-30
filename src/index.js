@@ -1,4 +1,3 @@
-import d from 'd_js';
 import Player from './Player';
 
 export default class Carousel {
@@ -10,13 +9,12 @@ export default class Carousel {
         }
 
         this.element = element;
+        this.slides = this.element.children;
 
         //To calculate the offset of slides relative to the document
-        if (d.css(this.element, 'position') === 'static') {
-            d.css(this.element, 'position', 'relative');
+        if (getStyle(this.element, 'position') === 'static') {
+            this.element.style.position = 'relative';
         }
-
-        this.slides = d.getAll(':scope > *', this.element);
 
         if (!scrollSnapSupported(this.element)) {
             this.goto('current');
@@ -32,7 +30,7 @@ export default class Carousel {
             );
         }
 
-        d.on('keydown', this.element, e => {
+        this.element.addEventListener('keydown', e => {
             switch (e.keyCode) {
                 case 37: //left
                     this.goto('-1');
@@ -123,16 +121,15 @@ export default class Carousel {
 //Check support for CSS scroll snap points
 function scrollSnapSupported(el) {
     //Old spec
-    const value = d.css(el, 'scroll-snap-points-x');
+    const value = getStyle(el, 'scrollSnapPointsX');
 
     if (value) {
         return value !== 'none';
     }
 
     //New spec
-    if (
-        d.css(el, 'scroll-snap-type') &&
-        d.css(el.firstElementChild, 'scroll-snap-align')
+    if (getStyle(el, 'scrollSnapType') &&
+        getStyle(el.firstElementChild, 'scrollSnapAlign')
     ) {
         return true;
     }
@@ -151,4 +148,23 @@ function debounce(fn, wait) {
         clearTimeout(timeout);
         timeout = setTimeout(later, wait);
     };
+}
+
+function getStyle(el, name) {
+    const style = getComputedStyle(el);
+
+    if (name in style) {
+        return style[name];
+    }
+
+    name = name.charAt(0).toUpperCase() + name.slice(1);
+    const prefixes = ['Moz', 'Webkit', 'O', 'ms'];
+
+    for (var i = 0; i < prefixes.length; i++) {
+        let prop = prefixes[i] + name;
+
+        if (prop in style) {
+            return style[prop];
+        }
+    }
 }
