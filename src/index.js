@@ -128,7 +128,8 @@ function scrollSnapSupported(el) {
     }
 
     //New spec
-    if (getStyle(el, 'scrollSnapType') &&
+    if (
+        getStyle(el, 'scrollSnapType') &&
         getStyle(el.firstElementChild, 'scrollSnapAlign')
     ) {
         return true;
