@@ -67,13 +67,15 @@ export default class Carousel {
     goto(position) {
         const slide = this.getSlide(position);
 
-        try {
-            this.element.scroll({
-                left: slide.offsetLeft,
-                behavior: 'smooth'
-            });
-        } catch (err) {
-            this.element.scrollLeft = slide.offsetLeft;
+        if (slide) {
+            try {
+                this.element.scroll({
+                    left: slide.offsetLeft,
+                    behavior: 'smooth'
+                });
+            } catch (err) {
+                this.element.scrollLeft = slide.offsetLeft;
+            }
         }
     }
 
