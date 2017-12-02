@@ -126,13 +126,13 @@ function scrollSnapSupported(el) {
     const value = getStyle(el, 'scrollSnapPointsX');
 
     if (value) {
-        return value !== 'none';
+        return isNotNone(value);
     }
 
     //New spec
     if (
-        getStyle(el, 'scrollSnapType') &&
-        getStyle(el.firstElementChild, 'scrollSnapAlign')
+        isNotNone(getStyle(el, 'scrollSnapType')) &&
+        isNotNone(getStyle(el.firstElementChild, 'scrollSnapAlign'))
     ) {
         return true;
     }
@@ -170,4 +170,8 @@ function getStyle(el, name) {
             return style[prop];
         }
     }
+}
+
+function isNotNone(value) {
+    return value && value.replace(/none/g, '').trim();
 }

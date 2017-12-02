@@ -4,11 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## UNRELEASED
+## 0.8.1 - 2017-12-02
 
 ### Fixed
 
 * Fixed an exception if a slide is undefined
+* Fixed css snap points when it's supported but the value is "none"
 
 ## 0.8.0 - 2017-12-02
 
