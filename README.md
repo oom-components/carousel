@@ -19,14 +19,14 @@ Carousel with the following features:
 
 Requirements:
 
-* NPM or Yarn to install [the package](https://www.npmjs.com/package/pw-carousel)
+* NPM or Yarn to install [the package](https://www.npmjs.com/package/@oom/carousel)
 
 ## Polyfills:
 
 It's recommended to use [the Scroll Behaviour polyfill](https://github.com/iamdustan/smoothscroll) to [have better support for more browsers](https://caniuse.com/#feat=css-scroll-behavior)
 
 ```sh
-npm install pw-carousel
+npm install @oom/carousel
 ```
 
 ## Usage
@@ -77,7 +77,7 @@ Use css to define the carousel appearance:
 And finally use javascript for a complete experience:
 
 ```js
-import Carousel from 'pw-carousel';
+import Carousel from '@oom/carousel';
 
 //Init the carousel
 const slider = new Carousel(document.querySelector('.carousel'));
