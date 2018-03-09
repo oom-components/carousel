@@ -1,5 +1,5 @@
 /node_modules
-/demo/*.dist.*
+/demo/script.js
 /package-lock.json
 /yarn.lock
 /yarn-error.log

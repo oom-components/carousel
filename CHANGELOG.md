@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## UNRELEASED
+
+## Changed
+
+- Rename package to `@oom/carousel`
+- Updated dev dependencies to the latest version
+- Changed the file extension to `jsm` for compatibility with native es6 modules
+
 ## [0.8.1] - 2017-12-02
 
 ### Fixed

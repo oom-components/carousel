@@ -1,4 +1,4 @@
-import Player from './Player';
+import Player from './player.jsm';
 
 export default class Carousel {
     constructor(element) {
