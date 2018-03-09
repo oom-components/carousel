@@ -137,3 +137,5 @@ npm start
 ```
 
 You should see something in `http://localhost:8080/`
+
+There's an online demo here: https://oom-components.github.io/carousel/
