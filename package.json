@@ -5,7 +5,7 @@
   "main": "src/carousel.jsm",
   "scripts": {
     "start": "webpack --config demo/webpack.config.js --watch & http-server demo -c-1",
-    "prettier": "prettier src/*.js demo/script.js --single-quote --tab-width 4 --write",
+    "prettier": "prettier src/*.jsm demo/script.jsm --single-quote --tab-width 4 --write",
     "gh-pages": "webpack --config demo/webpack.config.js && gh-pages -d demo"
   },
   "repository": {
@@ -33,7 +33,6 @@
     "gh-pages": "^1.1.0",
     "http-server": "^0.11.1",
     "prettier": "^1.11.1",
-    "smoothscroll-polyfill": "^0.4.3",
     "webpack": "^4.1.0",
     "webpack-cli": "^2.0.10"
   }

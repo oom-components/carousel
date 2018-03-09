@@ -1,96 +1,71 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>@oom/carousel Demo</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<style type="text/css">
+		html {
+			font-family: -apple-system, system-ui, sans-serif;
+		}
+		.carousel-wrapper {
+			/* hide scrollbar (1/2) */
+			overflow-y: hidden;
+			margin: 5px 0;
+		}
+
+		.carousel {
+			width: 100%;
+			overflow-x: auto;
+			display: flex;
+			list-style: none;
+			padding: 0;
+			margin: 0;
+
+			/* hide scrollbar (2/2) */
+			padding-bottom: 40px;
+			margin-bottom: -40px;
+
+			/* scroll snap points */
+			scroll-snap-type: mandatory;
+
+			/* old spec (firefox) */
+			scroll-snap-points-x: repeat(404px);
+		}
+		.carousel li {
+			padding: 2px;
+			flex: 0 0 400px;
+			scroll-snap-align: start;
+		}
+		img {
+			display: block;
+		}
+		button {
+			font-size: 1em;
+			padding: .5em;
+			background: blue;
+			color: white;
+			border: none;
+			border-radius: 2px;
+		}
+	</style>
 </head>
-<style type="text/css">
-
-.carousel-wrapper {
-	/* hide scrollbar */
-	overflow-y: hidden;
-}
-
-.carousel {
-	width: 100%;
-	overflow-x: auto;
-	display: flex;
-	list-style: none;
-	margin: 0;
-	padding: 0;
-
-	/* hide scrollbar */
-	padding-bottom: 40px;
-	margin-bottom: -40px;
-
-	/* scroll snap points */
-	scroll-snap-type: mandatory;
-}
-.carousel li {
-	padding: 2px;
-	flex: 0 0 400px;
-	scroll-snap-align: start;
-}
-img {
-	display: block;
-}
-</style>
 
 <body>
 	<h1>Demo carousel</h1>
 
 	<div class="carousel-wrapper">
 		<ul class="carousel" role="region" aria-label="Gallery" tabindex="0">
-			<li id="first">
-				<a href="http://wikipedia.com" target="_blank">
-					<img src="http://placehold.it/400x200" alt="">
-				</a>
-			</li>
-			<li>
-				<a href="http://wikipedia.com" target="_blank">
-					<img src="http://placehold.it/400x201" alt="">
-				</a>
-			</li>
-			<li>
-				<a href="http://wikipedia.com" target="_blank">
-					<img src="http://placehold.it/400x202" alt="">
-				</a>
-			</li>
-			<li>
-				<a href="http://wikipedia.com" target="_blank">
-					<img src="http://placehold.it/400x203" alt="">
-				</a>
-			</li>
-			<li>
-				<a href="http://wikipedia.com" target="_blank">
-					<img src="http://placehold.it/400x204" alt="">
-				</a>
-			</li>
-			<li id="medium">
-				<a href="http://wikipedia.com" target="_blank">
-					<img src="http://placehold.it/400x205" alt="">
-				</a>
-			</li>
-			<li>
-				<a href="http://wikipedia.com" target="_blank">
-					<img src="http://placehold.it/400x206" alt="">
-				</a>
-			</li>
-			<li>
-				<a href="http://wikipedia.com" target="_blank">
-					<img src="http://placehold.it/400x207" alt="">
-				</a>
-			</li>
-			<li>
-				<a href="http://wikipedia.com" target="_blank">
-					<img src="http://placehold.it/400x208" alt="">
-				</a>
-			</li>
-			<li id="latest">
-				<a href="http://wikipedia.com" target="_blank">
-					<img src="http://placehold.it/400x209" alt="">
-				</a>
-			</li>
+			<li><img src="http://placehold.it/400x200" alt="Example"></li>
+			<li><img src="http://placehold.it/400x200" alt="Example"></li>
+			<li><img src="http://placehold.it/400x200" alt="Example"></li>
+			<li><img src="http://placehold.it/400x200" alt="Example"></li>
+			<li><img src="http://placehold.it/400x200" alt="Example"></li>
+			<li><img src="http://placehold.it/400x200" alt="Example"></li>
+			<li><img src="http://placehold.it/400x200" alt="Example"></li>
+			<li><img src="http://placehold.it/400x200" alt="Example"></li>
+			<li><img src="http://placehold.it/400x200" alt="Example"></li>
+			<li><img src="http://placehold.it/400x200" alt="Example"></li>
 		</ul>
 	</div>
 

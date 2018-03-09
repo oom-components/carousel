@@ -1,12 +1,38 @@
 import Player from './player.jsm';
 
 export default class Carousel {
-    constructor(element) {
-        if (!('scroll' in Element.prototype)) {
-            console.log(
-                '[pw-carusel]: Missing Element.prototype.scroll. Consider using a polyfill'
+    static checkElement(element) {
+        if (!('scroll' in element)) {
+            console.info(
+                '@oom/carusel [compatibility]:',
+                'Missing Element.prototype.scroll. Consider using a polyfill like "smoothscroll-polyfill"'
             );
         }
+
+        if (element.getAttribute('role') !== 'region') {
+            console.info(
+                '@oom/carusel [accesibility]:',
+                'Missing role="region" attribute in the carousel element'
+            );
+        }
+
+        if (!element.hasAttribute('aria-label')) {
+            console.info(
+                '@oom/carusel [accesibility]:',
+                'Missing aria-label attribute in the carousel element'
+            );
+        }
+
+        if (!element.hasAttribute('tabindex')) {
+            console.info(
+                '@oom/carusel [accesibility]:',
+                'Missing tabindex="0" attribute in the carousel element'
+            );
+        }
+    }
+
+    constructor(element) {
+        Carousel.checkElement(element);
 
         this.element = element;
         this.slides = this.element.children;
