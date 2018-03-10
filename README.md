@@ -3,7 +3,7 @@
 Carousel with the following features:
 
 * No dependencies
-* Light: Just ~5Kb (without minifying or polyfills)
+* Light: Less than 300 lines of code (including comments and spaces)
 * Follows the progressive **enhancement strategy:**
   * Works with just `html`
   * Works better with `html` and `css`
