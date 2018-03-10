@@ -47,12 +47,26 @@ export default class Carousel {
 
             this.element.addEventListener(
                 'scroll',
-                debounce(() => this.goto('current'), 100)
+                debounce(() => {
+                    if (
+                        !this.scrollIsAtTheBeginning() &&
+                        !this.scrollIsAtTheEnd()
+                    ) {
+                        this.goto('current');
+                    }
+                }, 100)
             );
 
             window.addEventListener(
                 'resize',
-                debounce(() => this.goto('current'), 100)
+                debounce(() => {
+                    if (
+                        !this.scrollIsAtTheBeginning() &&
+                        !this.scrollIsAtTheEnd()
+                    ) {
+                        this.goto('current');
+                    }
+                }, 100)
             );
         }
 
@@ -74,7 +88,8 @@ export default class Carousel {
     get current() {
         for (let i in this.slides) {
             const slide = this.slides[i];
-            const range = slide.offsetLeft + slide.offsetWidth / 3;
+            const range =
+                getCenter(slide, this.element) + slide.offsetWidth / 3;
 
             if (range >= this.element.scrollLeft) {
                 return slide;
@@ -94,13 +109,15 @@ export default class Carousel {
         const slide = this.getSlide(position);
 
         if (slide) {
+            const left = getCenter(slide, this.element);
+
             try {
                 this.element.scroll({
-                    left: slide.offsetLeft,
+                    left: left,
                     behavior: 'smooth'
                 });
             } catch (err) {
-                this.element.scrollLeft = slide.offsetLeft;
+                this.element.scrollLeft = left;
             }
         }
     }
@@ -143,6 +160,17 @@ export default class Carousel {
         }
 
         return this.slides[index];
+    }
+
+    scrollIsAtTheBeginning() {
+        return this.element.scrollLeft === 0;
+    }
+
+    scrollIsAtTheEnd() {
+        return (
+            this.element.scrollLeft >=
+            this.element.scrollWidth - this.element.clientWidth
+        );
     }
 }
 
@@ -200,4 +228,8 @@ function getStyle(el, name) {
 
 function isNotNone(value) {
     return value && value.replace(/none/g, '').trim();
+}
+
+function getCenter(slide, element) {
+    return slide.offsetLeft + (slide.clientWidth / 2 - element.clientWidth / 2);
 }

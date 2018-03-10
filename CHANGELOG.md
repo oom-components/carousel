@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [UNRELEASED]
+
+### Added
+
+- New function `scrollIsAtTheBeginning()` that returns whether the carousel scroll is at the beginning or not.
+- New function `scrollIsAtTheEnd()` that returns whether the carousel scroll is at the end or not.
+
+### Changed
+
+- The current slide is centered instead aligned to left
+
 ## [1.0.0-beta] - 2018-03-03
 
 ### Added
@@ -167,6 +178,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 First version with basic features
 
+[UNRELEASED]: https://github.com/progressive-web-components/carousel/compare/v1.0.0-beta...HEAD
 [1.0.0-beta]: https://github.com/progressive-web-components/carousel/compare/v0.8.1...v1.0.0-beta
 [0.8.1]: https://github.com/progressive-web-components/carousel/compare/v0.8.0...v0.8.1
 [0.8.0]: https://github.com/progressive-web-components/carousel/compare/v0.7.0...v0.8.0
