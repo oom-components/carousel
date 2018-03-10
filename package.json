@@ -1,6 +1,6 @@
 {
   "name": "@oom/carousel",
-  "version": "1.0.0-beta",
+  "version": "1.0.0-beta.2",
   "description": "Carousel built with progressive enhancement in mind",
   "main": "src/carousel.jsm",
   "scripts": {
