@@ -36,9 +36,19 @@
 			padding: 2px;
 			flex: 0 0 400px;
 			scroll-snap-align: start;
+			position: relative;
 		}
 		img {
 			display: block;
+		}
+		span {
+			position: absolute;
+			top: 33%;
+			width: 100%;
+			text-align: center;
+			left: 0;
+			font-weight: bold;
+			font-size: 3em;
 		}
 		button {
 			font-size: 1em;
@@ -56,21 +66,23 @@
 
 	<div class="carousel-wrapper">
 		<ul class="carousel" role="region" aria-label="Gallery" tabindex="0">
-			<li><img src="http://placehold.it/400x200" alt="Example"></li>
-			<li><img src="http://placehold.it/400x200" alt="Example"></li>
-			<li><img src="http://placehold.it/400x200" alt="Example"></li>
-			<li><img src="http://placehold.it/400x200" alt="Example"></li>
-			<li><img src="http://placehold.it/400x200" alt="Example"></li>
-			<li><img src="http://placehold.it/400x200" alt="Example"></li>
-			<li><img src="http://placehold.it/400x200" alt="Example"></li>
-			<li><img src="http://placehold.it/400x200" alt="Example"></li>
-			<li><img src="http://placehold.it/400x200" alt="Example"></li>
-			<li><img src="http://placehold.it/400x200" alt="Example"></li>
+			<li><img src="http://placehold.it/400x200" alt="Example"><span>1</span></li>
+			<li><img src="http://placehold.it/400x200" alt="Example"><span>2</span></li>
+			<li><img src="http://placehold.it/400x200" alt="Example"><span>3</span></li>
+			<li><img src="http://placehold.it/400x200" alt="Example"><span>4</span></li>
+			<li><img src="http://placehold.it/400x200" alt="Example"><span>5</span></li>
+			<li><img src="http://placehold.it/400x200" alt="Example"><span>6</span></li>
+			<li><img src="http://placehold.it/400x200" alt="Example"><span>7</span></li>
+			<li><img src="http://placehold.it/400x200" alt="Example"><span>8</span></li>
+			<li><img src="http://placehold.it/400x200" alt="Example"><span>9</span></li>
+			<li><img src="http://placehold.it/400x200" alt="Example"><span>10</span></li>
 		</ul>
 	</div>
 
+	<button class="carousel-prevpage">Prev page</button>
 	<button class="carousel-prev">Prev</button>
 	<button class="carousel-next">Next</button>
+	<button class="carousel-nextpage">Next page</button>
 
 	<script type="text/javascript" src="script.js" async></script>
 </body>

@@ -125,6 +125,8 @@ slider.goto('-2'); //move two sliders backward (slider 2)
 slider.goto('first'); //go to first slider
 slider.goto('last'); //go to the last slider
 slider.goto('current'); //go to the current slider (refresh the position)
+slider.goto('+50%'); //move the slider forward 50% of the carousel width
+slider.goto('-100%'); //move the slider backward 100% of the carousel width
 ```
 
 ## Demo

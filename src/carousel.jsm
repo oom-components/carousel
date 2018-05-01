@@ -2,10 +2,10 @@ import Player from './player.jsm';
 
 export default class Carousel {
     static checkElement(element) {
-        if (!('scroll' in element)) {
+        if (!('scroll' in element) || !('scrollBehavior' in element.style)) {
             console.info(
                 '@oom/carusel [compatibility]:',
-                'Missing Element.prototype.scroll. Consider using a polyfill like "smoothscroll-polyfill"'
+                'Missing smooth scrolling support. Consider using a polyfill like "smoothscroll-polyfill"'
             );
         }
 
@@ -77,7 +77,7 @@ export default class Carousel {
                     e.preventDefault();
                     break;
 
-                case 39: //left
+                case 39: //right
                     this.goto('+1');
                     e.preventDefault();
                     break;
@@ -86,15 +86,7 @@ export default class Carousel {
     }
 
     get current() {
-        for (let i in this.slides) {
-            const slide = this.slides[i];
-            const range =
-                getCenter(slide, this.element) + slide.offsetWidth / 3;
-
-            if (range >= this.element.scrollLeft) {
-                return slide;
-            }
-        }
+        return calculateSlide(this.slides, this.element);
     }
 
     get player() {
@@ -137,6 +129,35 @@ export default class Carousel {
 
         if (position === 'last') {
             return this.slides[this.slides.length - 1];
+        }
+
+        //Percentage
+        if (typeof position === 'string') {
+            if (/^\+[0-9]+%$/.test(position)) {
+                return calculateSlide(
+                    this.slides,
+                    this.element,
+                    this.element.scrollLeft +
+                        calculatePercentage(this.element, position)
+                );
+            }
+
+            if (/^\-[0-9]+%$/.test(position)) {
+                return calculateSlide(
+                    this.slides,
+                    this.element,
+                    this.element.scrollLeft -
+                        calculatePercentage(this.element, position)
+                );
+            }
+
+            if (/^\[0-9]+%$/.test(position)) {
+                return calculateSlide(
+                    this.slides,
+                    this.element,
+                    calculatePercentage(this.element, position)
+                );
+            }
         }
 
         let index = Array.prototype.indexOf.call(this.slides, this.current);
@@ -232,4 +253,26 @@ function isNotNone(value) {
 
 function getCenter(slide, element) {
     return slide.offsetLeft + (slide.clientWidth / 2 - element.clientWidth / 2);
+}
+
+function calculateSlide(slides, element, scrollLeft = element.scrollLeft) {
+    if (scrollLeft < 0) {
+        return slides[0];
+    }
+
+    if (scrollLeft >= element.scrollWidth - element.clientWidth) {
+        return slides[slides.length - 1];
+    }
+
+    for (let i in slides) {
+        const slide = slides[i];
+        const range = getCenter(slide, element) + slide.offsetWidth / 3;
+
+        if (range >= scrollLeft) {
+            return slide;
+        }
+    }
+}
+function calculatePercentage(element, percentage) {
+    return element.clientWidth / 100 * parseInt(percentage.slice(1, -1), 10);
 }

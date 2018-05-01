@@ -5,26 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [1.0.0-beta.2] - 2018-03-10
+## [1.0.0] - 2018-05-01
 
 ### Added
 
+- Added ability to move the carousel using percentages (ex: `carousel.goto("+100%")`)
 - New function `scrollIsAtTheBeginning()` that returns whether the carousel scroll is at the beginning or not.
 - New function `scrollIsAtTheEnd()` that returns whether the carousel scroll is at the end or not.
-
-### Changed
-
-- The current slide is centered instead aligned to left
-
-## [1.0.0-beta] - 2018-03-03
-
-### Added
-
 - Use `console.info` to display accesibility issues.
 
 ### Changed
 
 - Rename package to `@oom/carousel`
+- The current slide is centered instead aligned to left
 - Updated dev dependencies to the latest version
 - Changed the file extension to `jsm` for compatibility with native es6 modules
 
@@ -178,8 +171,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 First version with basic features
 
-[UNRELEASED]: https://github.com/progressive-web-components/carousel/compare/v1.0.0-beta...HEAD
-[1.0.0-beta]: https://github.com/progressive-web-components/carousel/compare/v0.8.1...v1.0.0-beta
+[1.0.0]: https://github.com/progressive-web-components/carousel/compare/v0.8.1...v1.0.0
 [0.8.1]: https://github.com/progressive-web-components/carousel/compare/v0.8.0...v0.8.1
 [0.8.0]: https://github.com/progressive-web-components/carousel/compare/v0.7.0...v0.8.0
 [0.7.0]: https://github.com/progressive-web-components/carousel/compare/v0.6.0...v0.7.0

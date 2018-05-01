@@ -1,4 +1,7 @@
+import smoothscroll from 'smoothscroll-polyfill';
 import Carousel from '../src/carousel.jsm';
+
+smoothscroll.polyfill();
 
 const carousel = new Carousel(document.querySelector('.carousel'));
 
@@ -9,3 +12,11 @@ document
 document
     .querySelector('.carousel-prev')
     .addEventListener('click', () => carousel.goto('-1'));
+
+document
+    .querySelector('.carousel-prevpage')
+    .addEventListener('click', () => carousel.goto('-100%'));
+
+document
+    .querySelector('.carousel-nextpage')
+    .addEventListener('click', () => carousel.goto('+100%'));
