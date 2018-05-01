@@ -20,13 +20,11 @@ Carousel with the following features:
 Requirements:
 
 * NPM or Yarn to install [the package](https://www.npmjs.com/package/@oom/carousel)
-
-## Polyfills:
-
-It's recommended to use [the Scroll Behaviour polyfill](https://github.com/iamdustan/smoothscroll) to [have better support for more browsers](https://caniuse.com/#feat=css-scroll-behavior)
+* It's recommended to use [the Scroll Behaviour polyfill](https://github.com/iamdustan/smoothscroll) to [have better support for more browsers](https://caniuse.com/#feat=css-scroll-behavior)
 
 ```sh
 npm install @oom/carousel
+npm install smoothscroll-polyfill
 ```
 
 ## Usage
