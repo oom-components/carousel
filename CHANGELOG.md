@@ -94,7 +94,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [0.4.1] - 2017-08-05
 
-* Upgraded `d_js` to 2.0.
+### Fixed
+
+- Upgraded `d_js` to 2.0.
 
 ## [0.4.0] - 2017-07-22
 
@@ -170,6 +172,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## 0.1.0 - 2017-06-04
 
 First version with basic features
+
 
 [1.0.0]: https://github.com/progressive-web-components/carousel/compare/v0.8.1...v1.0.0
 [0.8.1]: https://github.com/progressive-web-components/carousel/compare/v0.8.0...v0.8.1
