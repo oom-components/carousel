@@ -4,10 +4,8 @@
   "description": "Carousel built with progressive enhancement in mind",
   "main": "src/carousel.jsm",
   "scripts": {
-    "start": "http-server -c-1 -o=demo",
-    "test": "http-server -c-1",
-    "prettier": "prettier src/*.js demo/script.js --single-quote --tab-width 4 --write",
-    "gh-pages": "gh-pages -d "
+    "start": "http-server -c-1",
+    "prettier": "prettier src/*.js demo/*.js tests/*.js --single-quote --tab-width 4 --write"
   },
   "repository": {
     "type": "git",
@@ -32,7 +30,6 @@
     "gh-pages": "^1.2.0",
     "http-server": "^0.11.1",
     "mocha": "^5.2.0",
-    "prettier": "^1.13.5",
-    "smoothscroll-polyfill": "^0.4.3"
+    "prettier": "^1.13.5"
   }
 }

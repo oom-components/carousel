@@ -1,87 +1,87 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>@oom/carousel Demo</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@oom/carousel Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<style type="text/css">
-		html {
-			font-family: -apple-system, system-ui, sans-serif;
-		}
-		.carousel-wrapper {
-			/* hide scrollbar (1/2) */
-			overflow-y: hidden;
-			margin: 5px 0;
-		}
+    <style type="text/css">
+        html {
+            font-family: -apple-system, system-ui, sans-serif;
+        }
+        .carousel-wrapper {
+            /* hide scrollbar (1/2) */
+            overflow-y: hidden;
+            margin: 5px 0;
+        }
 
-		.carousel {
-			width: 100%;
-			overflow-x: auto;
-			display: flex;
-			list-style: none;
-			padding: 0;
-			margin: 0;
+        .carousel {
+            width: 100%;
+            overflow-x: auto;
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
 
-			/* hide scrollbar (2/2) */
-			padding-bottom: 40px;
-			margin-bottom: -40px;
+            /* hide scrollbar (2/2) */
+            padding-bottom: 40px;
+            margin-bottom: -40px;
 
-			/* scroll snap points */
-			scroll-snap-type: mandatory;
+            /* scroll snap points */
+            scroll-snap-type: mandatory;
 
-			/* old spec (firefox) */
-			/* scroll-snap-points-x: repeat(404px); */
-		}
-		.carousel li {
-			padding: 2px;
-			flex: 0 0 400px;
-			scroll-snap-align: start;
-			position: relative;
-		}
-		svg {
-			display: block;
-			width: 400px;
-			height: 200px;
-			background: #ddd;
-		}
-		text {
-			font: bold 30px sans-serif;
-		}
-		button {
-			font-size: 1em;
-			padding: .5em;
-			background: blue;
-			color: white;
-			border: none;
-			border-radius: 2px;
-		}
-	</style>
+            /* old spec (firefox) */
+            /* scroll-snap-points-x: repeat(404px); */
+        }
+        .carousel li {
+            padding: 2px;
+            flex: 0 0 400px;
+            scroll-snap-align: start;
+            position: relative;
+        }
+        svg {
+            display: block;
+            width: 400px;
+            height: 200px;
+            background: #ddd;
+        }
+        text {
+            font: bold 30px sans-serif;
+        }
+        button {
+            font-size: 1em;
+            padding: .5em;
+            background: blue;
+            color: white;
+            border: none;
+            border-radius: 2px;
+        }
+    </style>
 </head>
 
 <body>
-	<h1>Demo carousel</h1>
+    <h1>Demo carousel</h1>
 
-	<div class="carousel-wrapper">
-		<ul class="carousel" role="region" aria-label="Gallery" tabindex="0">
-			<li><svg viewBox="0 0 400 200"><text x="40" y="40">1</text></svg></li>
-			<li><svg viewBox="0 0 400 200"><text x="40" y="40">2</text></svg></li>
-			<li><svg viewBox="0 0 400 200"><text x="40" y="40">3</text></svg></li>
-			<li><svg viewBox="0 0 400 200"><text x="40" y="40">4</text></svg></li>
-			<li><svg viewBox="0 0 400 200"><text x="40" y="40">5</text></svg></li>
-			<li><svg viewBox="0 0 400 200"><text x="40" y="40">6</text></svg></li>
-			<li><svg viewBox="0 0 400 200"><text x="40" y="40">7</text></svg></li>
-			<li><svg viewBox="0 0 400 200"><text x="40" y="40">8</text></svg></li>
-			<li><svg viewBox="0 0 400 200"><text x="40" y="40">9</text></svg></li>
-			<li><svg viewBox="0 0 400 200"><text x="40" y="40">10</text></svg></li>
-		</ul>
-	</div>
+    <div class="carousel-wrapper">
+        <ul class="carousel" role="region" aria-label="Gallery" tabindex="0">
+            <li><svg viewBox="0 0 400 200"><text x="40" y="40">1</text></svg></li>
+            <li><svg viewBox="0 0 400 200"><text x="40" y="40">2</text></svg></li>
+            <li><svg viewBox="0 0 400 200"><text x="40" y="40">3</text></svg></li>
+            <li><svg viewBox="0 0 400 200"><text x="40" y="40">4</text></svg></li>
+            <li><svg viewBox="0 0 400 200"><text x="40" y="40">5</text></svg></li>
+            <li><svg viewBox="0 0 400 200"><text x="40" y="40">6</text></svg></li>
+            <li><svg viewBox="0 0 400 200"><text x="40" y="40">7</text></svg></li>
+            <li><svg viewBox="0 0 400 200"><text x="40" y="40">8</text></svg></li>
+            <li><svg viewBox="0 0 400 200"><text x="40" y="40">9</text></svg></li>
+            <li><svg viewBox="0 0 400 200"><text x="40" y="40">10</text></svg></li>
+        </ul>
+    </div>
 
-	<button class="carousel-prevpage">Prev page</button>
-	<button class="carousel-prev">Prev</button>
-	<button class="carousel-next">Next</button>
-	<button class="carousel-nextpage">Next page</button>
+    <button class="carousel-prevpage">Prev page</button>
+    <button class="carousel-prev">Prev</button>
+    <button class="carousel-next">Next</button>
+    <button class="carousel-nextpage">Next page</button>
 
-	<script type="text/javascript" src="../node_modules/smoothscroll-polyfill/dist/smoothscroll.min.js" async></script>
-	<script type="module" src="script.js" async></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/iamdustan/smoothscroll/v0.4.2/src/smoothscroll.js" async></script>
+    <script type="module" src="script.js" async></script>
 </body>
 </html>
