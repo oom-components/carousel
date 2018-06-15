@@ -13,7 +13,7 @@ Carousel with the following features:
 * No styles or themes are provided with this package. You decide how the carousel must look.
 * Support for touch devices
 * Support for keyboard
-* Build with ES6, so you may need a transpiler for old browser support
+* Build with modern javascript, using ES6 modules
 
 ## Install
 
@@ -75,7 +75,7 @@ Use css to define the carousel appearance:
 And finally use javascript for a complete experience:
 
 ```js
-import Carousel from '@oom/carousel';
+import Carousel from './Carousel.js';
 
 //Init the carousel
 const slider = new Carousel(document.querySelector('.carousel'));
@@ -127,7 +127,7 @@ slider.goto('+50%'); //move the slider forward 50% of the carousel width
 slider.goto('-100%'); //move the slider backward 100% of the carousel width
 ```
 
-## Demo
+## Demo and tests
 
 To run the demo, just clone this repository, enter in the directory and execute:
 
@@ -136,6 +136,7 @@ npm install
 npm start
 ```
 
-You should see something in `http://localhost:8080/`
+You should see something in the following urls:
 
-There's an online demo here: https://oom-components.github.io/carousel/
+- Demo: `http://localhost:8080/demo`
+- Test: `http://localhost:8080/test`
