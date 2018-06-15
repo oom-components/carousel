@@ -1,4 +1,4 @@
-import Player from './player.jsm';
+import Player from './player.js';
 
 export default class Carousel {
     static checkElement(element) {
@@ -36,6 +36,9 @@ export default class Carousel {
 
         this.element = element;
         this.slides = this.element.children;
+        this.settings = {
+            scrollBehavior: 'smooth'
+        };
 
         //To calculate the offset of slides relative to the document
         if (getStyle(this.element, 'position') === 'static') {
@@ -106,7 +109,7 @@ export default class Carousel {
             try {
                 this.element.scroll({
                     left: left,
-                    behavior: 'smooth'
+                    behavior: this.settings.scrollBehavior
                 });
             } catch (err) {
                 this.element.scrollLeft = left;
@@ -260,7 +263,7 @@ function calculateSlide(slides, element, scrollLeft = element.scrollLeft) {
         return slides[0];
     }
 
-    if (scrollLeft >= element.scrollWidth - element.clientWidth) {
+    if (scrollLeft > element.scrollWidth - element.clientWidth) {
         return slides[slides.length - 1];
     }
 
@@ -274,5 +277,5 @@ function calculateSlide(slides, element, scrollLeft = element.scrollLeft) {
     }
 }
 function calculatePercentage(element, percentage) {
-    return element.clientWidth / 100 * parseInt(percentage.slice(1, -1), 10);
+    return (element.clientWidth / 100) * parseInt(percentage.slice(1, -1), 10);
 }

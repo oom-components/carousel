@@ -1,7 +1,4 @@
-import smoothscroll from 'smoothscroll-polyfill';
-import Carousel from '../src/carousel.jsm';
-
-smoothscroll.polyfill();
+import Carousel from '../src/carousel.js';
 
 const carousel = new Carousel(document.querySelector('.carousel'));
 

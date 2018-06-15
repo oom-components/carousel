@@ -4,7 +4,7 @@ Carousel with the following features:
 
 * No dependencies
 * Light: Less than 300 lines of code (including comments and spaces)
-* Follows the progressive **enhancement strategy:**
+* Follows the **progressive enhancement strategy:**
   * Works with just `html`
   * Works better with `html` and `css`
   * Works much better with `html`, `css` and `js`

@@ -38,17 +38,14 @@
 			scroll-snap-align: start;
 			position: relative;
 		}
-		img {
+		svg {
 			display: block;
+			width: 400px;
+			height: 200px;
+			background: #ddd;
 		}
-		span {
-			position: absolute;
-			top: 33%;
-			width: 100%;
-			text-align: center;
-			left: 0;
-			font-weight: bold;
-			font-size: 3em;
+		text {
+			font: bold 30px sans-serif;
 		}
 		button {
 			font-size: 1em;
@@ -66,16 +63,16 @@
 
 	<div class="carousel-wrapper">
 		<ul class="carousel" role="region" aria-label="Gallery" tabindex="0">
-			<li><img src="http://placehold.it/400x200" alt="Example"><span>1</span></li>
-			<li><img src="http://placehold.it/400x200" alt="Example"><span>2</span></li>
-			<li><img src="http://placehold.it/400x200" alt="Example"><span>3</span></li>
-			<li><img src="http://placehold.it/400x200" alt="Example"><span>4</span></li>
-			<li><img src="http://placehold.it/400x200" alt="Example"><span>5</span></li>
-			<li><img src="http://placehold.it/400x200" alt="Example"><span>6</span></li>
-			<li><img src="http://placehold.it/400x200" alt="Example"><span>7</span></li>
-			<li><img src="http://placehold.it/400x200" alt="Example"><span>8</span></li>
-			<li><img src="http://placehold.it/400x200" alt="Example"><span>9</span></li>
-			<li><img src="http://placehold.it/400x200" alt="Example"><span>10</span></li>
+			<li><svg viewBox="0 0 400 200"><text x="40" y="40">1</text></svg></li>
+			<li><svg viewBox="0 0 400 200"><text x="40" y="40">2</text></svg></li>
+			<li><svg viewBox="0 0 400 200"><text x="40" y="40">3</text></svg></li>
+			<li><svg viewBox="0 0 400 200"><text x="40" y="40">4</text></svg></li>
+			<li><svg viewBox="0 0 400 200"><text x="40" y="40">5</text></svg></li>
+			<li><svg viewBox="0 0 400 200"><text x="40" y="40">6</text></svg></li>
+			<li><svg viewBox="0 0 400 200"><text x="40" y="40">7</text></svg></li>
+			<li><svg viewBox="0 0 400 200"><text x="40" y="40">8</text></svg></li>
+			<li><svg viewBox="0 0 400 200"><text x="40" y="40">9</text></svg></li>
+			<li><svg viewBox="0 0 400 200"><text x="40" y="40">10</text></svg></li>
 		</ul>
 	</div>
 
@@ -84,6 +81,7 @@
 	<button class="carousel-next">Next</button>
 	<button class="carousel-nextpage">Next page</button>
 
-	<script type="text/javascript" src="script.js" async></script>
+	<script type="text/javascript" src="../node_modules/smoothscroll-polyfill/dist/smoothscroll.min.js" async></script>
+	<script type="module" src="script.js" async></script>
 </body>
 </html>

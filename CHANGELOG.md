@@ -7,9 +7,23 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [UNRELEASED]
 
+### Added
+
+- Allow to customize the scroll behavior using `settings.scrollBehavior`
+- Tests
+
+### Changed
+
+- Renamed extensions from `.jsm` to `.js` due `Content-Type` header issues
+
+### Removed
+
+- Webpack & babel tools. This package should work as native ES6 modules. Progressive enhancement strategy should fallback to css and html for old browsers.
+
 ### Fixed
 
 - Moved `smoothscroll-polyfill` dependency to devDependencies
+- Improved current slide calculation
 
 ## [1.0.0] - 2018-05-01
 
