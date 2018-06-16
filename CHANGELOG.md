@@ -10,11 +10,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 - Allow to customize the scroll behavior using `settings.scrollBehavior`
-- Tests
+- Browser tests
 
 ### Changed
 
 - Renamed extensions from `.jsm` to `.js` due `Content-Type` header issues
+- The `package.json` is now more browser-friendly using `browser` and `files` keys
 
 ### Removed
 

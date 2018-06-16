@@ -1,8 +1,12 @@
 {
   "name": "@oom/carousel",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Carousel built with progressive enhancement in mind",
-  "main": "src/carousel.jsm",
+  "browser": "src/carousel.js",
+  "files": [
+    "src/carousel.js",
+    "src/player.js"
+  ],
   "scripts": {
     "start": "http-server -c-1",
     "prettier": "prettier src/*.js demo/*.js tests/*.js --single-quote --tab-width 4 --write"
