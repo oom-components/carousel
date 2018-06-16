@@ -58,7 +58,7 @@ Use css to define the carousel appearance:
 ```css
 .carousel {
     width: 100%;
-    overflow-x: scroll; /* this is important */
+    overflow-x: scroll;
     display: flex;
     list-style: none;
     margin: 0;
