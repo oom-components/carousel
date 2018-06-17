@@ -1,4 +1,4 @@
-import Carousel from '../src/carousel.js';
+import { Carousel } from '../src/carousel.js';
 
 const expect = chai.expect;
 const element = document.getElementById('carousel');

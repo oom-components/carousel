@@ -1,6 +1,35 @@
-import Player from './player.js';
+export class Player {
+    constructor(carousel) {
+        this.carousel = carousel;
+        this.interval = 5000;
+        this.direction = '+1';
+        this.isPlaying = false;
+    }
 
-export default class Carousel {
+    play(interval = this.interval) {
+        const go = () => {
+            let slide = this.carousel.getSlide(this.direction);
+
+            if (slide === this.carousel.current) {
+                this.direction = this.direction === '+1' ? '-1' : '+1';
+                slide = this.carousel.getSlide(this.direction);
+            }
+
+            this.carousel.goto(slide);
+            this.play();
+        };
+
+        this.isPlaying = true;
+        this.timeout = setTimeout(go, interval);
+    }
+
+    stop() {
+        clearInterval(this.timeout);
+        this.isPlaying = false;
+    }
+}
+
+export class Carousel {
     static checkElement(element) {
         if (!('scroll' in element) || !('scrollBehavior' in element.style)) {
             console.info(
@@ -198,7 +227,6 @@ export default class Carousel {
     }
 }
 
-//Check support for CSS scroll snap points
 function scrollSnapSupported(el) {
     //Old spec
     const value = getStyle(el, 'scrollSnapPointsX');
@@ -276,6 +304,7 @@ function calculateSlide(slides, element, scrollLeft = element.scrollLeft) {
         }
     }
 }
+
 function calculatePercentage(element, percentage) {
     return (element.clientWidth / 100) * parseInt(percentage.slice(1, -1), 10);
 }

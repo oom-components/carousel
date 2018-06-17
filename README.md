@@ -75,7 +75,7 @@ Use css to define the carousel appearance:
 And finally use javascript for a complete experience:
 
 ```js
-import Carousel from './Carousel.js';
+import { Carousel } from './carousel.js';
 
 //Init the carousel
 const slider = new Carousel(document.querySelector('.carousel'));
