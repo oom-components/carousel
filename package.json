@@ -3,9 +3,9 @@
   "version": "2.0.0",
   "description": "Carousel built with progressive enhancement in mind",
   "browser": "src/carousel.js",
+  "module": "src/carousel.js",
   "files": [
-    "src/carousel.js",
-    "src/player.js"
+    "src/carousel.js"
   ],
   "scripts": {
     "start": "http-server -c-1",
