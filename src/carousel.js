@@ -34,8 +34,10 @@ export default class Carousel {
 
         this.element = element;
         this.slides = this.element.children;
-        this.settings = {
-            scrollBehavior: 'smooth'
+        this.scrollOptions = {
+            behavior: 'smooth',
+            block: 'center',
+            inline: 'center'
         };
 
         //To calculate the offset of slides relative to the document
@@ -94,15 +96,10 @@ export default class Carousel {
         const slide = this.getSlide(position);
 
         if (slide) {
-            const left = getCenter(slide, this.element);
-
             try {
-                this.element.scroll({
-                    left: left,
-                    behavior: this.settings.scrollBehavior
-                });
+                slide.scrollIntoView(this.scrollOptions);
             } catch (err) {
-                this.element.scrollLeft = left;
+                this.element.scrollLeft = getCenter(slide, this.element);
             }
         }
     }
@@ -266,6 +263,7 @@ function calculateSlide(slides, element, scrollLeft = element.scrollLeft) {
         }
     }
 }
+
 function calculatePercentage(element, percentage) {
     return (element.clientWidth / 100) * parseInt(percentage.slice(1, -1), 10);
 }

@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 
 - Decoupled `Carousel` and `Player` modules.
+- Removed `settings.scrollBehavior` and replaced with `scrollOptions`, allowing to set all availiable options of [element.scrollIntoView() method](https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView)
 
 ### Fixed
 

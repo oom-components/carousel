@@ -1,4 +1,5 @@
 import Carousel from '../src/carousel.js';
+import Player from '../src/player.js';
 
 const expect = chai.expect;
 const element = document.getElementById('carousel');
@@ -47,7 +48,7 @@ describe('Carousel testing', function() {
 
     context('Move', function() {
         //Disable smooth
-        carousel.settings.scrollBehavior = 'auto';
+        carousel.scrollOptions.behavior = 'auto';
 
         it('goes to the end', function() {
             carousel.goto('last');
@@ -100,7 +101,7 @@ describe('Carousel testing', function() {
     });
 
     context('Player', function() {
-        const player = carousel.player;
+        const player = new Player(carousel);
 
         it('default interval is 5000ms', function() {
             expect(player.interval).to.equal(5000);
