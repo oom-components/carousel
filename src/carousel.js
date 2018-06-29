@@ -1,6 +1,9 @@
 export default class Carousel {
     static checkElement(element) {
-        if (!('scroll' in element) || !('scrollBehavior' in element.style)) {
+        const support =
+            'scroll' in element && 'scrollBehavior' in element.style;
+
+        if (!support) {
             console.info(
                 '@oom/carusel [compatibility]:',
                 'Missing smooth scrolling support. Consider using a polyfill like "smoothscroll-polyfill"'
@@ -27,11 +30,12 @@ export default class Carousel {
                 'Missing tabindex="0" attribute in the carousel element'
             );
         }
+
+        return support;
     }
 
     constructor(element) {
-        Carousel.checkElement(element);
-
+        this.support = Carousel.checkElement(element);
         this.element = element;
         this.slides = this.element.children;
         this.scrollOptions = {
@@ -97,7 +101,14 @@ export default class Carousel {
 
         if (slide) {
             try {
-                slide.scrollIntoView(this.scrollOptions);
+                if (this.support) {
+                    slide.scrollIntoView(this.scrollOptions);
+                } else {
+                    this.element.scroll({
+                        left: getCenter(slide, this.element),
+                        behavior: this.scrollOptions.behavior
+                    });
+                }
             } catch (err) {
                 this.element.scrollLeft = getCenter(slide, this.element);
             }
