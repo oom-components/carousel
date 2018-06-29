@@ -75,7 +75,7 @@ Use css to define the carousel appearance:
 And finally use javascript for a complete experience:
 
 ```js
-import { Carousel } from './carousel.js';
+import Carousel from './carousel/carousel.js';
 
 //Init the carousel
 const slider = new Carousel(document.querySelector('.carousel'));
@@ -97,22 +97,7 @@ document.querySelector('.carousel-prev')
 slider.player.play();
 ```
 
-## Player
-
-Use the property `player` to access to the player in order to init a slideshow. Example:
-
-```js
-//Start the slideshow
-slider.player.play();
-
-//Start the slideshow with 10 seconds to wait between slides
-slider.player.play(10000);
-
-//Stop
-slider.player.stop();
-```
-
-## goto
+### goto
 
 Moves the slide to other position:
 
@@ -126,6 +111,26 @@ slider.goto('current'); //go to the current slider (refresh the position)
 slider.goto('+50%'); //move the slider forward 50% of the carousel width
 slider.goto('-100%'); //move the slider backward 100% of the carousel width
 ```
+
+## Player
+
+Use the module `player` to access to the player in order to init a slideshow. Example:
+
+```js
+import Player from './carousel/player.js';
+
+const player = new Player(slider);
+
+//Start the slideshow
+player.play();
+
+//Start the slideshow with 10 seconds to wait between slides
+player.play(10000);
+
+//Stop
+player.stop();
+```
+
 
 ## Demo and tests
 

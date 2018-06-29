@@ -9,11 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
-- Moved all code to just one file: `carousel.js`
+- Decoupled `Carousel` and `Player` modules.
 
 ### Fixed
 
-- Improved `package.json` adding the `module` entry.
+- Improved `package.json` adding the `modules.root` entry.
 
 ## [2.0.0] - 2018-06-16
 
