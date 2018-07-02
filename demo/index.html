@@ -9,6 +9,7 @@
             font-family: -apple-system, system-ui, sans-serif;
         }
         .carousel-wrapper {
+            position: relative;
             /* hide scrollbar (1/2) */
            /* overflow-y: hidden;
             margin: 5px 0;*/
@@ -38,6 +39,9 @@
             scroll-snap-align: start;
             position: relative;
         }
+        .is-active svg {
+            background: red;
+        }
         svg {
             display: block;
             width: 400px;
@@ -63,6 +67,7 @@
 
     <div class="carousel-wrapper">
         <ul class="carousel" role="region" aria-label="Gallery" tabindex="0">
+            <li><svg viewBox="0 0 400 200"><text x="40" y="40">0</text></svg></li>
             <li><svg viewBox="0 0 400 200"><text x="40" y="40">1</text></svg></li>
             <li><svg viewBox="0 0 400 200"><text x="40" y="40">2</text></svg></li>
             <li><svg viewBox="0 0 400 200"><text x="40" y="40">3</text></svg></li>
@@ -72,7 +77,6 @@
             <li><svg viewBox="0 0 400 200"><text x="40" y="40">7</text></svg></li>
             <li><svg viewBox="0 0 400 200"><text x="40" y="40">8</text></svg></li>
             <li><svg viewBox="0 0 400 200"><text x="40" y="40">9</text></svg></li>
-            <li><svg viewBox="0 0 400 200"><text x="40" y="40">10</text></svg></li>
         </ul>
     </div>
 
@@ -80,6 +84,7 @@
     <button class="carousel-prev">Prev</button>
     <button class="carousel-next">Next</button>
     <button class="carousel-nextpage">Next page</button>
+    <button class="play-stop">Play/Stop</button>
 
     <script type="text/javascript" src="https://cdn.rawgit.com/iamdustan/smoothscroll/v0.4.2/src/smoothscroll.js" async></script>
     <script type="module" src="script.js" async></script>

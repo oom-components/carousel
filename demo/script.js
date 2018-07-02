@@ -1,6 +1,8 @@
 import Carousel from '../src/carousel.js';
+import Player from '../src/player.js';
 
 const carousel = new Carousel(document.querySelector('.carousel'));
+const player = new Player(carousel);
 
 document
     .querySelector('.carousel-next')
@@ -17,3 +19,10 @@ document
 document
     .querySelector('.carousel-nextpage')
     .addEventListener('click', () => carousel.goto('+100%'));
+
+document
+    .querySelector('.play-stop')
+    .addEventListener(
+        'click',
+        () => (player.isPlaying ? player.stop() : player.play())
+    );

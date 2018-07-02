@@ -37,11 +37,9 @@ export default class Carousel {
     constructor(element) {
         this.support = Carousel.checkElement(element);
         this.element = element;
-        this.slides = this.element.children;
+        this.slides = Array.from(this.element.children);
         this.scrollOptions = {
-            behavior: 'smooth',
-            block: 'center',
-            inline: 'center'
+            behavior: 'smooth'
         };
 
         //To calculate the offset of slides relative to the document
@@ -50,30 +48,14 @@ export default class Carousel {
         }
 
         if (!scrollSnapSupported(this.element)) {
-            this.goto('current');
-
             this.element.addEventListener(
                 'scroll',
-                debounce(() => {
-                    if (
-                        !this.scrollIsAtTheBeginning() &&
-                        !this.scrollIsAtTheEnd()
-                    ) {
-                        this.goto('current');
-                    }
-                }, 100)
+                debounce(() => this.goto('current'), 100)
             );
 
             window.addEventListener(
                 'resize',
-                debounce(() => {
-                    if (
-                        !this.scrollIsAtTheBeginning() &&
-                        !this.scrollIsAtTheEnd()
-                    ) {
-                        this.goto('current');
-                    }
-                }, 100)
+                debounce(() => this.goto('current'), 100)
             );
         }
 
@@ -93,95 +75,83 @@ export default class Carousel {
     }
 
     get current() {
-        return calculateSlide(this.slides, this.element);
+        return getCurrentSlide(this.element, this.slides);
     }
 
     goto(position) {
-        const slide = this.getSlide(position);
+        const scroll = this.calculateScroll(position);
 
-        if (slide) {
-            try {
-                if (this.support) {
-                    slide.scrollIntoView(this.scrollOptions);
-                } else {
-                    this.element.scroll({
-                        left: getCenter(slide, this.element),
-                        behavior: this.scrollOptions.behavior
-                    });
-                }
-            } catch (err) {
-                this.element.scrollLeft = getCenter(slide, this.element);
-            }
+        try {
+            this.element.scroll({
+                left: scroll,
+                behavior: this.scrollOptions.behavior
+            });
+        } catch (err) {
+            this.element.scrollLeft = scroll;
         }
     }
 
-    getSlide(position) {
-        if (Array.prototype.indexOf.call(this.slides, position) !== -1) {
-            return position;
-        }
-
-        if (position === undefined || position === 'current') {
-            return this.current;
-        }
-
+    calculateScroll(position) {
         if (position === 'first') {
-            return this.slides[0];
+            return 0;
         }
 
         if (position === 'last') {
-            return this.slides[this.slides.length - 1];
+            return this.getSlideScroll(this.slides.length - 1);
         }
 
-        //Percentage
-        if (typeof position === 'string') {
-            if (/^\+[0-9]+%$/.test(position)) {
-                return calculateSlide(
-                    this.slides,
-                    this.element,
-                    this.element.scrollLeft +
-                        calculatePercentage(this.element, position)
-                );
-            }
-
-            if (/^\-[0-9]+%$/.test(position)) {
-                return calculateSlide(
-                    this.slides,
-                    this.element,
-                    this.element.scrollLeft -
-                        calculatePercentage(this.element, position)
-                );
-            }
-
-            if (/^\[0-9]+%$/.test(position)) {
-                return calculateSlide(
-                    this.slides,
-                    this.element,
-                    calculatePercentage(this.element, position)
-                );
-            }
+        if (position === 'current') {
+            return this.getSlideScroll(this.slides.indexOf(this.current));
         }
 
-        let index = Array.prototype.indexOf.call(this.slides, this.current);
-
-        if (typeof position === 'string') {
-            if (/^\+[0-9]+$/.test(position)) {
-                index += parseInt(position.substr(1), 10);
-            } else if (/^\-[0-9]+$/.test(position)) {
-                index -= parseInt(position.substr(1), 10);
-            } else {
-                index = parseInt(position);
-            }
+        if (/^\+[0-9]+%$/.test(position)) {
+            return (
+                this.element.scrollLeft +
+                this.element.clientWidth * parsePercentage(position.substr(1))
+            );
         }
 
+        if (/^\-[0-9]+%$/.test(position)) {
+            return (
+                this.element.scrollLeft -
+                this.element.clientWidth * parsePercentage(position.substr(1))
+            );
+        }
+
+        if (/^[0-9]+%$/.test(position)) {
+            return (
+                (this.element.scrollWidth - this.element.clientWidth) *
+                parsePercentage(position)
+            );
+        }
+
+        let index = this.slides.indexOf(this.current);
+
+        if (/^\+[0-9]+$/.test(position)) {
+            return this.getSlideScroll(
+                index + parseInt(position.substr(1), 10)
+            );
+        }
+
+        if (/^\-[0-9]+$/.test(position)) {
+            return this.getSlideScroll(
+                index - parseInt(position.substr(1), 10)
+            );
+        }
+
+        return this.getSlideScroll(parseInt(position));
+    }
+
+    getSlideScroll(index) {
         if (index < 0) {
-            return this.getSlide('first');
+            index = 0;
+        } else if (index >= this.slides.length) {
+            index = this.slides.length - 1;
         }
 
-        if (index >= this.slides.length) {
-            return this.slides[this.slides.length - 1];
-        }
-
-        return this.slides[index];
+        const percent = index / (this.slides.length - 1);
+        const totalScroll = this.element.scrollWidth - this.element.clientWidth;
+        return totalScroll * percent;
     }
 
     scrollIsAtTheBeginning() {
@@ -252,29 +222,33 @@ function isNotNone(value) {
     return value && value.replace(/none/g, '').trim();
 }
 
-function getCenter(slide, element) {
-    return slide.offsetLeft + (slide.clientWidth / 2 - element.clientWidth / 2);
+function getScrollMark(element, offset) {
+    if (offset === undefined) {
+        offset = element.scrollLeft;
+    }
+
+    const totalScroll = element.scrollWidth - element.clientWidth;
+
+    return element.clientWidth * (offset / totalScroll);
 }
 
-function calculateSlide(slides, element, scrollLeft = element.scrollLeft) {
-    if (scrollLeft < 0) {
-        return slides[0];
+function getCurrentSlide(element, slides, offset) {
+    const mark = getScrollMark(element, offset);
+
+    if (offset === undefined) {
+        offset = element.scrollLeft;
     }
 
-    if (scrollLeft > element.scrollWidth - element.clientWidth) {
-        return slides[slides.length - 1];
-    }
+    return slides.find(slide => {
+        const from = slide.offsetLeft - offset;
+        const to = from + slide.clientWidth;
 
-    for (let i in slides) {
-        const slide = slides[i];
-        const range = getCenter(slide, element) + slide.offsetWidth / 3;
-
-        if (range >= scrollLeft) {
+        if (mark >= from && mark <= to) {
             return slide;
         }
-    }
+    });
 }
 
-function calculatePercentage(element, percentage) {
-    return (element.clientWidth / 100) * parseInt(percentage.slice(1, -1), 10);
+function parsePercentage(percentage) {
+    return parseInt(percentage.slice(0, -1), 10) / 100;
 }

@@ -8,14 +8,13 @@ export default class Player {
 
     play(interval = this.interval) {
         const go = () => {
-            let slide = this.carousel.getSlide(this.direction);
-
-            if (slide === this.carousel.current) {
-                this.direction = this.direction === '+1' ? '-1' : '+1';
-                slide = this.carousel.getSlide(this.direction);
+            if (this.carousel.scrollIsAtTheBeginning()) {
+                this.direction = '+1';
+            } else if (this.carousel.scrollIsAtTheEnd()) {
+                this.direction = '-1';
             }
 
-            this.carousel.goto(slide);
+            this.carousel.goto(this.direction);
             this.play();
         };
 
