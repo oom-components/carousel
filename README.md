@@ -136,7 +136,10 @@ player.stop();
 
 ## Demo and tests
 
-To run the demo, just clone this repository, enter in the directory and execute:
+- Demo: https://oom-components.github.io/carousel/demo
+- Tests: https://oom-components.github.io/carousel/tests
+
+To run the demo locally, just clone this repository, enter in the directory and execute:
 
 ```sh
 npm install
@@ -146,4 +149,4 @@ npm start
 You should see something in the following urls:
 
 - Demo: `http://localhost:8080/demo`
-- Test: `http://localhost:8080/test`
+- Test: `http://localhost:8080/tests`

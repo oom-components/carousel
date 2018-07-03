@@ -9,7 +9,8 @@
   ],
   "scripts": {
     "start": "http-server -c-1",
-    "prettier": "prettier src/*.js demo/*.js tests/*.js --single-quote --tab-width 4 --write"
+    "prettier": "prettier src/*.js demo/*.js tests/*.js --single-quote --tab-width 4 --write",
+    "deploy": "gh-pages -d ./ -v node_modules"
   },
   "repository": {
     "type": "git",
@@ -30,8 +31,7 @@
   },
   "homepage": "https://github.com/oom-components/carousel#readme",
   "devDependencies": {
-    "gh-pages": "^1.2.0",
     "http-server": "^0.11.1",
-    "prettier": "^1.13.5"
+    "prettier": "^1.13.7"
   }
 }
