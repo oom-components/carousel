@@ -1,15 +1,5 @@
 export default class Carousel {
-    static checkElement(element) {
-        const support =
-            'scroll' in element && 'scrollBehavior' in element.style;
-
-        if (!support) {
-            console.info(
-                '@oom/carusel [compatibility]:',
-                'Missing smooth scrolling support. Consider using a polyfill like "smoothscroll-polyfill"'
-            );
-        }
-
+    static checkA11y(element) {
         if (element.getAttribute('role') !== 'region') {
             console.info(
                 '@oom/carusel [accesibility]:',
@@ -30,12 +20,42 @@ export default class Carousel {
                 'Missing tabindex="0" attribute in the carousel element'
             );
         }
+    }
+
+    static checkSupport(element) {
+        const support = {
+            smoothScroll: true,
+            snapPoints: true
+        };
+
+        if (!('scroll' in element)) {
+            support.smoothScroll = false;
+
+            console.info(
+                '@oom/carusel [compatibility]:',
+                'Missing smooth scrolling support. Consider using a polyfill like "smoothscroll-polyfill"'
+            );
+        }
+
+        if (
+            !getStyleValue(element, 'scrollSnapType') ||
+            !getStyleValue(element.firstElementChild, 'scrollSnapAlign')
+        ) {
+            support.snapPoints = false;
+
+            console.info(
+                '@oom/carusel [compatibility]:',
+                'Missing Scroll Snap Points support or not defined.'
+            );
+        }
 
         return support;
     }
 
     constructor(element) {
-        this.support = Carousel.checkElement(element);
+        Carousel.checkA11y(element);
+        const support = Carousel.checkSupport(element);
+
         this.element = element;
         this.slides = Array.from(this.element.children);
         this.scrollOptions = {
@@ -43,11 +63,11 @@ export default class Carousel {
         };
 
         //To calculate the offset of slides relative to the document
-        if (getStyle(this.element, 'position') === 'static') {
+        if (getStyleValue(this.element, 'position') === 'static') {
             this.element.style.position = 'relative';
         }
 
-        if (!scrollSnapSupported(this.element)) {
+        if (!support.snapPoints) {
             this.element.addEventListener(
                 'scroll',
                 debounce(() => this.goto('current'), 100)
@@ -75,7 +95,18 @@ export default class Carousel {
     }
 
     get current() {
-        return getCurrentSlide(this.element, this.slides);
+        const maxScroll = this.element.scrollWidth - this.element.clientWidth;
+        const mark =
+            this.element.clientWidth * (this.element.scrollLeft / maxScroll);
+
+        return this.slides.find(slide => {
+            const from = slide.offsetLeft - this.element.scrollLeft;
+            const to = from + slide.clientWidth;
+
+            if (mark >= from && mark <= to) {
+                return slide;
+            }
+        });
     }
 
     goto(position) {
@@ -102,27 +133,6 @@ export default class Carousel {
 
         if (position === 'current') {
             return this.getSlideScroll(this.slides.indexOf(this.current));
-        }
-
-        if (/^\+[0-9]+%$/.test(position)) {
-            return (
-                this.element.scrollLeft +
-                this.element.clientWidth * parsePercentage(position.substr(1))
-            );
-        }
-
-        if (/^\-[0-9]+%$/.test(position)) {
-            return (
-                this.element.scrollLeft -
-                this.element.clientWidth * parsePercentage(position.substr(1))
-            );
-        }
-
-        if (/^[0-9]+%$/.test(position)) {
-            return (
-                (this.element.scrollWidth - this.element.clientWidth) *
-                parsePercentage(position)
-            );
         }
 
         let index = this.slides.indexOf(this.current);
@@ -199,56 +209,10 @@ function debounce(fn, wait) {
     };
 }
 
-function getStyle(el, name) {
-    const style = getComputedStyle(el);
+function getStyleValue(el, name) {
+    const value = getComputedStyle(el)[name];
 
-    if (name in style) {
-        return style[name];
+    if (value && value.replace(/none/g, '').trim()) {
+        return value;
     }
-
-    name = name.charAt(0).toUpperCase() + name.slice(1);
-    const prefixes = ['Moz', 'Webkit', 'O', 'ms'];
-
-    for (var i = 0; i < prefixes.length; i++) {
-        let prop = prefixes[i] + name;
-
-        if (prop in style) {
-            return style[prop];
-        }
-    }
-}
-
-function isNotNone(value) {
-    return value && value.replace(/none/g, '').trim();
-}
-
-function getScrollMark(element, offset) {
-    if (offset === undefined) {
-        offset = element.scrollLeft;
-    }
-
-    const totalScroll = element.scrollWidth - element.clientWidth;
-
-    return element.clientWidth * (offset / totalScroll);
-}
-
-function getCurrentSlide(element, slides, offset) {
-    const mark = getScrollMark(element, offset);
-
-    if (offset === undefined) {
-        offset = element.scrollLeft;
-    }
-
-    return slides.find(slide => {
-        const from = slide.offsetLeft - offset;
-        const to = from + slide.clientWidth;
-
-        if (mark >= from && mark <= to) {
-            return slide;
-        }
-    });
-}
-
-function parsePercentage(percentage) {
-    return parseInt(percentage.slice(0, -1), 10) / 100;
 }

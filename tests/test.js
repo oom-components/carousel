@@ -30,14 +30,9 @@ describe('Carousel testing', function() {
         });
 
         it('returns slides properly', function() {
-            expect(carousel.getSlide('current')).to.equal(carousel.slides[0]);
-            expect(carousel.getSlide('first')).to.equal(
-                element.firstElementChild
-            );
-            expect(carousel.getSlide('last')).to.equal(
-                element.lastElementChild
-            );
-            expect(carousel.getSlide(0)).to.equal(carousel.slides[0]);
+            expect(carousel.current).to.equal(carousel.slides[0]);
+            expect(carousel.calculateScroll('first')).to.equal(0);
+            expect(carousel.calculateScroll('last')).to.equal(3400);
         });
 
         it('checks scroll status', function() {
@@ -54,48 +49,30 @@ describe('Carousel testing', function() {
             carousel.goto('last');
             expect(carousel.scrollIsAtTheBeginning()).to.be.false;
             expect(carousel.scrollIsAtTheEnd()).to.be.true;
-            expect(carousel.getSlide('current')).to.equal(
-                element.lastElementChild
-            );
+            expect(carousel.current).to.equal(element.lastElementChild);
         });
 
         it('moves -1', function() {
             carousel.goto('-1');
             expect(carousel.scrollIsAtTheBeginning()).to.be.false;
             expect(carousel.scrollIsAtTheEnd()).to.be.false;
-            expect(carousel.getSlide('current')).to.equal(carousel.slides[8]);
-            expect(element.scrollLeft).to.equal(3100);
+            expect(carousel.current).to.equal(carousel.slides[8]);
+            expect(element.scrollLeft).to.equal(3022);
         });
 
         it('moves +2', function() {
             carousel.goto('+2');
             expect(carousel.scrollIsAtTheBeginning()).to.be.false;
             expect(carousel.scrollIsAtTheEnd()).to.be.true;
-            expect(carousel.getSlide('current')).to.equal(carousel.slides[9]);
+            expect(carousel.current).to.equal(carousel.slides[9]);
             expect(element.scrollLeft).to.equal(3400);
         });
 
-        it('moves -150%', function() {
-            carousel.goto('-150%');
-            expect(carousel.scrollIsAtTheBeginning()).to.be.false;
-            expect(carousel.scrollIsAtTheEnd()).to.be.false;
-            expect(carousel.getSlide('current')).to.equal(carousel.slides[7]);
-            expect(element.scrollLeft).to.equal(2700);
-        });
-
-        it('moves -0%', function() {
-            carousel.goto('-0%');
-            expect(carousel.scrollIsAtTheBeginning()).to.be.false;
-            expect(carousel.scrollIsAtTheEnd()).to.be.false;
-            expect(carousel.getSlide('current')).to.equal(carousel.slides[7]);
-            expect(element.scrollLeft).to.equal(2700);
-        });
-
-        it('moves 0%', function() {
-            carousel.goto('0%');
+        it('moves 0', function() {
+            carousel.goto('0');
             expect(carousel.scrollIsAtTheBeginning()).to.be.true;
             expect(carousel.scrollIsAtTheEnd()).to.be.false;
-            expect(carousel.getSlide('current')).to.equal(carousel.slides[0]);
+            expect(carousel.current).to.equal(carousel.slides[0]);
             expect(element.scrollLeft).to.equal(0);
         });
     });

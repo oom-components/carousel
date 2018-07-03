@@ -63,10 +63,12 @@ Use css to define the carousel appearance:
     list-style: none;
     margin: 0;
     padding: 0;
+    scroll-snap-type: mandatory;
 }
 .carousel > li {
     padding: 2px;
     flex: 0 0 auto;
+    scroll-snap-align: center;
 }
 ```
 
@@ -76,25 +78,27 @@ And finally use javascript for a complete experience:
 
 ```js
 import Carousel from './carousel/carousel.js';
+import Player from './carousel/player.js';
 
 //Init the carousel
-const slider = new Carousel(document.querySelector('.carousel'));
+const carousel = new Carousel(document.querySelector('.carousel'));
+const player = new Player(carousel);
 
 //Navigate
 document.querySelector('.carousel-next')
     .addEventListener('click', event => {
-        slider.goto('+1');
-        slider.player.stop();
+        carousel.goto('+1');
+        player.stop();
     });
 
 document.querySelector('.carousel-prev')
     .addEventListener('click', event => {
-        slider.goto('-1');
-        slider.player.stop();
+        carousel.goto('-1');
+        player.stop();
     });
 
 //Autoplay
-slider.player.play();
+player.play();
 ```
 
 ### goto
@@ -102,14 +106,12 @@ slider.player.play();
 Moves the slide to other position:
 
 ```js
-slider.goto(3); //go to slider 3
-slider.goto('+1'); //move one slider forward (slider 4)
-slider.goto('-2'); //move two sliders backward (slider 2)
-slider.goto('first'); //go to first slider
-slider.goto('last'); //go to the last slider
-slider.goto('current'); //go to the current slider (refresh the position)
-slider.goto('+50%'); //move the slider forward 50% of the carousel width
-slider.goto('-100%'); //move the slider backward 100% of the carousel width
+carousel.goto(3); //go to slider 3
+carousel.goto('+1'); //move one slider forward (slider 4)
+carousel.goto('-2'); //move two sliders backward (slider 2)
+carousel.goto('first'); //go to first slider
+carousel.goto('last'); //go to the last slider
+carousel.goto('current'); //go to the current slider (refresh the position)
 ```
 
 ## Player

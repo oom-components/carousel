@@ -29,14 +29,11 @@
 
             /* scroll snap points */
             scroll-snap-type: mandatory;
-
-            /* old spec (firefox) */
-            /* scroll-snap-points-x: repeat(404px); */
         }
         .carousel li {
             padding: 2px;
             flex: 0 0 400px;
-            scroll-snap-align: start;
+            scroll-snap-align: center;
             position: relative;
         }
         .is-active svg {
@@ -80,10 +77,8 @@
         </ul>
     </div>
 
-    <button class="carousel-prevpage">Prev page</button>
     <button class="carousel-prev">Prev</button>
     <button class="carousel-next">Next</button>
-    <button class="carousel-nextpage">Next page</button>
     <button class="play-stop">Play/Stop</button>
 
     <script type="text/javascript" src="https://cdn.rawgit.com/iamdustan/smoothscroll/v0.4.2/src/smoothscroll.js" async></script>
