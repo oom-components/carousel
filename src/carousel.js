@@ -95,17 +95,18 @@ export default class Carousel {
     }
 
     get current() {
-        const maxScroll = this.element.scrollWidth - this.element.clientWidth;
-        const mark =
-            this.element.clientWidth * (this.element.scrollLeft / maxScroll);
+        let currentPoint = 0;
 
-        return this.slides.find(slide => {
-            const from = slide.offsetLeft - this.element.scrollLeft;
-            const to = from + slide.clientWidth;
+        return this.slides.find((slide, index, slides) => {
+            const nextPoint = this.getSlideScroll(index + 1);
 
-            if (mark >= from && mark <= to) {
+            const limit = currentPoint + (nextPoint - currentPoint) / 2;
+
+            if (this.element.scrollLeft <= limit) {
                 return slide;
             }
+
+            currentPoint = nextPoint;
         });
     }
 
@@ -160,8 +161,11 @@ export default class Carousel {
         }
 
         const percent = index / (this.slides.length - 1);
-        const totalScroll = this.element.scrollWidth - this.element.clientWidth;
-        return totalScroll * percent;
+        const slide = this.slides[index];
+        const slidePosition = slide.clientWidth * percent + slide.offsetLeft;
+        const elementPosition = this.element.clientWidth * percent;
+
+        return slidePosition - elementPosition;
     }
 
     scrollIsAtTheBeginning() {
