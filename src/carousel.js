@@ -45,7 +45,7 @@ export default class Carousel {
 
             console.info(
                 '@oom/carusel [compatibility]:',
-                'Missing Scroll Snap Points support or not defined.'
+                'Missing Scroll Snap Points support or not defined in CSS.'
             );
         }
 
@@ -58,9 +58,7 @@ export default class Carousel {
 
         this.element = element;
         this.slides = Array.from(this.element.children);
-        this.scrollOptions = {
-            behavior: 'smooth'
-        };
+        this.scrollOptions = { behavior: 'smooth' };
 
         //To calculate the offset of slides relative to the document
         if (getStyleValue(this.element, 'position') === 'static') {
@@ -111,7 +109,8 @@ export default class Carousel {
     }
 
     goto(position) {
-        const scroll = this.calculateScroll(position);
+        const index = this.getSlideIndex(position);
+        const scroll = this.getSlideScroll(index);
 
         try {
             this.element.scroll({
@@ -123,42 +122,34 @@ export default class Carousel {
         }
     }
 
-    calculateScroll(position) {
+    getSlideIndex(position) {
         if (position === 'first') {
             return 0;
         }
 
         if (position === 'last') {
-            return this.getSlideScroll(this.slides.length - 1);
-        }
-
-        if (position === 'current') {
-            return this.getSlideScroll(this.slides.indexOf(this.current));
+            return this.slides.length - 1;
         }
 
         let index = this.slides.indexOf(this.current);
 
+        if (position === 'current') {
+            return index;
+        }
+
         if (/^\+[0-9]+$/.test(position)) {
-            return this.getSlideScroll(
-                index + parseInt(position.substr(1), 10)
-            );
+            index += parseInt(position.substr(1), 10);
+        } else if (/^\-[0-9]+$/.test(position)) {
+            index -= parseInt(position.substr(1), 10);
+        } else {
+            index = parseInt(position);
         }
 
-        if (/^\-[0-9]+$/.test(position)) {
-            return this.getSlideScroll(
-                index - parseInt(position.substr(1), 10)
-            );
-        }
-
-        return this.getSlideScroll(parseInt(position));
+        return Math.min(Math.max(index, 0), this.slides.length - 1);
     }
 
     getSlideScroll(index) {
-        if (index < 0) {
-            index = 0;
-        } else if (index >= this.slides.length) {
-            index = this.slides.length - 1;
-        }
+        index = Math.min(Math.max(index, 0), this.slides.length - 1);
 
         const percent = index / (this.slides.length - 1);
         const slide = this.slides[index];
@@ -178,26 +169,6 @@ export default class Carousel {
             this.element.scrollWidth - this.element.clientWidth
         );
     }
-}
-
-//Check support for CSS scroll snap points
-function scrollSnapSupported(el) {
-    //Old spec
-    const value = getStyle(el, 'scrollSnapPointsX');
-
-    if (value) {
-        return isNotNone(value);
-    }
-
-    //New spec
-    if (
-        isNotNone(getStyle(el, 'scrollSnapType')) &&
-        isNotNone(getStyle(el.firstElementChild, 'scrollSnapAlign'))
-    ) {
-        return true;
-    }
-
-    return false;
 }
 
 function debounce(fn, wait) {
