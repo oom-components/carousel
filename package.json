@@ -9,8 +9,7 @@
   ],
   "scripts": {
     "start": "http-server -c-1",
-    "prettier": "prettier src/*.js demo/*.js tests/*.js --single-quote --tab-width 4 --write",
-    "deploy": "gh-pages -d ./ -v node_modules"
+    "prettier": "prettier src/*.js demo/*.js tests/*.js --single-quote --tab-width 4 --write"
   },
   "repository": {
     "type": "git",
