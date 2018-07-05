@@ -31,8 +31,10 @@ describe('Carousel testing', function() {
 
         it('returns slides properly', function() {
             expect(carousel.current).to.equal(carousel.slides[0]);
-            expect(carousel.calculateScroll('first')).to.equal(0);
-            expect(carousel.calculateScroll('last')).to.equal(3400);
+            expect(carousel.getSlideIndex('first')).to.equal(0);
+            expect(carousel.getSlideIndex('last')).to.equal(9);
+            expect(carousel.getSlideScroll(0)).to.equal(0);
+            expect(carousel.getSlideScroll(9)).to.equal(3400);
         });
 
         it('checks scroll status', function() {
