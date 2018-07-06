@@ -45,7 +45,7 @@ describe('Carousel testing', function() {
 
     context('Move', function() {
         //Disable smooth
-        carousel.scrollOptions.behavior = 'auto';
+        carousel.scrollBehavior = 'auto';
 
         it('goes to the end', function() {
             carousel.goto('last');

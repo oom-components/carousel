@@ -58,7 +58,7 @@ export default class Carousel {
 
         this.element = element;
         this.slides = Array.from(this.element.children);
-        this.scrollOptions = { behavior: 'smooth' };
+        this.scrollBehavior = 'smooth';
 
         //To calculate the offset of slides relative to the document
         if (getStyleValue(this.element, 'position') === 'static') {
@@ -115,7 +115,7 @@ export default class Carousel {
         try {
             this.element.scroll({
                 left: scroll,
-                behavior: this.scrollOptions.behavior
+                behavior: this.scrollBehavior
             });
         } catch (err) {
             this.element.scrollLeft = scroll;
