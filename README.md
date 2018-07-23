@@ -3,7 +3,7 @@
 Carousel with the following features:
 
 * No dependencies
-* Light: Less than 300 lines of code (including comments and spaces)
+* Light: Aprox 200 lines of code (including comments and spaces)
 * Follows the **progressive enhancement strategy:**
   * Works with just `html`
   * Works better with `html` and `css`
@@ -13,7 +13,7 @@ Carousel with the following features:
 * No styles or themes are provided with this package. You decide how the carousel must look.
 * Support for touch devices
 * Support for keyboard
-* Build with modern javascript, using ES6 modules
+* Build with modern javascript, using ES6 modules and custom elements
 
 ## Install
 
@@ -34,18 +34,18 @@ npm install smoothscroll-polyfill
 Let's start with the following html code:
 
 ```html
-<ul class="carousel" role="region" aria-label="Gallery" tabindex="0">
-    <li><img src="http://placehold.it/500x300"></li>
-    <li><img src="http://placehold.it/500x300"></li>
-    <li><img src="http://placehold.it/500x300"></li>
-    <li><img src="http://placehold.it/500x300"></li>
-    <li><img src="http://placehold.it/500x300"></li>
-    <li><img src="http://placehold.it/500x300"></li>
-    <li><img src="http://placehold.it/500x300"></li>
-    <li><img src="http://placehold.it/500x300"></li>
-    <li><img src="http://placehold.it/500x300"></li>
-    <li><img src="http://placehold.it/500x300"></li>
-</ul>
+<my-carousel role="region" aria-label="Gallery" tabindex="0">
+    <div><img src="http://placehold.it/500x300"></div>
+    <div><img src="http://placehold.it/500x300"></div>
+    <div><img src="http://placehold.it/500x300"></div>
+    <div><img src="http://placehold.it/500x300"></div>
+    <div><img src="http://placehold.it/500x300"></div>
+    <div><img src="http://placehold.it/500x300"></div>
+    <div><img src="http://placehold.it/500x300"></div>
+    <div><img src="http://placehold.it/500x300"></div>
+    <div><img src="http://placehold.it/500x300"></div>
+    <div><img src="http://placehold.it/500x300"></div>
+</my-carousel>
 
 <button class="carousel-next">Previous</button>
 <button class="carousel-prev">Next</button>
@@ -56,7 +56,7 @@ Let's start with the following html code:
 Use css to define the carousel appearance:
 
 ```css
-.carousel {
+my-carousel {
     width: 100%;
     overflow-x: scroll;
     display: flex;
@@ -65,7 +65,7 @@ Use css to define the carousel appearance:
     padding: 0;
     scroll-snap-type: mandatory;
 }
-.carousel > li {
+my-carousel > div {
     padding: 2px;
     flex: 0 0 auto;
     scroll-snap-align: center;
@@ -80,38 +80,28 @@ And finally use javascript for a complete experience:
 import Carousel from './carousel/carousel.js';
 import Player from './carousel/player.js';
 
-//Init the carousel
-const carousel = new Carousel(document.querySelector('.carousel'));
+//Register the custom element
+customElements.define('oom-carousel', Carousel);
+
+//Select the carousel
+const carousel = document.querySelector('my-carousel');
 const player = new Player(carousel);
 
 //Navigate
 document.querySelector('.carousel-next')
     .addEventListener('click', event => {
-        carousel.goto('+1');
+        carousel.index += 1;
         player.stop();
     });
 
 document.querySelector('.carousel-prev')
     .addEventListener('click', event => {
-        carousel.goto('-1');
+        carousel.index -= 1;
         player.stop();
     });
 
 //Autoplay
 player.play();
-```
-
-### goto
-
-Moves the slide to other position:
-
-```js
-carousel.goto(3); //go to slider 3
-carousel.goto('+1'); //move one slider forward (slider 4)
-carousel.goto('-2'); //move two sliders backward (slider 2)
-carousel.goto('first'); //go to first slider
-carousel.goto('last'); //go to the last slider
-carousel.goto('current'); //go to the current slider (refresh the position)
 ```
 
 ## Player
@@ -121,7 +111,7 @@ Use the module `player` to access to the player in order to init a slideshow. Ex
 ```js
 import Player from './carousel/player.js';
 
-const player = new Player(slider);
+const player = new Player(carousel);
 
 //Start the slideshow
 player.play();
