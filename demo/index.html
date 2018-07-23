@@ -19,7 +19,7 @@
             width: 100%;
             overflow-x: auto;
             display: flex;
-            list-style: none;
+            divst-style: none;
             padding: 0;
             margin: 0;
 
@@ -30,10 +30,10 @@
             /* scroll snap points */
             scroll-snap-type: mandatory;
         }
-        .carousel li {
+        .carousel div {
             padding: 2px;
             flex: 0 0 400px;
-            scroll-snap-align: center;
+            scroll-snap-adivgn: center;
             position: relative;
         }
         .is-active svg {
@@ -63,18 +63,18 @@
     <h1>Demo carousel</h1>
 
     <div class="carousel-wrapper">
-        <ul class="carousel" role="region" aria-label="Gallery" tabindex="0">
-            <li><svg viewBox="0 0 400 200"><text x="40" y="40">0</text></svg></li>
-            <li><svg viewBox="0 0 400 200"><text x="40" y="40">1</text></svg></li>
-            <li><svg viewBox="0 0 400 200"><text x="40" y="40">2</text></svg></li>
-            <li><svg viewBox="0 0 400 200"><text x="40" y="40">3</text></svg></li>
-            <li><svg viewBox="0 0 400 200"><text x="40" y="40">4</text></svg></li>
-            <li><svg viewBox="0 0 400 200"><text x="40" y="40">5</text></svg></li>
-            <li><svg viewBox="0 0 400 200"><text x="40" y="40">6</text></svg></li>
-            <li><svg viewBox="0 0 400 200"><text x="40" y="40">7</text></svg></li>
-            <li><svg viewBox="0 0 400 200"><text x="40" y="40">8</text></svg></li>
-            <li><svg viewBox="0 0 400 200"><text x="40" y="40">9</text></svg></li>
-        </ul>
+        <oom-carousel class="carousel" role="region" aria-label="Gallery" tabindex="0" index="3">
+            <div><svg viewBox="0 0 400 200"><text x="40" y="40">0</text></svg></div>
+            <div><svg viewBox="0 0 400 200"><text x="40" y="40">1</text></svg></div>
+            <div><svg viewBox="0 0 400 200"><text x="40" y="40">2</text></svg></div>
+            <div><svg viewBox="0 0 400 200"><text x="40" y="40">3</text></svg></div>
+            <div><svg viewBox="0 0 400 200"><text x="40" y="40">4</text></svg></div>
+            <div><svg viewBox="0 0 400 200"><text x="40" y="40">5</text></svg></div>
+            <div><svg viewBox="0 0 400 200"><text x="40" y="40">6</text></svg></div>
+            <div><svg viewBox="0 0 400 200"><text x="40" y="40">7</text></svg></div>
+            <div><svg viewBox="0 0 400 200"><text x="40" y="40">8</text></svg></div>
+            <div><svg viewBox="0 0 400 200"><text x="40" y="40">9</text></svg></div>
+        </oom-carousel>
     </div>
 
     <button class="carousel-prev">Prev</button>
@@ -82,6 +82,7 @@
     <button class="play-stop">Play/Stop</button>
 
     <script type="text/javascript" src="https://cdn.rawgit.com/iamdustan/smoothscroll/v0.4.2/src/smoothscroll.js" async></script>
+    <script type="text/javascript" src="https://unpkg.com/@webcomponents/webcomponentsjs@2.0.3/webcomponents-bundle.js"></script>
     <script type="module" src="script.js" async></script>
 </body>
 </html>

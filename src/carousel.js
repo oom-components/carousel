@@ -1,106 +1,51 @@
-export default class Carousel {
-    static checkA11y(element) {
-        if (element.getAttribute('role') !== 'region') {
-            console.info(
-                '@oom/carusel [accesibility]:',
-                'Missing role="region" attribute in the carousel element'
-            );
-        }
-
-        if (!element.hasAttribute('aria-label')) {
-            console.info(
-                '@oom/carusel [accesibility]:',
-                'Missing aria-label attribute in the carousel element'
-            );
-        }
-
-        if (!element.hasAttribute('tabindex')) {
-            console.info(
-                '@oom/carusel [accesibility]:',
-                'Missing tabindex="0" attribute in the carousel element'
-            );
-        }
+class Carousel extends HTMLElement {
+    static get observedAttributes() {
+        return ['index'];
     }
 
-    static checkSupport(element) {
-        const support = {
-            smoothScroll: true,
-            snapPoints: true
-        };
-
-        if (!('scroll' in element)) {
-            support.smoothScroll = false;
-
-            console.info(
-                '@oom/carusel [compatibility]:',
-                'Missing smooth scrolling support. Consider using a polyfill like "smoothscroll-polyfill"'
-            );
-        }
-
-        if (
-            !getStyleValue(element, 'scrollSnapType') ||
-            !getStyleValue(element.firstElementChild, 'scrollSnapAlign')
-        ) {
-            support.snapPoints = false;
-
-            console.info(
-                '@oom/carusel [compatibility]:',
-                'Missing Scroll Snap Points support or not defined in CSS.'
-            );
-        }
-
-        return support;
-    }
-
-    constructor(element) {
-        Carousel.checkA11y(element);
-        const support = Carousel.checkSupport(element);
-
-        this.element = element;
-        this.slides = Array.from(this.element.children);
+    constructor() {
+        super();
         this.scrollBehavior = 'smooth';
 
         //To calculate the offset of slides relative to the document
-        if (getStyleValue(this.element, 'position') === 'static') {
-            this.element.style.position = 'relative';
+        if (getStyleValue(this, 'position') === 'static') {
+            this.style.position = 'relative';
         }
 
-        if (!support.snapPoints) {
-            this.element.addEventListener(
-                'scroll',
-                debounce(() => this.goto('current'), 100)
-            );
-
-            window.addEventListener(
-                'resize',
-                debounce(() => this.goto('current'), 100)
-            );
-        }
-
-        this.element.addEventListener('keydown', e => {
+        this.addEventListener('keydown', e => {
             switch (e.keyCode) {
                 case 37: //left
-                    this.goto('-1');
+                    this.index -= 1;
                     e.preventDefault();
                     break;
 
                 case 39: //right
-                    this.goto('+1');
+                    this.index += 1;
                     e.preventDefault();
                     break;
             }
         });
+
+        checkScrollSupport(this);
+        checkA11y(this);
+
+        if (!supportSnapPoints(this)) {
+            this.addEventListener(
+                'scroll',
+                debounce(() => (this.index += 0), 100)
+            );
+        }
     }
 
-    get current() {
+    get index() {
         let currentPoint = 0;
 
-        return this.slides.find((slide, index, slides) => {
-            const nextPoint = this.getSlideScroll(index + 1);
+        return Array.from(this.children).findIndex((slide, index) => {
+            const nextPoint = getSlideScroll(this, index + 1);
 
             const limit = currentPoint + (nextPoint - currentPoint) / 2;
 
-            if (this.element.scrollLeft <= limit) {
+            if (this.scrollLeft <= limit) {
                 return slide;
             }
 
@@ -108,68 +53,52 @@ export default class Carousel {
         });
     }
 
-    goto(position) {
-        const index = this.getSlideIndex(position);
-        const scroll = this.getSlideScroll(index);
+    set index(index) {
+        if (typeof index !== 'number' || Math.round(index) !== index) {
+            throw new Error('Invalid index value. It must be an integer');
+        }
+
+        const scroll = getSlideScroll(this, index);
 
         try {
-            this.element.scroll({
+            this.scroll({
                 left: scroll,
                 behavior: this.scrollBehavior
             });
         } catch (err) {
-            this.element.scrollLeft = scroll;
+            this.scrollLeft = scroll;
         }
     }
 
-    getSlideIndex(position) {
-        if (position === 'first') {
-            return 0;
-        }
-
-        if (position === 'last') {
-            return this.slides.length - 1;
-        }
-
-        let index = this.slides.indexOf(this.current);
-
-        if (position === 'current') {
-            return index;
-        }
-
-        if (/^\+[0-9]+$/.test(position)) {
-            index += parseInt(position.substr(1), 10);
-        } else if (/^\-[0-9]+$/.test(position)) {
-            index -= parseInt(position.substr(1), 10);
-        } else {
-            index = parseInt(position);
-        }
-
-        return Math.min(Math.max(index, 0), this.slides.length - 1);
+    get scrollFromLeft() {
+        return this.scrollLeft;
     }
 
-    getSlideScroll(index) {
-        index = Math.min(Math.max(index, 0), this.slides.length - 1);
-
-        const percent = index / (this.slides.length - 1);
-        const slide = this.slides[index];
-        const slidePosition = slide.clientWidth * percent + slide.offsetLeft;
-        const elementPosition = this.element.clientWidth * percent;
-
-        return slidePosition - elementPosition;
+    get scrollFromRight() {
+        return this.scrollWidth - this.clientWidth - this.scrollLeft;
     }
 
-    scrollIsAtTheBeginning() {
-        return this.element.scrollLeft === 0;
-    }
-
-    scrollIsAtTheEnd() {
-        return (
-            this.element.scrollLeft >=
-            this.element.scrollWidth - this.element.clientWidth
-        );
+    attributeChangedCallback(name, oldValue, newValue) {
+        if (name === 'index') {
+            this.index = parseInt(newValue);
+        }
     }
 }
+
+function getSlideScroll(element, index) {
+    const slides = element.children;
+
+    index = Math.min(Math.max(index, 0), slides.length - 1);
+
+    const percent = index / (slides.length - 1);
+    const slide = slides[index];
+    const slidePosition = slide.clientWidth * percent + slide.offsetLeft;
+    const elementPosition = element.clientWidth * percent;
+
+    return slidePosition - elementPosition;
+}
+
+export default Carousel;
 
 function debounce(fn, wait) {
     let timeout;
@@ -189,5 +118,54 @@ function getStyleValue(el, name) {
 
     if (value && value.replace(/none/g, '').trim()) {
         return value;
+    }
+}
+
+function supportSnapPoints(element) {
+    const support =
+        getStyleValue(element, 'scrollSnapType') &&
+        getStyleValue(element.firstElementChild, 'scrollSnapAlign');
+
+    if (!support) {
+        console.info(
+            '@oom/carusel [compatibility]:',
+            'Missing Scroll Snap Points support or not defined in CSS.'
+        );
+    }
+
+    return support;
+}
+
+function checkScrollSupport(element) {
+    const support = 'scroll' in element && 'scrollBehavior' in element.style;
+
+    if (!support) {
+        console.info(
+            '@oom/carusel [compatibility]:',
+            'Missing smooth scrolling support. Consider using a polyfill like "smoothscroll-polyfill"'
+        );
+    }
+}
+
+function checkA11y(element) {
+    if (element.getAttribute('role') !== 'region') {
+        console.info(
+            '@oom/carusel [accesibility]:',
+            'Missing role="region" attribute in the carousel element'
+        );
+    }
+
+    if (!element.hasAttribute('aria-label')) {
+        console.info(
+            '@oom/carusel [accesibility]:',
+            'Missing aria-label attribute in the carousel element'
+        );
+    }
+
+    if (!element.hasAttribute('tabindex')) {
+        console.info(
+            '@oom/carusel [accesibility]:',
+            'Missing tabindex="0" attribute in the carousel element'
+        );
     }
 }
