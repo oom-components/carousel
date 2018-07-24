@@ -8,14 +8,14 @@
         html {
             font-family: -apple-system, system-ui, sans-serif;
         }
-        .carousel-wrapper {
+        .carousel {
             position: relative;
             /* hide scrollbar (1/2) */
            /* overflow-y: hidden;
             margin: 5px 0;*/
         }
 
-        .carousel {
+        oom-carousel {
             width: 100%;
             overflow-x: auto;
             display: flex;
@@ -30,14 +30,11 @@
             /* scroll snap points */
             scroll-snap-type: mandatory;
         }
-        .carousel div {
+        oom-carousel div {
             padding: 2px;
             flex: 0 0 400px;
-            scroll-snap-adivgn: center;
+            scroll-snap-align: center;
             position: relative;
-        }
-        .is-active svg {
-            background: red;
         }
         svg {
             display: block;
@@ -62,8 +59,8 @@
 <body>
     <h1>Demo carousel</h1>
 
-    <div class="carousel-wrapper">
-        <oom-carousel class="carousel" role="region" aria-label="Gallery" tabindex="0" index="3">
+    <div class="carousel">
+        <oom-carousel role="region" aria-label="Gallery" tabindex="0" index="3">
             <div><svg viewBox="0 0 400 200"><text x="40" y="40">0</text></svg></div>
             <div><svg viewBox="0 0 400 200"><text x="40" y="40">1</text></svg></div>
             <div><svg viewBox="0 0 400 200"><text x="40" y="40">2</text></svg></div>

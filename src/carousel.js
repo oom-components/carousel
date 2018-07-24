@@ -6,7 +6,9 @@ export default class Carousel extends HTMLElement {
     constructor() {
         super();
         this.scrollBehavior = 'smooth';
+    }
 
+    connectedCallback() {
         //To calculate the offset of slides relative to the document
         if (getStyleValue(this, 'position') === 'static') {
             this.style.position = 'relative';
@@ -34,6 +36,12 @@ export default class Carousel extends HTMLElement {
                 'scroll',
                 debounce(() => (this.index += 0), 100)
             );
+        }
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        if (name === 'index') {
+            this.index = parseInt(newValue);
         }
     }
 
@@ -76,12 +84,6 @@ export default class Carousel extends HTMLElement {
 
     get scrollFromRight() {
         return this.scrollWidth - this.clientWidth - this.scrollLeft;
-    }
-
-    attributeChangedCallback(name, oldValue, newValue) {
-        if (name === 'index') {
-            this.index = parseInt(newValue);
-        }
     }
 }
 
