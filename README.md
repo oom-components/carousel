@@ -1,4 +1,4 @@
-# PW Carousel
+# @oom/carousel
 
 Carousel with the following features:
 
@@ -8,6 +8,7 @@ Carousel with the following features:
   * Works with just `html`
   * Works better with `html` and `css`
   * Works much better with `html`, `css` and `js`
+  * Works much much better when `js` polyfills are not needed
 * High performance: Use native scroll to move the elements.
 * No need to wait for javascript to build the carousel.
 * No styles or themes are provided with this package. You decide how the carousel must look.
@@ -21,10 +22,12 @@ Requirements:
 
 * NPM or Yarn to install [the package](https://www.npmjs.com/package/@oom/carousel)
 * It's recommended to use [the Scroll Behaviour polyfill](https://github.com/iamdustan/smoothscroll) to [have better support for more browsers](https://caniuse.com/#feat=css-scroll-behavior)
+* For browsers [not supporting custom elements](https://caniuse.com/#feat=custom-elementsv1), [you can use this polyfill](https://github.com/webcomponents/custom-elements)
 
 ```sh
 npm install @oom/carousel
 npm install smoothscroll-polyfill
+npm install @webcomponents/custom-elements
 ```
 
 ## Usage
@@ -78,35 +81,24 @@ And finally use javascript for a complete experience:
 
 ```js
 import Carousel from './carousel/carousel.js';
-import Player from './carousel/player.js';
 
 //Register the custom element
 customElements.define('oom-carousel', Carousel);
 
 //Select the carousel
 const carousel = document.querySelector('my-carousel');
-const player = new Player(carousel);
 
 //Navigate
 document.querySelector('.carousel-next')
-    .addEventListener('click', event => {
-        carousel.index += 1;
-        player.stop();
-    });
+    .addEventListener('click', event => carousel.index += 1);
 
 document.querySelector('.carousel-prev')
-    .addEventListener('click', event => {
-        carousel.index -= 1;
-        player.stop();
-    });
-
-//Autoplay
-player.play();
+    .addEventListener('click', event => carousel.index -= 1);
 ```
 
 ## Player
 
-Use the module `player` to access to the player in order to init a slideshow. Example:
+Use the module `player` to create a player and init a slideshow. Example:
 
 ```js
 import Player from './carousel/player.js';
