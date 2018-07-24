@@ -5,12 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [UNRELEASED]
+## [3.0.0] - UNRELEASED
 
 ### Changed
 
 - Decoupled `Carousel` and `Player` modules.
-- Removed `settings.scrollBehavior` and replaced with `scrollBehavior`, allowing to set all availiable options of [element.scrollIntoView() method](https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView)
+- Use native custom elements to build the component.
+- Removed `settings.scrollBehavior` and replaced with `scrollBehavior`.
+- API Change: Removed `goto()` method and replaced with `index` property, that only accept integers.
+- API Change: Removed `scrollIsAtBeginning()` and `scrollIsAtTheEnd()` methods and replaced with `scrollFromLeft` and `scrollFromRight` read-only properties.
 
 ### Fixed
 
@@ -206,7 +209,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 First version with basic features
 
 
-[UNRELEASED]: https://github.com/oom-components/carousel/compare/v2.0.0...HEAD
+[3.0.0]: https://github.com/oom-components/carousel/compare/v2.0.0...HEAD
 [2.0.0]: https://github.com/oom-components/carousel/compare/v1.0.0...v2.0.0
 [1.0.0]: https://github.com/oom-components/carousel/compare/v0.8.1...v1.0.0
 [0.8.1]: https://github.com/oom-components/carousel/compare/v0.8.0...v0.8.1

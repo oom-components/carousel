@@ -1,4 +1,4 @@
-class Carousel extends HTMLElement {
+export default class Carousel extends HTMLElement {
     static get observedAttributes() {
         return ['index'];
     }
@@ -97,8 +97,6 @@ function getSlideScroll(element, index) {
 
     return slidePosition - elementPosition;
 }
-
-export default Carousel;
 
 function debounce(fn, wait) {
     let timeout;
