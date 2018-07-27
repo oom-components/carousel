@@ -1,6 +1,6 @@
 {
   "name": "@oom/carousel",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Carousel built with progressive enhancement in mind",
   "browser": "src/carousel.js",
   "modules.root": "src",
@@ -21,6 +21,7 @@
     "component",
     "slider",
     "carousel",
+    "custom element",
     "es6"
   ],
   "author": "Oscar Otero <oom@oscarotero.com>",

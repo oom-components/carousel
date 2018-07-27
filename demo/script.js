@@ -6,6 +6,8 @@ customElements.define('oom-carousel', Carousel);
 const carousel = document.querySelector('oom-carousel');
 const player = new Player(carousel);
 
+carousel.parentElement.classList.add('hide-scrollbar');
+
 document
     .querySelector('.carousel-next')
     .addEventListener('click', () => (carousel.index += 1));

@@ -60,16 +60,11 @@ Use css to define the carousel appearance:
 
 ```css
 my-carousel {
-    width: 100%;
     overflow-x: scroll;
     display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
     scroll-snap-type: mandatory;
 }
 my-carousel > div {
-    padding: 2px;
     flex: 0 0 auto;
     scroll-snap-align: center;
 }
@@ -83,17 +78,14 @@ And finally use javascript for a complete experience:
 import Carousel from './carousel/carousel.js';
 
 //Register the custom element
-customElements.define('oom-carousel', Carousel);
+customElements.define('my-carousel', Carousel);
 
 //Select the carousel
 const carousel = document.querySelector('my-carousel');
 
 //Navigate
-document.querySelector('.carousel-next')
-    .addEventListener('click', event => carousel.index += 1);
-
-document.querySelector('.carousel-prev')
-    .addEventListener('click', event => carousel.index -= 1);
+document.querySelector('.carousel-next').addEventListener('click', event => carousel.index += 1);
+document.querySelector('.carousel-prev').addEventListener('click', event => carousel.index -= 1);
 ```
 
 ## Player
