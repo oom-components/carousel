@@ -67,6 +67,51 @@ describe('Carousel testing', function() {
         });
     });
 
+    context('Scroll', function() {
+        //Disable smooth
+        carousel.scrollBehavior = 'auto';
+
+        it('goes to the beginning', function() {
+            carousel.scrollFromLeft = 0;
+
+            expect(carousel.scrollFromLeft === 0).to.be.true;
+            expect(carousel.scrollFromRight === 0).to.be.false;
+            expect(carousel.index).to.equal(0);
+        });
+
+        it('goes to the end', function() {
+            carousel.scrollFromRight = 0;
+
+            expect(carousel.scrollFromLeft === 0).to.be.false;
+            expect(carousel.scrollFromRight === 0).to.be.true;
+            expect(carousel.index).to.equal(9);
+        });
+
+        it('scroll from left', function() {
+            carousel.scrollFromLeft = 400;
+
+            expect(carousel.scrollFromLeft).to.equal(400);
+            expect(carousel.scrollFromRight).to.equal(3000);
+            expect(carousel.index).to.equal(1);
+        });
+
+        it('advance scroll from left', function() {
+            carousel.scrollFromLeft += carousel.clientWidth;
+
+            expect(carousel.scrollFromLeft).to.equal(1000);
+            expect(carousel.scrollFromRight).to.equal(2400);
+            expect(carousel.index).to.equal(3);
+        });
+
+        it('scroll from right', function() {
+            carousel.scrollFromRight = 400;
+
+            expect(carousel.scrollFromLeft).to.equal(3000);
+            expect(carousel.scrollFromRight).to.equal(400);
+            expect(carousel.index).to.equal(8);
+        });
+    });
+
     context('Player', function() {
         const player = new Player(carousel);
 

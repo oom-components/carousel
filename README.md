@@ -107,6 +107,27 @@ player.play(10000);
 player.stop();
 ```
 
+## API
+
+This is a custom element that extends `HtmlElement`, so it innerit the same api of a standard html element with the following additions:
+
+```js
+//Get/set the slide index
+carousel.index = 3; //move to the slide 3
+const currIndex = carousel.index; //get the current slide index
+carousel += 1; //move to the next slide
+carousel -= 1; //move to the previous slide
+
+
+//Move the slide using scroll
+
+let atBeginning = carousel.scrollFromLeft === 0; //Determine whether the scroll is at begining
+let atTheEnd = carousel.scrollFromRight === 0; //Determine whether the scroll is at the end
+
+carousel.scrollFromLeft = 0; //Performs a scroll to the beginning
+carousel.scrollFromRight = 0; //Performs a scroll to the end
+carousel.scrollFromLeft += carousel.clientWidth; //Move the scroll the equivalent of the width of the carousel
+```
 
 ## Demo and tests
 

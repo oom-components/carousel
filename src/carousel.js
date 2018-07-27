@@ -66,8 +66,14 @@ export default class Carousel extends HTMLElement {
             throw new Error('Invalid index value. It must be an integer');
         }
 
-        const scroll = getSlideScroll(this, index);
+        this.scrollFromLeft = getSlideScroll(this, index);
+    }
 
+    get scrollFromLeft() {
+        return this.scrollLeft;
+    }
+
+    set scrollFromLeft(scroll) {
         try {
             this.scroll({
                 left: scroll,
@@ -78,12 +84,12 @@ export default class Carousel extends HTMLElement {
         }
     }
 
-    get scrollFromLeft() {
-        return this.scrollLeft;
-    }
-
     get scrollFromRight() {
         return this.scrollWidth - this.clientWidth - this.scrollLeft;
+    }
+
+    set scrollFromRight(scroll) {
+        this.scrollFromLeft = this.scrollWidth - this.clientWidth - scroll;
     }
 }
 

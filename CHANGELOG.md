@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Use native custom elements to build the component.
 - Removed `settings.scrollBehavior` and replaced with `scrollBehavior`.
 - API Change: Removed `goto()` method and replaced with `index` property, that only accept integers.
-- API Change: Removed `scrollIsAtBeginning()` and `scrollIsAtTheEnd()` methods and replaced with `scrollFromLeft` and `scrollFromRight` read-only properties.
+- API Change: Removed `scrollIsAtBeginning()` and `scrollIsAtTheEnd()` methods and replaced with `scrollFromLeft` and `scrollFromRight` properties.
 
 ### Fixed
 
