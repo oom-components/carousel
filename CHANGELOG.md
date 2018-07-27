@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [3.0.0] - UNRELEASED
+## [3.0.0] - 2018-07-27
 
 ### Changed
 
@@ -209,7 +209,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 First version with basic features
 
 
-[3.0.0]: https://github.com/oom-components/carousel/compare/v2.0.0...HEAD
+[3.0.0]: https://github.com/oom-components/carousel/compare/v2.0.0...v3.0.0
 [2.0.0]: https://github.com/oom-components/carousel/compare/v1.0.0...v2.0.0
 [1.0.0]: https://github.com/oom-components/carousel/compare/v0.8.1...v1.0.0
 [0.8.1]: https://github.com/oom-components/carousel/compare/v0.8.0...v0.8.1
