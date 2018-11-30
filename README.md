@@ -62,7 +62,8 @@ Use css to define the carousel appearance:
 my-carousel {
     overflow-x: scroll;
     display: flex;
-    scroll-snap-type: mandatory;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
 }
 my-carousel > div {
     flex: 0 0 auto;
