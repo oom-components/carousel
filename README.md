@@ -116,8 +116,8 @@ This is a custom element that extends `HtmlElement`, so it innerit the same api 
 //Get/set the slide index
 carousel.index = 3; //move to the slide 3
 const currIndex = carousel.index; //get the current slide index
-carousel += 1; //move to the next slide
-carousel -= 1; //move to the previous slide
+carousel.index += 1; //move to the next slide
+carousel.index -= 1; //move to the previous slide
 
 
 //Move the slide using scroll
