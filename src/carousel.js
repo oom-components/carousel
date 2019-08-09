@@ -48,11 +48,13 @@ export default class Carousel extends HTMLElement {
 
     get index() {
         const total = this.children.length - 1;
+        const slides = this.children;
 
         for (let index = 0; index < total; index++) {
-            const scroll = getSlideScroll(this, index);
+            const slide = slides[index];
+            const scroll = Math.round(slide.offsetLeft - this.clientWidth / 2);
 
-            if (this.scrollLeft <= scroll) {
+            if (this.scrollLeft >= scroll && this.scrollLeft <= scroll + slide.clientWidth) {
                 return index;
             }
         }
@@ -65,7 +67,12 @@ export default class Carousel extends HTMLElement {
             throw new Error('Invalid index value. It must be an integer');
         }
 
-        this.scrollFromLeft = getSlideScroll(this, index);
+        const slides = this.children;
+        index = Math.min(Math.max(index, 0), slides.length - 1);
+        const slide = slides[index];
+        const scroll = Math.round(slide.offsetLeft - this.clientWidth / 2 + slide.clientWidth / 2);
+
+        this.scrollFromLeft = Math.max(0, scroll);
     }
 
     get scrollFromLeft() {
@@ -90,15 +97,6 @@ export default class Carousel extends HTMLElement {
     set scrollFromRight(scroll) {
         this.scrollFromLeft = this.scrollWidth - this.clientWidth - scroll;
     }
-}
-
-function getSlideScroll(element, index) {
-    const slides = element.children;
-    index = Math.min(Math.max(index, 0), slides.length - 1);
-    const slide = slides[index];
-    const scroll = Math.round(slide.offsetLeft - element.clientWidth / 2 + slide.clientWidth / 2);
-
-    return Math.max(scroll, 0);
 }
 
 function getStyleValue(el, name) {

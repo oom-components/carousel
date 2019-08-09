@@ -90,7 +90,7 @@ describe('Carousel testing', function() {
 
             expect(carousel.scrollFromLeft).to.equal(400);
             expect(carousel.scrollFromRight).to.equal(3000);
-            expect(carousel.index).to.equal(2);
+            expect(carousel.index).to.equal(1);
         });
 
         it('advance scroll from left', function() {
