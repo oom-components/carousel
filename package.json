@@ -1,6 +1,6 @@
 {
   "name": "@oom/carousel",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "Carousel built with progressive enhancement in mind",
   "browser": "src/carousel.js",
   "modules.root": "src",
@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "start": "http-server -c-1",
-    "prettier": "prettier src/*.js demo/*.js tests/*.js --single-quote --tab-width 4 --write"
+    "prettier": "prettier src/*.js demo/*.js tests/*.js --single-quote --tab-width 4 --write --print-width 120"
   },
   "repository": {
     "type": "git",

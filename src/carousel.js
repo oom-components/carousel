@@ -30,13 +30,6 @@ export default class Carousel extends HTMLElement {
 
         checkScrollSupport(this);
         checkA11y(this);
-
-        if (!supportSnapPoints(this)) {
-            this.addEventListener(
-                'scroll',
-                debounce(() => (this.index += 0), 100)
-            );
-        }
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
@@ -45,20 +38,26 @@ export default class Carousel extends HTMLElement {
         }
     }
 
+    next(amount = 1) {
+        this.scrollFromLeft += this.clientWidth * amount;
+    }
+
+    prev(amount = 1) {
+        this.scrollFromLeft -= this.clientWidth * amount;
+    }
+
     get index() {
-        let currentPoint = 0;
+        const total = this.children.length - 1;
 
-        return Array.from(this.children).findIndex((slide, index) => {
-            const nextPoint = getSlideScroll(this, index + 1);
+        for (let index = 0; index < total; index++) {
+            const scroll = getSlideScroll(this, index);
 
-            const limit = currentPoint + (nextPoint - currentPoint) / 2;
-
-            if (this.scrollLeft <= limit) {
-                return slide;
+            if (this.scrollLeft <= scroll) {
+                return index;
             }
+        }
 
-            currentPoint = nextPoint;
-        });
+        return total;
     }
 
     set index(index) {
@@ -95,28 +94,11 @@ export default class Carousel extends HTMLElement {
 
 function getSlideScroll(element, index) {
     const slides = element.children;
-
     index = Math.min(Math.max(index, 0), slides.length - 1);
-
-    const percent = index / (slides.length - 1);
     const slide = slides[index];
-    const slidePosition = slide.clientWidth * percent + slide.offsetLeft;
-    const elementPosition = element.clientWidth * percent;
+    const scroll = Math.round(slide.offsetLeft - element.clientWidth / 2 + slide.clientWidth / 2);
 
-    return slidePosition - elementPosition;
-}
-
-function debounce(fn, wait) {
-    let timeout;
-
-    return function() {
-        const later = function() {
-            timeout = null;
-            fn();
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
+    return Math.max(scroll, 0);
 }
 
 function getStyleValue(el, name) {
@@ -125,21 +107,6 @@ function getStyleValue(el, name) {
     if (value && value.replace(/none/g, '').trim()) {
         return value;
     }
-}
-
-function supportSnapPoints(element) {
-    const support =
-        getStyleValue(element, 'scrollSnapType') &&
-        getStyleValue(element.firstElementChild, 'scrollSnapAlign');
-
-    if (!support) {
-        console.info(
-            '@oom/carusel [compatibility]:',
-            'Missing Scroll Snap Points support or not defined in CSS.'
-        );
-    }
-
-    return support;
 }
 
 function checkScrollSupport(element) {
@@ -155,23 +122,14 @@ function checkScrollSupport(element) {
 
 function checkA11y(element) {
     if (element.getAttribute('role') !== 'region') {
-        console.info(
-            '@oom/carusel [accesibility]:',
-            'Missing role="region" attribute in the carousel element'
-        );
+        console.info('@oom/carusel [accesibility]:', 'Missing role="region" attribute in the carousel element');
     }
 
     if (!element.hasAttribute('aria-label')) {
-        console.info(
-            '@oom/carusel [accesibility]:',
-            'Missing aria-label attribute in the carousel element'
-        );
+        console.info('@oom/carusel [accesibility]:', 'Missing aria-label attribute in the carousel element');
     }
 
     if (!element.hasAttribute('tabindex')) {
-        console.info(
-            '@oom/carusel [accesibility]:',
-            'Missing tabindex="0" attribute in the carousel element'
-        );
+        console.info('@oom/carusel [accesibility]:', 'Missing tabindex="0" attribute in the carousel element');
     }
 }

@@ -8,17 +8,14 @@ const player = new Player(carousel);
 
 carousel.parentElement.classList.add('hide-scrollbar');
 
-document
-    .querySelector('.carousel-next')
-    .addEventListener('click', () => (carousel.index += 1));
+document.querySelector('.carousel-1').addEventListener('click', () => (carousel.index += 1));
 
-document
-    .querySelector('.carousel-prev')
-    .addEventListener('click', () => (carousel.index -= 1));
+document.querySelector('.carousel--1').addEventListener('click', () => (carousel.index -= 1));
+
+document.querySelector('.carousel-next').addEventListener('click', () => carousel.next());
+
+document.querySelector('.carousel-prev').addEventListener('click', () => carousel.prev());
 
 document
     .querySelector('.play-stop')
-    .addEventListener(
-        'click',
-        () => (player.isPlaying ? player.stop() : player.play())
-    );
+    .addEventListener('click', () => (player.isPlaying ? player.stop() : player.play()));

@@ -3,7 +3,7 @@
 Carousel with the following features:
 
 * No dependencies
-* Light: Aprox 200 lines of code (including comments and spaces)
+* Light: Less than 200 lines of code (including comments and spaces)
 * Follows the **progressive enhancement strategy:**
   * Works with just `html`
   * Works better with `html` and `css`
@@ -127,7 +127,8 @@ let atTheEnd = carousel.scrollFromRight === 0; //Determine whether the scroll is
 
 carousel.scrollFromLeft = 0; //Performs a scroll to the beginning
 carousel.scrollFromRight = 0; //Performs a scroll to the end
-carousel.scrollFromLeft += carousel.clientWidth; //Move the scroll the equivalent of the width of the carousel
+carousel.next(); //Move the scroll to next
+carousel.prev(); //Move the scroll to previous
 ```
 
 ## Demo and tests
