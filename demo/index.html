@@ -43,6 +43,9 @@
             border: none;
             border-radius: 2px;
         }
+        :target {
+            background: #ccc;
+        }
     </style>
 </head>
 
@@ -51,16 +54,16 @@
 
     <div>
         <oom-carousel role="region" aria-label="Gallery" tabindex="0">
-            <div><svg viewBox="0 0 400 200"><text x="40" y="40">0</text></svg></div>
-            <div><svg viewBox="0 0 400 200"><text x="40" y="40">1</text></svg></div>
-            <div><svg viewBox="0 0 400 200"><text x="40" y="40">2</text></svg></div>
-            <div><svg viewBox="0 0 400 200"><text x="40" y="40">3</text></svg></div>
-            <div><svg viewBox="0 0 400 200"><text x="40" y="40">4</text></svg></div>
-            <div><svg viewBox="0 0 400 200"><text x="40" y="40">5</text></svg></div>
-            <div><svg viewBox="0 0 400 200"><text x="40" y="40">6</text></svg></div>
-            <div><svg viewBox="0 0 400 200"><text x="40" y="40">7</text></svg></div>
-            <div><svg viewBox="0 0 400 200"><text x="40" y="40">8</text></svg></div>
-            <div><svg viewBox="0 0 400 200"><text x="40" y="40">9</text></svg></div>
+            <div id="slide-0"><svg viewBox="0 0 400 200"><text x="40" y="40">0</text></svg></div>
+            <div id="slide-1"><svg viewBox="0 0 400 200"><text x="40" y="40">1</text></svg></div>
+            <div id="slide-2"><svg viewBox="0 0 400 200"><text x="40" y="40">2</text></svg></div>
+            <div id="slide-3"><svg viewBox="0 0 400 200"><text x="40" y="40">3</text></svg></div>
+            <div id="slide-4"><svg viewBox="0 0 400 200"><text x="40" y="40">4</text></svg></div>
+            <div id="slide-5"><svg viewBox="0 0 400 200"><text x="40" y="40">5</text></svg></div>
+            <div id="slide-6"><svg viewBox="0 0 400 200"><text x="40" y="40">6</text></svg></div>
+            <div id="slide-7"><svg viewBox="0 0 400 200"><text x="40" y="40">7</text></svg></div>
+            <div id="slide-8"><svg viewBox="0 0 400 200"><text x="40" y="40">8</text></svg></div>
+            <div id="slide-9"><svg viewBox="0 0 400 200"><text x="40" y="40">9</text></svg></div>
         </oom-carousel>
     </div>
 
@@ -70,6 +73,7 @@
         <button class="carousel-prev">Prev</button>
         <button class="carousel-next">Next</button>
         <button class="play-stop">Play/Stop</button>
+        <a href="#slide-6">Go to slide 6</button>
     </p>
 
     <script type="text/javascript" src="https://cdn.rawgit.com/iamdustan/smoothscroll/v0.4.2/src/smoothscroll.js" async></script>
