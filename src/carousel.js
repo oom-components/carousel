@@ -1,3 +1,5 @@
+let observer;
+
 export default class Carousel extends HTMLElement {
   static get observedAttributes() {
     return ["index"];
@@ -42,7 +44,7 @@ export default class Carousel extends HTMLElement {
       if (document.location.hash) {
         handleTarget(this, document.location.hash);
       } else if (this.children[0]) {
-        handleHistory(this.children[0].id, this.history);
+        handleHistory(this.children[0], this.history);
       }
 
       let scrolling;
@@ -50,11 +52,39 @@ export default class Carousel extends HTMLElement {
       function handleScroll() {
         clearTimeout(scrolling);
         scrolling = setTimeout(() => {
-          handleHistory(this.target.id, this.history);
+          const target = this.target;
+          handleHistory(target, this.history);
+          this.lastTarget = target;
         }, 50);
       }
 
       this.addEventListener("scroll", handleScroll, false);
+    }
+
+    //Resize observer
+    if (window.ResizeObserver) {
+      if (!observer) {
+        observer = new ResizeObserver(entries => {
+          for (let entry of entries) {
+            const element = entry.target;
+
+            if (element.lastTarget) {
+              const restored = element.scrollBehavior;
+              element.scrollBehavior = "auto";
+              element.target = element.lastTarget;
+              element.scrollBehavior = restored;
+            }
+          }
+        });
+      }
+
+      observer.observe(this);
+    }
+  }
+
+  disconnectedCallback() {
+    if (observer) {
+      observer.unobserver(this);
     }
   }
 
@@ -115,6 +145,7 @@ export default class Carousel extends HTMLElement {
       target.offsetLeft - this.clientWidth / 2 + target.clientWidth / 2,
     );
     this.scrollFromLeft = Math.max(0, scroll);
+    this.lastTarget = target;
   }
 
   get scrollFromLeft() {
@@ -152,16 +183,16 @@ function handleTarget(el, hash) {
   }
 }
 
-function handleHistory(id, mode) {
-  if (!id || document.location.hash === `#${id}`) {
+function handleHistory(el, mode) {
+  if (!el.id || document.location.hash === `#${el.id}`) {
     return;
   }
   switch (mode) {
     case "push":
-      history.pushState({}, null, `#${id}`);
+      history.pushState({}, null, `#${el.id}`);
       break;
     case "replace":
-      history.replaceState({}, null, `#${id}`);
+      history.replaceState({}, null, `#${el.id}`);
       break;
   }
 }

@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [4.1.0] - Unreleased
 ### Added
 - Automatic anchor navigation if the children have ids
+- Keep the current slide position on resize
 
 ## [4.0.0] - 2019-08-09
 ### Added

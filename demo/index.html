@@ -8,22 +8,21 @@
         html {
             font-family: -apple-system, system-ui, sans-serif;
         }
-        .hide-scrollbar {
-            overflow-y: hidden;
-        }
-        .hide-scrollbar > oom-carousel {
-            padding-bottom: 40px;
-            margin-bottom: -40px;
-        }
         oom-carousel {
             overflow-x: auto;
             display: flex;
             scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
         }
         oom-carousel div {
             margin: 0 2px;
             flex: 0 0 400px;
+            scroll-snap-align: center;
+        }
+        oom-carousel section {
+            margin: 0 2px;
+            flex: 0 0 90vw;
             scroll-snap-align: center;
         }
         svg {
@@ -31,6 +30,7 @@
             width: 400px;
             height: 200px;
             background: #ddd;
+            margin: auto;
         }
         text {
             font: bold 30px sans-serif;
@@ -73,7 +73,7 @@
         <button class="carousel-prev">Prev</button>
         <button class="carousel-next">Next</button>
         <button class="play-stop">Play/Stop</button>
-        <a href="#slide-6">Go to slide 6</button>
+        <a href="#slide-6">Go to slide 6</a>
     </p>
 
     <script type="text/javascript" src="https://cdn.rawgit.com/iamdustan/smoothscroll/v0.4.2/src/smoothscroll.js" async></script>
