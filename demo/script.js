@@ -1,30 +1,12 @@
 import Carousel from "../src/carousel.js";
 import Player from "../src/player.js";
+import Navigation from "../src/navigation.js";
 
 customElements.define("oom-carousel", Carousel);
+customElements.define("oom-carousel-navigation", Navigation);
 
 const carousel = document.querySelector("oom-carousel");
 const player = new Player(carousel);
-
-document.querySelector(".carousel-1").addEventListener(
-  "click",
-  () => (carousel.index += 1),
-);
-
-document.querySelector(".carousel--1").addEventListener(
-  "click",
-  () => (carousel.index -= 1),
-);
-
-document.querySelector(".carousel-next").addEventListener(
-  "click",
-  () => carousel.next(),
-);
-
-document.querySelector(".carousel-prev").addEventListener(
-  "click",
-  () => carousel.prev(),
-);
 
 document
   .querySelector(".play-stop")

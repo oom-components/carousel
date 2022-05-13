@@ -46,6 +46,9 @@
             border: none;
             border-radius: 2px;
         }
+        button:disabled {
+            opacity: 0.1;
+        }
         :target {
             background: #ccc;
         }
@@ -56,7 +59,7 @@
     <h1>Demo carousel</h1>
 
     <div>
-        <oom-carousel role="region" aria-label="Gallery" tabindex="0">
+        <oom-carousel id="main-carousel" role="region" aria-label="Gallery" tabindex="0">
             <div id="slide-0"><svg viewBox="0 0 400 200"><text x="40" y="40">0</text></svg></div>
             <div id="slide-1"><svg viewBox="0 0 400 200"><text x="40" y="40">1</text></svg></div>
             <div id="slide-2"><svg viewBox="0 0 400 200"><text x="40" y="40">2</text></svg></div>
@@ -70,14 +73,14 @@
         </oom-carousel>
     </div>
 
-    <p>
-        <button class="carousel-1">+1</button>
-        <button class="carousel--1">-1</button>
-        <button class="carousel-prev">Prev</button>
-        <button class="carousel-next">Next</button>
+    <oom-carousel-navigation for="main-carousel">
+        <button value="+1" class="carousel-1">+1</button>
+        <button value="-1" class="carousel--1">-1</button>
+        <button value="prev" class="carousel-prev">Prev</button>
+        <button value="next" class="carousel-next">Next</button>
         <button class="play-stop">Play/Stop</button>
         <a href="#slide-6">Go to slide 6</a>
-    </p>
+    </oom-carousel-navigation>
 
     <script type="text/javascript" src="https://cdn.rawgit.com/iamdustan/smoothscroll/v0.4.2/src/smoothscroll.js" async></script>
     <script type="text/javascript" src="https://unpkg.com/@webcomponents/webcomponentsjs@2.0.3/webcomponents-bundle.js"></script>

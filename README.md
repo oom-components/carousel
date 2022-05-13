@@ -2,27 +2,33 @@
 
 Carousel with the following features:
 
-* No dependencies
-* Light: Less than 200 lines of code (including comments and spaces)
-* Follows the **progressive enhancement strategy:**
-  * Works with just `html`
-  * Works better with `html` and `css`
-  * Works much better with `html`, `css` and `js`
-  * Works much much better when `js` polyfills are not needed
-* High performance: Use native scroll to move the elements.
-* No need to wait for javascript to build the carousel.
-* No styles or themes are provided with this package. You decide how the carousel must look.
-* Support for touch devices
-* Support for keyboard
-* Build with modern javascript, using ES6 modules and custom elements
+- No dependencies
+- Light: Less than 200 lines of code (including comments and spaces)
+- Follows the **progressive enhancement strategy:**
+  - Works with just `html`
+  - Works better with `html` and `css`
+  - Works much better with `html`, `css` and `js`
+  - Works much much better when `js` polyfills are not needed
+- High performance: Use native scroll to move the elements.
+- No need to wait for javascript to build the carousel.
+- No styles or themes are provided with this package. You decide how the
+  carousel must look.
+- Support for touch devices
+- Support for keyboard
+- Build with modern javascript, using ES6 modules and custom elements
 
 ## Install
 
 Requirements:
 
-* NPM or Yarn to install [the package](https://www.npmjs.com/package/@oom/carousel)
-* It's recommended to use [the Scroll Behaviour polyfill](https://github.com/iamdustan/smoothscroll) to [have better support for more browsers](https://caniuse.com/#feat=css-scroll-behavior)
-* For browsers [not supporting custom elements](https://caniuse.com/#feat=custom-elementsv1), [you can use this polyfill](https://github.com/webcomponents/custom-elements)
+- NPM or Yarn to install
+  [the package](https://www.npmjs.com/package/@oom/carousel)
+- It's recommended to use
+  [the Scroll Behaviour polyfill](https://github.com/iamdustan/smoothscroll) to
+  [have better support for more browsers](https://caniuse.com/#feat=css-scroll-behavior)
+- For browsers
+  [not supporting custom elements](https://caniuse.com/#feat=custom-elementsv1),
+  [you can use this polyfill](https://github.com/webcomponents/custom-elements)
 
 ```sh
 npm install @oom/carousel
@@ -76,17 +82,23 @@ my-carousel > div {
 And finally use javascript for a complete experience:
 
 ```js
-import Carousel from './carousel/carousel.js';
+import Carousel from "./carousel/carousel.js";
 
 //Register the custom element
-customElements.define('my-carousel', Carousel);
+customElements.define("my-carousel", Carousel);
 
 //Select the carousel
-const carousel = document.querySelector('my-carousel');
+const carousel = document.querySelector("my-carousel");
 
 //Navigate
-document.querySelector('.carousel-next').addEventListener('click', event => carousel.index += 1);
-document.querySelector('.carousel-prev').addEventListener('click', event => carousel.index -= 1);
+document.querySelector(".carousel-next").addEventListener(
+  "click",
+  (event) => carousel.index += 1,
+);
+document.querySelector(".carousel-prev").addEventListener(
+  "click",
+  (event) => carousel.index -= 1,
+);
 ```
 
 ## Player
@@ -94,7 +106,7 @@ document.querySelector('.carousel-prev').addEventListener('click', event => caro
 Use the module `player` to create a player and init a slideshow. Example:
 
 ```js
-import Player from './carousel/player.js';
+import Player from "./carousel/player.js";
 
 const player = new Player(carousel);
 
@@ -110,7 +122,8 @@ player.stop();
 
 ## API
 
-This is a custom element that extends `HtmlElement`, so it innerit the same api of a standard html element with the following additions:
+This is a custom element that extends `HtmlElement`, so it innerit the same api
+of a standard html element with the following additions:
 
 ```js
 //Get/set the slide index
@@ -118,7 +131,6 @@ carousel.index = 3; //move to the slide 3
 const currIndex = carousel.index; //get the current slide index
 carousel.index += 1; //move to the next slide
 carousel.index -= 1; //move to the previous slide
-
 
 //Move the slide using scroll
 
@@ -136,7 +148,8 @@ carousel.prev(); //Move the scroll to previous
 - Demo: https://oom-components.github.io/carousel/demo
 - Tests: https://oom-components.github.io/carousel/tests
 
-To run the demo locally, just clone this repository, enter in the directory and execute:
+To run the demo locally, just clone this repository, enter in the directory and
+execute:
 
 ```sh
 npm install

@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.2.0] - 2022-05-13
+### Added
+- New `Navigation` custom element, to show next/prev buttons.
+
 ## [4.1.0] - 2021-01-08
 ### Added
 - Automatic anchor navigation if the children have ids
@@ -163,9 +167,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - Fixed urls in `package.json`
 
-## 0.1.0 - 2017-06-04
+## [0.1.0] - 2017-06-04
 First version with basic features
 
+[4.2.0]: https://github.com/oom-components/carousel/compare/v4.1.0...v4.2.0
 [4.1.0]: https://github.com/oom-components/carousel/compare/v4.0.0...v4.1.0
 [4.0.0]: https://github.com/oom-components/carousel/compare/v3.0.0...v4.0.0
 [3.0.0]: https://github.com/oom-components/carousel/compare/v2.0.0...v3.0.0
@@ -189,3 +194,4 @@ First version with basic features
 [0.3.0]: https://github.com/oom-components/carousel/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/oom-components/carousel/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/oom-components/carousel/compare/v0.1.0...v0.1.1
+[0.1.0]: https://github.com/oom-components/carousel/releases/tag/v0.1.0
