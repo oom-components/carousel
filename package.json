@@ -1,6 +1,6 @@
 {
   "name": "@oom/carousel",
-  "version": "4.1.0",
+  "version": "4.2.0",
   "description": "Carousel built with progressive enhancement in mind",
   "browser": "src/carousel.js",
   "modules.root": "src",
