@@ -1,9 +1,17 @@
 # Change Log
-
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/)
-and this project adheres to [Semantic Versioning](http://semver.org/).
+The format is based on [Keep a Changelog](http://keepachangelog.com/) and this
+project adheres to [Semantic Versioning](http://semver.org/).
+
+## [5.0.0] - 2025-08-02
+### Changed
+- Rename the attribute `for` of the navitation element to `data-target`.
+- Merged `src/carousel.js` and `src/navigation.js` into a single file
+  `carousel.js` in the root of the repo.
+
+### Removed
+- `Player` class
 
 ## [4.2.0] - 2022-05-13
 ### Added
@@ -16,7 +24,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [4.0.0] - 2019-08-09
 ### Added
-- New functions `next()` and `prev()` to move the scroll using percentages instead indexes
+- New functions `next()` and `prev()` to move the scroll using percentages
+  instead indexes
 
 ### Changed
 - Removed the javascript polyfill for scroll snap
@@ -27,8 +36,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Decoupled `Carousel` and `Player` modules.
 - Use native custom elements to build the component.
 - Removed `settings.scrollBehavior` and replaced with `scrollBehavior`.
-- API Change: Removed `goto()` method and replaced with `index` property, that only accept integers.
-- API Change: Removed `scrollIsAtBeginning()` and `scrollIsAtTheEnd()` methods and replaced with `scrollFromLeft` and `scrollFromRight` properties.
+- API Change: Removed `goto()` method and replaced with `index` property, that
+  only accept integers.
+- API Change: Removed `scrollIsAtBeginning()` and `scrollIsAtTheEnd()` methods
+  and replaced with `scrollFromLeft` and `scrollFromRight` properties.
 
 ### Fixed
 - Improved `package.json` adding the `modules.root` entry.
@@ -40,10 +51,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 - Renamed extensions from `.jsm` to `.js` due `Content-Type` header issues
-- The `package.json` is now more browser-friendly using `browser` and `files` keys
+- The `package.json` is now more browser-friendly using `browser` and `files`
+  keys
 
 ### Removed
-- Webpack & babel tools. This package should work as native ES6 modules. Progressive enhancement strategy should fallback to css and html for old browsers.
+- Webpack & babel tools. This package should work as native ES6 modules.
+  Progressive enhancement strategy should fallback to css and html for old
+  browsers.
 
 ### Fixed
 - Moved `smoothscroll-polyfill` dependency to devDependencies
@@ -51,9 +65,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [1.0.0] - 2018-05-01
 ### Added
-- Added ability to move the carousel using percentages (ex: `carousel.goto("+100%")`)
-- New function `scrollIsAtTheBeginning()` that returns whether the carousel scroll is at the beginning or not.
-- New function `scrollIsAtTheEnd()` that returns whether the carousel scroll is at the end or not.
+- Added ability to move the carousel using percentages (ex:
+  `carousel.goto("+100%")`)
+- New function `scrollIsAtTheBeginning()` that returns whether the carousel
+  scroll is at the beginning or not.
+- New function `scrollIsAtTheEnd()` that returns whether the carousel scroll is
+  at the end or not.
 - Use `console.info` to display accesibility issues.
 
 ### Changed
@@ -75,16 +92,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Renamed the project to `pw-carousel` (instead `pw-carrousel`)
 
 ### Removed
-- Removed dependency of `d_js`. You can install it for yourself or use [other dom4 polyfill](https://github.com/WebReflection/dom4) to have support for old browsers
+- Removed dependency of `d_js`. You can install it for yourself or use
+  [other dom4 polyfill](https://github.com/WebReflection/dom4) to have support
+  for old browsers
 
 ### Fixed
 - Improved snapping
 
 ## [0.7.0] - 2017-11-27
 ### Changed
-- Improved the html using some recomendations from https://inclusive-components.design/a-content-slider/
-- Simplified the html structure. The carrousel uses only a simply `<ul>` element.
-- Fake snap will be used if **css scroll snap points** are not detected/supported
+- Improved the html using some recomendations from
+  https://inclusive-components.design/a-content-slider/
+- Simplified the html structure. The carrousel uses only a simply `<ul>`
+  element.
+- Fake snap will be used if **css scroll snap points** are not
+  detected/supported
 - Fixed progressive enharcement in IE9
 
 ### Removed
@@ -108,9 +130,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - `move()` was renamed to `goto()`
 
 ### Removed
-- ES2015 dist version has been removed. From now, this library is ES6 only. You must use Babel or other transpiler for old browsers compatibility.
+- ES2015 dist version has been removed. From now, this library is ES6 only. You
+  must use Babel or other transpiler for old browsers compatibility.
 - Removed drag support and use just native scroll.
-- `.play()` and `.pause()` was removed. Use the property `.player` to access to the player instance.
+- `.play()` and `.pause()` was removed. Use the property `.player` to access to
+  the player instance.
 - Removed `.destroy()`
 - Removed the option `fitToLimits` because it makes no sense using native scroll
 - Removed the option `offset`. It may be reintroduced in a future.
@@ -149,7 +173,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [0.3.2] - 2017-06-11
 ### Changed
-- Replaced unidragger dependency with standard Pointer events, using jquery PEP as polyfill
+- Replaced unidragger dependency with standard Pointer events, using jquery PEP
+  as polyfill
 
 ## [0.3.1] - 2017-06-06
 ### Fixed
@@ -170,6 +195,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [0.1.0] - 2017-06-04
 First version with basic features
 
+[5.0.0]: https://github.com/oom-components/carousel/compare/v4.2.0...v5.0.0
 [4.2.0]: https://github.com/oom-components/carousel/compare/v4.1.0...v4.2.0
 [4.1.0]: https://github.com/oom-components/carousel/compare/v4.0.0...v4.1.0
 [4.0.0]: https://github.com/oom-components/carousel/compare/v3.0.0...v4.0.0

@@ -1,11 +1,10 @@
 {
   "name": "@oom/carousel",
-  "version": "4.2.0",
+  "version": "5.0.0",
   "description": "Carousel built with progressive enhancement in mind",
-  "browser": "src/carousel.js",
-  "modules.root": "src",
+  "browser": "carousel.js",
   "files": [
-    "src"
+    "carousel.js"
   ],
   "repository": {
     "type": "git",

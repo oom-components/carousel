@@ -1,9 +1,9 @@
 # @oom/carousel
 
-Carousel with the following features:
+Web component to create a carousel:
 
 - No dependencies
-- Light: Less than 200 lines of code (including comments and spaces)
+- Very light
 - Follows the **progressive enhancement strategy:**
   - Works with just `html`
   - Works better with `html` and `css`
@@ -17,113 +17,77 @@ Carousel with the following features:
 - Support for keyboard
 - Build with modern javascript, using ES6 modules and custom elements
 
-## Install
-
-Requirements:
-
-- NPM or Yarn to install
-  [the package](https://www.npmjs.com/package/@oom/carousel)
-- It's recommended to use
-  [the Scroll Behaviour polyfill](https://github.com/iamdustan/smoothscroll) to
-  [have better support for more browsers](https://caniuse.com/#feat=css-scroll-behavior)
-- For browsers
-  [not supporting custom elements](https://caniuse.com/#feat=custom-elementsv1),
-  [you can use this polyfill](https://github.com/webcomponents/custom-elements)
-
-```sh
-npm install @oom/carousel
-npm install smoothscroll-polyfill
-npm install @webcomponents/custom-elements
-```
+## Usage
 
 ## Usage
 
-### HTML
-
-Let's start with the following html code:
-
-```html
-<my-carousel role="region" aria-label="Gallery" tabindex="0">
-    <div><img src="http://placehold.it/500x300"></div>
-    <div><img src="http://placehold.it/500x300"></div>
-    <div><img src="http://placehold.it/500x300"></div>
-    <div><img src="http://placehold.it/500x300"></div>
-    <div><img src="http://placehold.it/500x300"></div>
-    <div><img src="http://placehold.it/500x300"></div>
-    <div><img src="http://placehold.it/500x300"></div>
-    <div><img src="http://placehold.it/500x300"></div>
-    <div><img src="http://placehold.it/500x300"></div>
-    <div><img src="http://placehold.it/500x300"></div>
-</my-carousel>
-
-<button class="carousel-next">Previous</button>
-<button class="carousel-prev">Next</button>
-```
-
-### CSS
-
-Use css to define the carousel appearance:
-
-```css
-my-carousel {
-    overflow-x: scroll;
-    display: flex;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-}
-my-carousel > div {
-    flex: 0 0 auto;
-    scroll-snap-align: center;
-}
-```
-
-### JS
-
-And finally use javascript for a complete experience:
+Import and register the component with the desired tag name:
 
 ```js
 import Carousel from "./carousel/carousel.js";
 
-//Register the custom element
-customElements.define("my-carousel", Carousel);
-
-//Select the carousel
-const carousel = document.querySelector("my-carousel");
-
-//Navigate
-document.querySelector(".carousel-next").addEventListener(
-  "click",
-  (event) => carousel.index += 1,
-);
-document.querySelector(".carousel-prev").addEventListener(
-  "click",
-  (event) => carousel.index -= 1,
-);
+customElements.define("oom-carousel", Carousel);
 ```
 
-## Player
+Create the following HTML code. The accesibility attributes (`role`,
+`arial-label` and `tabindex` are highly recomended).
 
-Use the module `player` to create a player and init a slideshow. Example:
+```html
+<oom-carousel role="region" aria-label="Gallery" tabindex="0">
+  <div><img src="http://placehold.it/500x300"></div>
+  <div><img src="http://placehold.it/500x300"></div>
+  <div><img src="http://placehold.it/500x300"></div>
+  <div><img src="http://placehold.it/500x300"></div>
+  <div><img src="http://placehold.it/500x300"></div>
+  <div><img src="http://placehold.it/500x300"></div>
+  <div><img src="http://placehold.it/500x300"></div>
+  <div><img src="http://placehold.it/500x300"></div>
+  <div><img src="http://placehold.it/500x300"></div>
+  <div><img src="http://placehold.it/500x300"></div>
+</oom-carousel>
+```
+
+Use css to define the carousel appearance:
+
+```css
+oom-carousel {
+  overflow-x: scroll;
+  display: flex;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+oom-carousel > div {
+  flex: 0 0 auto;
+  scroll-snap-align: center;
+}
+```
+
+### Navigation
+
+This package exports also a `Navigation` custom element to manipulate the
+carousel:
 
 ```js
-import Player from "./carousel/player.js";
+import { Navigation } from "./carousel/carousel.js";
 
-const player = new Player(carousel);
+customElements.define("oom-navigation", Navigation);
+```
 
-//Start the slideshow
-player.play();
+```html
+<oom-carousel role="region" aria-label="Gallery" tabindex="0">
+  ...
+</oom-carousel>
 
-//Start the slideshow with 10 seconds to wait between slides
-player.play(10000);
-
-//Stop
-player.stop();
+<oom-navigation>
+  <button value="+1" class="carousel-1">Go 1 slide forward</button>
+  <button value="-1" class="carousel--1">Go 1 slide backward</button>
+  <button value="prev" class="carousel-prev">Previous page</button>
+  <button value="next" class="carousel-next">Next page</button>
+  <a href="#slide-6">Go to slide 6</a>
+</oom-navigation>
 ```
 
 ## API
-
-This is a custom element that extends `HtmlElement`, so it innerit the same api
-of a standard html element with the following additions:
 
 ```js
 //Get/set the slide index
@@ -133,7 +97,6 @@ carousel.index += 1; //move to the next slide
 carousel.index -= 1; //move to the previous slide
 
 //Move the slide using scroll
-
 let atBeginning = carousel.scrollFromLeft === 0; //Determine whether the scroll is at begining
 let atTheEnd = carousel.scrollFromRight === 0; //Determine whether the scroll is at the end
 
@@ -142,21 +105,3 @@ carousel.scrollFromRight = 0; //Performs a scroll to the end
 carousel.next(); //Move the scroll to next
 carousel.prev(); //Move the scroll to previous
 ```
-
-## Demo and tests
-
-- Demo: https://oom-components.github.io/carousel/demo
-- Tests: https://oom-components.github.io/carousel/tests
-
-To run the demo locally, just clone this repository, enter in the directory and
-execute:
-
-```sh
-npm install
-npm start
-```
-
-You should see something in the following urls:
-
-- Demo: `http://localhost:8080/demo`
-- Test: `http://localhost:8080/tests`
